@@ -44,8 +44,8 @@ public class BigCommerceProductDemo {
     public async Task DisplayFiveProductsAsync(CancellationToken cancellationToken)
     {
         return await _bc
-            .Get()
             .Products()
+            .Search()
             .Availability(BcAvailability.Available)
             .Include(BcProductInclude.Variants, BcProductInclude.Images, BcProductInclude.CustomFields)
             .Limit(5)
@@ -83,16 +83,9 @@ var response = await apiClient
 var bc = new Bc(apiClient);
 
 var response = await bc
-    .Get()
     .Products()
-    .Availability(BcAvailability.Available)
+    .Get()
     .Include(BcProductInclude.Variants, BcProductInclude.Images, BcProductInclude.CustomFields)
-    .Limit(5)
-    .Sort(BcProductSort.Name)
-    .SendAsync(cancellationToken);
+    .SendAsync(199, cancellationToken);
 
 ```
-
-```
-
-
