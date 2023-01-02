@@ -17,8 +17,8 @@ public class ProductTests : BcTestBase
         var cancellationToken = CancellationToken.None;
 
         var response = await bc
-            .Get()
             .Products()
+            .Search()
             .Availability(BcAvailability.Available)
             .Include(BcProductInclude.Variants, BcProductInclude.Images, BcProductInclude.CustomFields)
             .Limit(5)
@@ -34,7 +34,7 @@ public class ProductTests : BcTestBase
             LogMessage($"{id} | {name} | {price}");
         }
 
-        Assert.True(response.Data.Length > 0);
+        Assert.True(response.Data.Count > 0);
     }
 
     [Fact]
@@ -45,10 +45,10 @@ public class ProductTests : BcTestBase
         var cancellationToken = CancellationToken.None;
 
         var response = await bc
+            .Products()
             .Get()
-            .Product(119)
             .Include(BcProductInclude.Variants, BcProductInclude.Images, BcProductInclude.CustomFields)
-            .SendAsync(cancellationToken);
+            .SendAsync(119, cancellationToken);
 
         var product = response.Data;
 

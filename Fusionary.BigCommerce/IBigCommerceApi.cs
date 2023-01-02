@@ -1,5 +1,3 @@
-using Microsoft.AspNetCore.Http;
-
 namespace Fusionary.BigCommerce;
 
 public interface IBigCommerceApi
@@ -44,5 +42,12 @@ public interface IBigCommerceApi
 
     Task<T> SendJsonResponseAsync<T>(HttpRequestMessage requestMessage, CancellationToken cancellationToken);
 
-    Task<HttpResponseMessage> SendAsync<T>(HttpRequestMessage requestMessage, CancellationToken cancellationToken);
+    Task<bool> DeleteAsync(string path, CancellationToken cancellationToken);
+
+    Task<bool> DeleteAsync(string path, QueryString queryString, CancellationToken cancellationToken);
+
+    Task<HttpResponseMessage> SendAsync(
+        HttpRequestMessage requestMessage,
+        CancellationToken cancellationToken
+    );
 }

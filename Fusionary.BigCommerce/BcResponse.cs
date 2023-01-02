@@ -3,17 +3,23 @@ using JetBrains.Annotations;
 namespace Fusionary.BigCommerce;
 
 [UsedImplicitly]
-public class BcResponse<TData>
+public class BcResponse<TData, TMeta> where TMeta: class, new()
 {
-    private BcMetadata? _meta;
+    public void Deconstruct(out TData data, out TMeta meta)
+    {
+        data = Data;
+        meta = Meta;
+    }
+
+    private TMeta? _meta;
 
     [JsonPropertyName("data")]
     public TData Data { get; set; } = default!;
 
     [JsonPropertyName("meta")]
-    public BcMetadata Meta
+    public TMeta Meta
     {
-        get => LazyInitializer.EnsureInitialized(ref _meta, () => new BcMetadata());
+        get => LazyInitializer.EnsureInitialized(ref _meta, () => new TMeta());
         set => _meta = value;
     }
 }

@@ -1,12 +1,25 @@
 using System.Diagnostics.CodeAnalysis;
+using System.Net;
 using System.Net.Http.Json;
-
-using Microsoft.AspNetCore.Http;
+using System.Text.Json;
 
 namespace Fusionary.BigCommerce;
 
 public class BigCommerceApi : IBigCommerceApi
 {
+    public static readonly JsonSerializerOptions JsonOptions = new()
+    {
+        PropertyNameCaseInsensitive = true,
+        PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+        DictionaryKeyPolicy = JsonNamingPolicy.CamelCase,
+        Converters =
+        {
+            new JsonStringEnumMemberConverter(JsonNamingPolicy.CamelCase),
+            new JsonStringEnumConverter(JsonNamingPolicy.CamelCase)
+        },
+        DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
+    };
+    
     private readonly IBigCommerceClient _bigCommerce;
 
     [SuppressMessage("ReSharper", "SuggestBaseTypeForParameterInConstructor")]
@@ -24,6 +37,15 @@ public class BigCommerceApi : IBigCommerceApi
 
     public Task<T> DeleteAsync<T>(string path, QueryString queryString, CancellationToken cancellationToken) =>
         SendJsonResponseAsync<T>(HttpMethod.Delete, path, null, queryString, cancellationToken);
+
+    public Task<bool> DeleteAsync(string path, CancellationToken cancellationToken) => DeleteAsync(path, QueryString.Empty, cancellationToken);
+
+    public async Task<bool> DeleteAsync(string path, QueryString queryString, CancellationToken cancellationToken)
+    {
+        var requestMessage = CreateRequestMessage(HttpMethod.Delete, path, queryString);
+        var response =  await SendAsync(requestMessage, cancellationToken);
+        return response.StatusCode == HttpStatusCode.NoContent;
+    }
 
     public Task<T> GetAsync<T>(string path, CancellationToken cancellationToken) =>
         GetAsync<T>(path, QueryString.Empty, cancellationToken);
@@ -77,19 +99,26 @@ public class BigCommerceApi : IBigCommerceApi
         CancellationToken cancellationToken
     )
     {
-        if (queryString.HasValue)
-        {
-            path += queryString.ToUriComponent();
-        }
-
-        HttpRequestMessage requestMessage = new(method, path);
+        var requestMessage = CreateRequestMessage(method, path, queryString);
 
         if (payload is not null)
         {
-            requestMessage.Content = JsonContent.Create(payload);
+            requestMessage.Content = JsonContent.Create(payload, options: JsonOptions);
         }
 
         return await SendJsonResponseAsync<T>(requestMessage, cancellationToken);
+    }
+
+    public static HttpRequestMessage CreateRequestMessage(
+        HttpMethod method, 
+        string path, 
+        QueryString queryString = default)
+    {
+        if (queryString.HasValue) {
+            path += queryString.ToUriComponent();
+        }
+
+        return new HttpRequestMessage(method, path);
     }
 
     public async Task<T> SendJsonResponseAsync<T>(
@@ -97,11 +126,11 @@ public class BigCommerceApi : IBigCommerceApi
         CancellationToken cancellationToken
     )
     {
-        var response = await SendAsync<T>(requestMessage, cancellationToken);
+        var response = await SendAsync(requestMessage, cancellationToken);
 
         response.EnsureSuccessStatusCode();
 
-        var data = await response.Content.ReadFromJsonAsync<T>(cancellationToken: cancellationToken);
+        var data = await response.Content.ReadFromJsonAsync<T>(JsonOptions, cancellationToken: cancellationToken);
 
         if (data is null)
         {
@@ -111,13 +140,15 @@ public class BigCommerceApi : IBigCommerceApi
         return data;
     }
 
-    public async Task<HttpResponseMessage> SendAsync<T>(
+    public async Task<HttpResponseMessage> SendAsync(
         HttpRequestMessage requestMessage,
         CancellationToken cancellationToken
     )
     {
-        var response =
-            await _bigCommerce.Client.SendAsync(requestMessage, cancellationToken).ConfigureAwait(false);
+        var response = await _bigCommerce.Client.SendAsync(
+            requestMessage, 
+            cancellationToken)
+            .ConfigureAwait(false);
 
         return response;
     }

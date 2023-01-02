@@ -1,13 +1,11 @@
-using Microsoft.AspNetCore.Http;
-
 namespace Fusionary.BigCommerce;
 
 public abstract class BcRequestBuilder<T> where T : BcRequestBuilder<T>
 {
-    protected BcRequestBuilder(IBigCommerceApi api, QueryString queryString)
+    protected BcRequestBuilder(IBigCommerceApi api)
     {
         Api = api;
-        Filter = BcFilter.Create(queryString);
+        Filter = BcFilter.Create();
     }
 
     protected IBigCommerceApi Api { get; }
@@ -73,6 +71,12 @@ public abstract class BcRequestBuilder<T> where T : BcRequestBuilder<T>
     public T Add(string key, object value)
     {
         Filter.Add(key, value);
+        return This;
+    }
+
+    public T Add(QueryString queryString)
+    {
+        Filter.Add(queryString);
         return This;
     }
 

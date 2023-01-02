@@ -12,6 +12,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution", "Solution", "{FE
 		Directory.Build.props = Directory.Build.props
 		global.json = global.json
 		.editorconfig = .editorconfig
+		NuGet.Config = NuGet.Config
+		Fusionary.BigCommerceApi.sln.DotSettings = Fusionary.BigCommerceApi.sln.DotSettings
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fusionary.BigCommerce.Tests", "Fusionary.BigCommerce.Tests\Fusionary.BigCommerce.Tests.csproj", "{37B5813D-F5D1-4E8B-BAFC-3CA739EA8E3E}"

@@ -1,5 +1,3 @@
-using Microsoft.AspNetCore.Http;
-
 namespace Fusionary.BigCommerce;
 
 public class BcFilter
@@ -33,6 +31,12 @@ public class BcFilter
 
     public BcFilter Add(string key, decimal value) => Add(key, $"{value}");
 
+    public BcFilter Add(QueryString queryString)
+    {
+        _queryString = _queryString.Add(queryString);
+        return this;
+    }
+    
     public BcFilter Add(string key, string value)
     {
         _queryString = _queryString.Add(key, value);

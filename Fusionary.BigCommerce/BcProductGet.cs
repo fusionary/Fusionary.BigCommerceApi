@@ -1,15 +1,11 @@
-using Microsoft.AspNetCore.Http;
-
 namespace Fusionary.BigCommerce;
 
-public class BcGetProduct : BcRequestBuilder<BcGetProduct>
+public class BcProductGet : BcRequestBuilder<BcProductGet>
 {
-    public BcGetProduct(IBigCommerceApi api, int id, QueryString queryString) : base(api, queryString)
+    public BcProductGet(IBigCommerceApi api) : base(api)
     {
-        Id = id;
     }
-
-    private int Id { get; }
+    
 
     /// <summary>
     /// Sub-resources to include on a product, in a comma-separated list. If options or modifiers is used, results are
@@ -18,32 +14,32 @@ public class BcGetProduct : BcRequestBuilder<BcGetProduct>
     /// <example>
     /// variants, images, custom_fields, bulk_pricing_rules, primary_image, modifiers, options, videos
     /// </example>
-    public BcGetProduct Include(params string[] values) => Add(BcProductFilter.Include, values);
+    public BcProductGet Include(params string[] values) => Add("include", values);
 
     /// <summary>
     /// Sub-resources to include on a product, in a comma-separated list. If options or modifiers is used, results are
     /// limited to 10 per page.
     /// </summary>
-    public BcGetProduct Include(params BcProductInclude[] values) =>
+    public BcProductGet Include(params BcProductInclude[] values) =>
         Include(values.Select(x => x.ToValue()).ToArray());
 
     /// <summary>
     /// Fields to include, in a comma-separated list. The ID and the specified fields will be returned.
     /// </summary>
-    public BcGetProduct IncludeFields(params string[] values) => Add(BcProductFilter.IncludeFields, values);
+    public BcProductGet IncludeFields(params string[] values) => Add("include_fields", values);
 
     /// <summary>
     /// Fields to exclude, in a comma-separated list. The specified fields will be excluded from a response. The ID cannot
     /// be excluded.
     /// </summary>
-    public BcGetProduct ExcludeFields(params string[] values) => Add(BcProductFilter.ExcludeFields, values);
+    public BcProductGet ExcludeFields(params string[] values) => Add("exclude_fields", values);
 
-    public Task<BcResponse<BcObject>> SendAsync(CancellationToken cancellationToken) =>
-        SendAsync<BcObject>(cancellationToken);
+    public Task<BcDataResponse<BcObject>> SendAsync(int productId, CancellationToken cancellationToken) =>
+        SendAsync<BcObject>(productId, cancellationToken);
 
-    public async Task<BcResponse<TProduct>> SendAsync<TProduct>(CancellationToken cancellationToken) =>
-        await Api.GetAsync<BcResponse<TProduct>>(
-            BcEndpoint.ProductsV3(Id),
+    public async Task<BcDataResponse<TProduct>> SendAsync<TProduct>(int productId, CancellationToken cancellationToken) =>
+        await Api.GetAsync<BcDataResponse<TProduct>>(
+            BcEndpoint.ProductsV3(productId),
             Filter,
             cancellationToken
         );
