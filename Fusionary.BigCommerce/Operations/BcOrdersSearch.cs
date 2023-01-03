@@ -43,11 +43,11 @@ public record BcOrdersSearch : BcRequestBuilder<BcOrdersSearch>
 
     public BcOrdersSearch StatusId(int statusId) => Add("status_id", statusId);
 
-    public Task<BcPagedResponse<BcOrderResponseFull>> SendAsync(CancellationToken cancellationToken) =>
+    public Task<List<BcOrderResponseFull>> SendAsync(CancellationToken cancellationToken) =>
         SendAsync<BcOrderResponseFull>(cancellationToken);
 
-    public async Task<BcPagedResponse<T>> SendAsync<T>(CancellationToken cancellationToken) =>
-        await Api.GetAsync<BcPagedResponse<T>>(
+    public async Task<List<T>> SendAsync<T>(CancellationToken cancellationToken) =>
+        await Api.GetAsync<List<T>>(
             BcEndpoint.OrdersV2(),
             Filter,
             cancellationToken

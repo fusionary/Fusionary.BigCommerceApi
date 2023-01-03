@@ -7,8 +7,8 @@ c# BigCommerce Api for DotNet
 Add env variables to your project:
 
 ```
-dotnet user-secrets set "BigCommerce__StoreHash" "12345"
-dotnet user-secrets set "BigCommerce__AccessToken" "1845633E-S3CR3TS-8364B7FBE3A2"
+dotnet user-secrets set "BigCommerce:StoreHash" "12345"
+dotnet user-secrets set "BigCommerce:AccessToken" "1845633E-S3CR3TS-8364B7FBE3A2"
 ```
 
 or in appSettings.json:

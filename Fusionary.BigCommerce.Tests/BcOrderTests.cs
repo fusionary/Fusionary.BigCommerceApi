@@ -8,20 +8,20 @@ public class BcOrderTests: BcTestBase
     { }
 
     [Fact]
-    public async Task Can_Get_All_Products_Async()
+    public async Task Can_Get_All_Orders_Async()
     {
         var bc = Services.GetRequiredService<Bc>();
 
         var cancellationToken = CancellationToken.None;
 
-        var response = await bc
+        var orders = await bc
             .Orders()
             .Search()
             .Limit(5)
             .Sort(BcOrderSort.DateCreated)
             .SendAsync(cancellationToken);
 
-        foreach (var order in response.Data)
+        foreach (var order in orders)
         {
             var id    = order.Id;
             var status = order.Status;

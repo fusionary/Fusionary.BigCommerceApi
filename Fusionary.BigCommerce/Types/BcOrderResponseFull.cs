@@ -3,9 +3,9 @@ namespace Fusionary.BigCommerce.Types;
 public record BcOrderResponseFull
 {
     private BcBillingAddressBase? _billingAddress;
-    private List<BcResource>? _products;
-    private List<BcResource>? _shippingAddresses;
-    private List<BcResource>? _coupons;
+    private BcResource? _products;
+    private BcResource? _shippingAddresses;
+    private BcResource? _coupons;
 
     [JsonPropertyName("id")]
     public int Id { get; set; }
@@ -192,21 +192,21 @@ public record BcOrderResponseFull
     public string? ExternalSource { get; set; }
 
     [JsonPropertyName("products")]
-    public List<BcResource> Products
+    public BcResource Products
     {
         get => LazyInitializer.EnsureInitialized(ref _products);
         set => _products = value;
     }
 
     [JsonPropertyName("shipping_addresses")]
-    public List<BcResource> ShippingAddresses
+    public BcResource ShippingAddresses
     {
         get => LazyInitializer.EnsureInitialized(ref _shippingAddresses);
         set => _shippingAddresses = value;
     }
 
     [JsonPropertyName("coupons")]
-    public List<BcResource> Coupons
+    public BcResource Coupons
     {
         get => LazyInitializer.EnsureInitialized(ref _coupons);
         set => _coupons = value;
