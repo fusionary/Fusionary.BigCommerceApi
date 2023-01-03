@@ -5,8 +5,10 @@ public enum BcRange
 {
     [JsonPropertyName("")]
     None,
+
     [JsonPropertyName(":min")]
     Min,
+
     [JsonPropertyName(":max")]
     Max
 }

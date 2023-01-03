@@ -5,6 +5,7 @@ public enum BcProductType
 {
     [JsonPropertyName("physical")]
     Physical,
+
     [JsonPropertyName("digital")]
     Digital
 }

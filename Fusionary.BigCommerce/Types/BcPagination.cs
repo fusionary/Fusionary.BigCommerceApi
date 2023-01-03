@@ -2,7 +2,7 @@ namespace Fusionary.BigCommerce.Types;
 
 public record BcPagination
 {
-    private Dictionary<string, string>? _links;
+    private BcPaginationLinks? _links;
 
     public int Total { get; set; }
 
@@ -14,9 +14,9 @@ public record BcPagination
 
     public int TotalPages { get; set; }
 
-    public Dictionary<string, string> Links
+    public BcPaginationLinks Links
     {
-        get => LazyInitializer.EnsureInitialized(ref _links, () => new Dictionary<string, string>());
+        get => LazyInitializer.EnsureInitialized(ref _links);
         set => _links = value;
     }
 

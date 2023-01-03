@@ -1,10 +1,4 @@
-using Fusionary.BigCommerce.Operations;
-using Fusionary.BigCommerce.Types;
 using Fusionary.BigCommerce.Utils;
-
-using Microsoft.Extensions.DependencyInjection;
-
-using Xunit.Abstractions;
 
 namespace Fusionary.BigCommerce.Tests;
 

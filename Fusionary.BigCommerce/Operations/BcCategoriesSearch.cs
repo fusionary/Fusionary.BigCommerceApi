@@ -6,7 +6,7 @@ public record BcCategoriesSearch : BcRequestBuilder<BcCategoriesSearch>
 {
     internal BcCategoriesSearch(IBigCommerceApi api) : base(api)
     { }
-    
+
     /// <summary>
     /// Fields to include, in a comma-separated list. The ID and the specified fields will be returned.
     /// </summary>
@@ -22,7 +22,7 @@ public record BcCategoriesSearch : BcRequestBuilder<BcCategoriesSearch>
     /// Filter items by id.
     /// </summary>
     public BcCategoriesSearch Id(int id) => Add("id", id);
-    
+
     /// <summary>
     /// Filter items by ids.
     /// </summary>
@@ -32,7 +32,7 @@ public record BcCategoriesSearch : BcRequestBuilder<BcCategoriesSearch>
     /// Filter items based on whether the product is currently visible on the storefront.
     /// </summary>
     public BcCategoriesSearch IsVisible(bool isVisible) => Add("is_visible", isVisible);
-    
+
     /// <summary>
     /// Controls the number of items per page in a limited (paginated) list of Categories.
     /// </summary>
@@ -56,17 +56,21 @@ public record BcCategoriesSearch : BcRequestBuilder<BcCategoriesSearch>
     /// <summary>
     /// Filter items by name.
     /// </summary>
-    public BcCategoriesSearch PageTitle(params string[] pageTiles) => Add(pageTiles.Length > 1 ? "page_title:like" : "page_title", pageTiles);
+    public BcCategoriesSearch PageTitle(params string[] pageTiles) => Add(
+        pageTiles.Length > 1 ? "page_title:like" : "page_title",
+        pageTiles
+    );
 
     /// <summary>
     /// Filter items by parent_id. If the category is a child or sub category it can be filtered with the parent_id.
     /// </summary>
     public BcCategoriesSearch ParentId(int parentId) => Add("parent_id", parentId);
-    
+
     /// <summary>
     /// Filter items by parent_id. If the category is a child or sub category it can be filtered with the parent_id.
     /// </summary>
-    public BcCategoriesSearch ParentId(BcModifier modifier, params int[] parentIds) => Add(modifier.Apply("parent_id"), parentIds);
+    public BcCategoriesSearch ParentId(BcModifier modifier, params int[] parentIds) =>
+        Add(modifier.Apply("parent_id"), parentIds);
 
     public Task<BcPagedResponse<BcCategory>> SendAsync(CancellationToken cancellationToken) =>
         SendAsync<BcCategory>(cancellationToken);

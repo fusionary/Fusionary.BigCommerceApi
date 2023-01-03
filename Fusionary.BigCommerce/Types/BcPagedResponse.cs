@@ -1,6 +1,6 @@
 namespace Fusionary.BigCommerce.Types;
 
-public record BcPagedResponse<TData>: BcResponse<List<TData>, BcMetadataPagination>
+public record BcPagedResponse<TData> : BcResponse<List<TData>, BcMetadataPagination, BcMetaError>
 {
     private List<TData>? _data;
 

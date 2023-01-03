@@ -2,8 +2,6 @@ using System.Diagnostics;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-using Fusionary.BigCommerce.Operations;
-using Fusionary.BigCommerce.Types;
 using Fusionary.BigCommerce.Utils;
 
 namespace Fusionary.BigCommerce.Tests;

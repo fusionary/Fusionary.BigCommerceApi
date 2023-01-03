@@ -36,7 +36,7 @@ public record BcFilter
         _queryString = _queryString.Add(queryString);
         return this;
     }
-    
+
     public BcFilter Add(string key, string value)
     {
         _queryString = _queryString.Add(key, value);

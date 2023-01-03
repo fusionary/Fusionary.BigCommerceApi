@@ -9,5 +9,5 @@ public class BcCategoryOperations
         _api = api;
     }
 
-    public BcCategoriesSearch Search() => new (_api);
+    public BcCategoriesSearch Search() => new(_api);
 }

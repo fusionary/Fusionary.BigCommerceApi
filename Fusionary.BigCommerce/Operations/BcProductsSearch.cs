@@ -36,13 +36,15 @@ public record BcProductsSearch : BcRequestBuilder<BcProductsSearch>
     /// <summary>
     /// Filter items by date_modified. For example v3/catalog/products?date_modified:min=2018-06-15
     /// </summary>
-    public BcProductsSearch DateModified(DateOnly date, BcRange range = BcRange.None) => Add(range.Apply("date_modified"), date);
-    
-   
+    public BcProductsSearch DateModified(DateOnly date, BcRange range = BcRange.None) =>
+        Add(range.Apply("date_modified"), date);
+
+
     /// <summary>
     /// Filter items by date_last_imported. For example v3/catalog/products?date_last_imported:max=2018-06-15
     /// </summary>
-    public BcProductsSearch DateLastImported(DateOnly date, BcRange range = BcRange.None) => Add(range.Apply("date_last_imported"), date);
+    public BcProductsSearch DateLastImported(DateOnly date, BcRange range = BcRange.None) =>
+        Add(range.Apply("date_last_imported"), date);
 
     /// <summary>
     /// Sort direction.
@@ -62,7 +64,8 @@ public record BcProductsSearch : BcRequestBuilder<BcProductsSearch>
     /// Sub-resources to include on a product, in a comma-separated list. If options or modifiers is used, results are
     /// limited to 10 per page.
     /// </summary>
-    public BcProductsSearch Include(params BcProductInclude[] values) => Include(values.Select(x => x.ToValue()).ToArray());
+    public BcProductsSearch Include(params BcProductInclude[] values) =>
+        Include(values.Select(x => x.ToValue()).ToArray());
 
     /// <summary>
     /// Fields to include, in a comma-separated list. The ID and the specified fields will be returned.
@@ -79,27 +82,28 @@ public record BcProductsSearch : BcRequestBuilder<BcProductsSearch>
     /// Filter items by id.
     /// </summary>
     public BcProductsSearch Id(int id) => Add("id", id);
-    
+
     /// <summary>
     /// Filter items by ids.
     /// </summary>
     public BcProductsSearch Id(BcModifier modifier, params int[] id) => Add(modifier.Apply("id"), id);
-    
+
     /// <summary>
     /// Filter items by inventory_level.
     /// </summary>
-    public BcProductsSearch InventoryLevel(BcModifier modifier, int inventoryLevel) => Add(modifier.Apply("inventory_level"), inventoryLevel);
-    
+    public BcProductsSearch InventoryLevel(BcModifier modifier, int inventoryLevel) =>
+        Add(modifier.Apply("inventory_level"), inventoryLevel);
+
     /// <summary>
     /// Filter items by inventory_low. Values: 1, 0.
     /// </summary>
     public BcProductsSearch InventoryLow(BcBit inventoryLow) => Add("inventory_low", inventoryLow.ToValue());
-    
+
     /// <summary>
     /// Filter items by is_featured.
     /// </summary>
     public BcProductsSearch IsFeatured(BcBit isFeatured) => Add("is_featured", isFeatured.ToValue());
-    
+
     /// <summary>
     /// Filter items based on whether the product is currently visible on the storefront.
     /// </summary>
@@ -134,16 +138,17 @@ public record BcProductsSearch : BcRequestBuilder<BcProductsSearch>
     /// Filter items by keywords found in the name or sku fields
     /// </summary>
     public BcProductsSearch Keyword(string keyword) => Add("keyword", keyword);
-    
+
     /// <summary>
-    /// <para>Set context used by the search algorithm to return results targeted towards the specified group.</para>
-    /// <para>Use merchant to help merchants search their own catalog.</para>
-    /// <para>Use shopper to return shopper-facing search results.</para>
+    ///     <para>Set context used by the search algorithm to return results targeted towards the specified group.</para>
+    ///     <para>Use merchant to help merchants search their own catalog.</para>
+    ///     <para>Use shopper to return shopper-facing search results.</para>
     /// </summary>
     /// <example>
     /// shopper, merchant
     /// </example>
-    public BcProductsSearch KeywordContext(BcKeywordContext keywordContext) => Add("keyword_context", keywordContext.ToValue());
+    public BcProductsSearch KeywordContext(BcKeywordContext keywordContext) =>
+        Add("keyword_context", keywordContext.ToValue());
 
     /// <summary>
     /// Filter items by name.
@@ -180,17 +185,17 @@ public record BcProductsSearch : BcRequestBuilder<BcProductsSearch>
     /// Filter items by total_sold.
     /// </summary>
     public BcProductsSearch TotalSold(int totalSold) => Add("total_sold", totalSold);
-    
+
     /// <summary>
     /// Filter items by upc.
     /// </summary>
     public BcProductsSearch Upc(string upc) => Add("upc", upc);
-    
+
     /// <summary>
     /// Filter items by weight.
     /// </summary>
     public BcProductsSearch Weight(int weight) => Add("weight", weight);
-    
+
     public Task<BcPagedResponse<BcObject>> SendAsync(CancellationToken cancellationToken) =>
         SendAsync<BcObject>(cancellationToken);
 

@@ -5,6 +5,7 @@ public enum BcDirection
 {
     [JsonPropertyName("asc")]
     Asc,
+
     [JsonPropertyName("desc")]
     Desc
 }

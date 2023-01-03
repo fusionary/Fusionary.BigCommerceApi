@@ -15,12 +15,14 @@ public class BcObject : Dictionary<string, object>
 
     public string GetValue(string key) => GetValue<string>(key, "");
 
-    public T GetValue<T>(string key, T defaultValue = default!) where T : notnull
-    {
-        return TryGetValue(key, out var value)
+    public T GetValue<T>(string key, T defaultValue = default!) where T : notnull =>
+        TryGetValue(key, out var value)
             ? ConvertToValue(value, defaultValue)
             : defaultValue;
-    }
+
+    public string ToJson() => JsonSerializer.Serialize(this);
+
+    public override string ToString() => ToJson();
 
     private static T ConvertToValue<T>(object value, T defaultValue) where T : notnull =>
         value switch
@@ -29,8 +31,4 @@ public class BcObject : Dictionary<string, object>
             JsonElement element => element.Deserialize<T>() ?? defaultValue,
             _ => (T)value
         };
-
-    public string ToJson() => JsonSerializer.Serialize(this);
-
-    public override string ToString() => ToJson();
 }

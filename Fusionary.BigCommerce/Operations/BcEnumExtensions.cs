@@ -33,9 +33,10 @@ public static class BcEnumExtensions
     {
         var type = typeof(T);
 
-        string stringValue = value.ToString() ?? string.Empty;
-        
-        var field = type.GetFields().FirstOrDefault(x => string.Equals(x.Name, stringValue, StringComparison.OrdinalIgnoreCase));
+        var stringValue = value.ToString() ?? string.Empty;
+
+        var field = type.GetFields()
+            .FirstOrDefault(x => string.Equals(x.Name, stringValue, StringComparison.OrdinalIgnoreCase));
 
         if (field is not null)
         {
@@ -53,7 +54,8 @@ public static class BcEnumExtensions
         return stringValue;
     }
 
-    private static T ParseEnumFromValue<T>(string? value) where T : struct => Enum.TryParse(value, true, out T result) ? result : default;
+    private static T ParseEnumFromValue<T>(string? value) where T : struct =>
+        Enum.TryParse(value, true, out T result) ? result : default;
 
     private static bool TryGetEnumValue<T>(string? value, string? name, FieldInfo field, out T enumValue)
         where T : struct

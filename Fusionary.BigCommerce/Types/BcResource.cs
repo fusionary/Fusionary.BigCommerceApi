@@ -4,7 +4,7 @@ public record BcResource
 {
     [JsonPropertyName("url")]
     public string Url { get; set; } = null!;
-    
+
     [JsonPropertyName("resource")]
     public string Resource { get; set; } = null!;
 }

@@ -151,6 +151,7 @@ public class BigCommerceApi : IBigCommerceApi
 
         response.EnsureSuccessStatusCode();
 
+
         var data = DoesNotHaveContent<T>(response)
             ? BcJsonUtil.Deserialize<T>("{}")
             : await response.Content.ReadFromJsonAsync<T>(BcJsonUtil.JsonOptions, cancellationToken);

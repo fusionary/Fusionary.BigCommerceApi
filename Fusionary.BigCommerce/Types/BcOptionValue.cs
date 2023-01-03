@@ -4,7 +4,7 @@ public class BcOptionValue
 {
     [JsonPropertyName("id")]
     public int Id { get; set; }
-    
+
     [JsonPropertyName("option_id")]
     public int OptionId { get; set; }
 

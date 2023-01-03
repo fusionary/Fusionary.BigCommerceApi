@@ -28,15 +28,15 @@ public struct BcFloat
 
     public decimal Value { get; }
 
-    public static implicit operator BcFloat(decimal value) => new BcFloat(value);
+    public static implicit operator BcFloat(decimal value) => new(value);
 
-    public static implicit operator BcFloat(double value) => new BcFloat(Convert.ToDecimal(value));
+    public static implicit operator BcFloat(double value) => new(Convert.ToDecimal(value));
 
-    public static implicit operator BcFloat(int value) => new BcFloat(Convert.ToDecimal(value));
+    public static implicit operator BcFloat(int value) => new(Convert.ToDecimal(value));
 
     public static implicit operator string(BcFloat value) => value.ToString();
 
-    public static implicit operator BcFloat(string value) => new BcFloat(value);
+    public static implicit operator BcFloat(string value) => new(value);
 
     public string ToString(string format) => Value.ToString(format);
 

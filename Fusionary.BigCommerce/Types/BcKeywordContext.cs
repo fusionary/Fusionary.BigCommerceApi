@@ -5,6 +5,7 @@ public enum BcKeywordContext
 {
     [JsonPropertyName("merchant")]
     Merchant,
+
     [JsonPropertyName("shopper")]
     Shopper
 }

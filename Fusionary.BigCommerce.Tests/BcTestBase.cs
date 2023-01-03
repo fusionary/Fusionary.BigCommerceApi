@@ -1,9 +1,6 @@
 using Fusionary.UnitTesting;
 
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-
-using Xunit.Abstractions;
 
 namespace Fusionary.BigCommerce.Tests;
 

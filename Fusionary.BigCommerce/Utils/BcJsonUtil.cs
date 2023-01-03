@@ -8,7 +8,7 @@ namespace Fusionary.BigCommerce.Utils;
 public static class BcJsonUtil
 {
     public static readonly JsonSnakeCaseNamingPolicy SnakeCaseNamingPolicy = new();
-    
+
     public static readonly JsonSerializerOptions JsonOptions = new()
     {
         PropertyNameCaseInsensitive = true,
@@ -22,20 +22,15 @@ public static class BcJsonUtil
         DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
     };
 
-    public static string Serialize<T>(T value, bool writeIndented = false)
-    {
-        return JsonSerializer.Serialize(value, writeIndented
-            ? new JsonSerializerOptions(JsonOptions) { WriteIndented = writeIndented }
-            : JsonOptions);
-    }
+    public static string Serialize<T>(T value, bool writeIndented = false) =>
+        JsonSerializer.Serialize(
+            value,
+            writeIndented
+                ? new JsonSerializerOptions(JsonOptions) { WriteIndented = writeIndented }
+                : JsonOptions
+        );
 
-    public static T? Deserialize<T>(string json)
-    {
-        return JsonSerializer.Deserialize<T>(json, JsonOptions);
-    }
-    
-    public static JsonContent CreateContent(object? payload)
-    {
-        return JsonContent.Create(payload, options: JsonOptions);
-    }
+    public static T? Deserialize<T>(string json) => JsonSerializer.Deserialize<T>(json, JsonOptions);
+
+    public static JsonContent CreateContent(object? payload) => JsonContent.Create(payload, options: JsonOptions);
 }

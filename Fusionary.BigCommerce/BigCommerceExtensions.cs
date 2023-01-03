@@ -11,15 +11,12 @@ public static class BigCommerceExtensions
     {
         services.Configure<BigCommerceConfig>(configuration.GetSection("BigCommerce"));
         services.AddHttpClient<BigCommerceClient>()
-            .ConfigureHttpMessageHandlerBuilder(
-                c =>
+            .ConfigurePrimaryHttpMessageHandler(
+                () => new HttpClientHandler
                 {
-                    c.PrimaryHandler = new HttpClientHandler
-                    {
-                        AllowAutoRedirect = false,
-                        UseCookies = false,
-                        AutomaticDecompression = DecompressionMethods.All
-                    };
+                    AllowAutoRedirect = false,
+                    UseCookies = false,
+                    AutomaticDecompression = DecompressionMethods.All,
                 }
             );
         services.AddSingleton<IBigCommerceApi, BigCommerceApi>();

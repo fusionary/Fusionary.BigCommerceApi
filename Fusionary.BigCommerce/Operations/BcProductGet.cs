@@ -5,9 +5,8 @@ namespace Fusionary.BigCommerce.Operations;
 public record BcProductGet : BcRequestBuilder<BcProductGet>
 {
     public BcProductGet(IBigCommerceApi api) : base(api)
-    {
-    }
-    
+    { }
+
 
     /// <summary>
     /// Sub-resources to include on a product, in a comma-separated list. If options or modifiers is used, results are

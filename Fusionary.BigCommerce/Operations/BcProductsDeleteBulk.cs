@@ -6,7 +6,7 @@ public record BcProductsDeleteBulk : BcRequestBuilder<BcProductsDeleteBulk>
 {
     internal BcProductsDeleteBulk(IBigCommerceApi api) : base(api)
     { }
-    
+
     /// <summary>
     /// Filter items by brand_id.
     /// </summary>
@@ -27,17 +27,19 @@ public record BcProductsDeleteBulk : BcRequestBuilder<BcProductsDeleteBulk>
     /// Filter items by condition.
     /// </summary>
     public BcProductsDeleteBulk Condition(BcCondition condition) => Add("condition", condition.ToValue());
-    
+
     /// <summary>
     /// Filter items by date_modified. For example v3/catalog/products?date_modified:min=2018-06-15
     /// </summary>
-    public BcProductsDeleteBulk DateModified(DateOnly date, BcRange range = BcRange.None) => Add(range.Apply("date_modified"), date);
-    
-   
+    public BcProductsDeleteBulk DateModified(DateOnly date, BcRange range = BcRange.None) =>
+        Add(range.Apply("date_modified"), date);
+
+
     /// <summary>
     /// Filter items by date_last_imported. For example v3/catalog/products?date_last_imported:max=2018-06-15
     /// </summary>
-    public BcProductsDeleteBulk DateLastImported(DateOnly date, BcRange range = BcRange.None) => Add(range.Apply("date_last_imported"), date);
+    public BcProductsDeleteBulk DateLastImported(DateOnly date, BcRange range = BcRange.None) =>
+        Add(range.Apply("date_last_imported"), date);
 
     /// <summary>
     /// Filter items by inventory_level.
@@ -58,12 +60,12 @@ public record BcProductsDeleteBulk : BcRequestBuilder<BcProductsDeleteBulk>
     /// Filter items by ids.
     /// </summary>
     public BcProductsDeleteBulk IdIn(params int[] id) => Add("id:in", id);
-    
+
     /// <summary>
     /// Filter items by price.
     /// </summary>
     public BcProductsDeleteBulk Price(decimal price) => Add("price", price);
-    
+
     /// <summary>
     /// Filter items by keywords found in the name or sku fields
     /// </summary>
@@ -78,7 +80,7 @@ public record BcProductsDeleteBulk : BcRequestBuilder<BcProductsDeleteBulk>
     /// Filter items by main SKU. To filter by variant SKU, see Get All Variants.
     /// </summary>
     public BcProductsDeleteBulk Sku(string sku) => Add("sku", sku);
-    
+
     /// <summary>
     /// Filter items by total_sold.
     /// </summary>
@@ -88,12 +90,12 @@ public record BcProductsDeleteBulk : BcRequestBuilder<BcProductsDeleteBulk>
     /// Filter items by type.
     /// </summary>
     public BcProductsDeleteBulk Type(BcProductType type) => Add("type", type.ToValue());
-    
+
     /// <summary>
     /// Filter items by weight.
     /// </summary>
     public BcProductsDeleteBulk Weight(double weight) => Add("weight", weight);
-    
+
     public async Task<bool> SendAsync(CancellationToken cancellationToken) =>
         await Api.DeleteAsync(
             BcEndpoint.ProductsV3(),

@@ -5,8 +5,7 @@ namespace Fusionary.BigCommerce.Operations;
 public record BcProductUpdate : BcRequestBuilder<BcProductUpdate>
 {
     public BcProductUpdate(IBigCommerceApi api) : base(api)
-    {
-    }
+    { }
 
     /// <summary>
     /// Fields to include, in a comma-separated list. The ID and the specified fields will be returned.
@@ -22,7 +21,8 @@ public record BcProductUpdate : BcRequestBuilder<BcProductUpdate>
 
     public Task<BcDataResponse<TResponse>> SendAsync<TResponse, TInput>(
         int productId,
-        TInput product, 
-        CancellationToken cancellationToken) =>
+        TInput product,
+        CancellationToken cancellationToken
+    ) =>
         Api.PutAsync<BcDataResponse<TResponse>>(BcEndpoint.ProductsV3(productId), product, Filter, cancellationToken);
 }
