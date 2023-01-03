@@ -2,6 +2,8 @@ using Fusionary.BigCommerce.Operations;
 using Fusionary.BigCommerce.Types;
 using Fusionary.BigCommerce.Utils;
 
+using Microsoft.Extensions.DependencyInjection;
+
 using Xunit.Abstractions;
 
 namespace Fusionary.BigCommerce.Tests;
@@ -11,6 +13,30 @@ public class BcOrderTests: BcTestBase
     public BcOrderTests(ITestOutputHelper outputHelper) : base(outputHelper)
     { }
 
+    [Fact]
+    public async Task Can_Get_All_Products_Async()
+    {
+        var bc = Services.GetRequiredService<Bc>();
+
+        var cancellationToken = CancellationToken.None;
+
+        var response = await bc
+            .Orders()
+            .Search()
+            .Limit(5)
+            .Sort(BcOrderSort.DateCreated)
+            .SendAsync(cancellationToken);
+
+        foreach (var order in response.Data)
+        {
+            var id    = order.Id;
+            var status = order.Status;
+            var total = order.TotalExTax;
+
+            LogMessage($"{id} | {status} | {total}");
+        }
+    }
+    
     [Fact]
     public void Can_SerializeOrder()
     {

@@ -1,7 +1,6 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Net;
 using System.Net.Http.Json;
-using System.Text.Json;
 
 using Fusionary.BigCommerce.Utils;
 
@@ -21,18 +20,33 @@ public class BigCommerceApi : IBigCommerceApi
 
     public static IBigCommerceApi Create(IBigCommerceClient client) => new BigCommerceApi(client);
 
+    public static HttpRequestMessage CreateRequestMessage(
+        HttpMethod method,
+        string path,
+        QueryString queryString = default
+    )
+    {
+        if (queryString.HasValue)
+        {
+            path += queryString.ToUriComponent();
+        }
+
+        return new HttpRequestMessage(method, path);
+    }
+
     public Task<T> DeleteAsync<T>(string path, CancellationToken cancellationToken) =>
         DeleteAsync<T>(path, QueryString.Empty, cancellationToken);
 
     public Task<T> DeleteAsync<T>(string path, QueryString queryString, CancellationToken cancellationToken) =>
         SendJsonResponseAsync<T>(HttpMethod.Delete, path, null, queryString, cancellationToken);
 
-    public Task<bool> DeleteAsync(string path, CancellationToken cancellationToken) => DeleteAsync(path, QueryString.Empty, cancellationToken);
+    public Task<bool> DeleteAsync(string path, CancellationToken cancellationToken) =>
+        DeleteAsync(path, QueryString.Empty, cancellationToken);
 
     public async Task<bool> DeleteAsync(string path, QueryString queryString, CancellationToken cancellationToken)
     {
         var requestMessage = CreateRequestMessage(HttpMethod.Delete, path, queryString);
-        var response =  await SendAsync(requestMessage, cancellationToken);
+        var response       = await SendAsync(requestMessage, cancellationToken);
         return response.StatusCode == HttpStatusCode.NoContent;
     }
 
@@ -106,10 +120,10 @@ public class BigCommerceApi : IBigCommerceApi
         var requestMessage = CreateRequestMessage(method, path, queryString);
 
         requestMessage.Content = content;
-        
+
         return await SendJsonResponseAsync<T>(requestMessage, cancellationToken);
     }
-    
+
     public async Task<T> SendJsonResponseAsync<T>(
         HttpMethod method,
         string path,
@@ -128,18 +142,6 @@ public class BigCommerceApi : IBigCommerceApi
         return await SendJsonResponseAsync<T>(requestMessage, cancellationToken);
     }
 
-    public static HttpRequestMessage CreateRequestMessage(
-        HttpMethod method, 
-        string path, 
-        QueryString queryString = default)
-    {
-        if (queryString.HasValue) {
-            path += queryString.ToUriComponent();
-        }
-
-        return new HttpRequestMessage(method, path);
-    }
-
     public async Task<T> SendJsonResponseAsync<T>(
         HttpRequestMessage requestMessage,
         CancellationToken cancellationToken
@@ -149,7 +151,9 @@ public class BigCommerceApi : IBigCommerceApi
 
         response.EnsureSuccessStatusCode();
 
-        var data = await response.Content.ReadFromJsonAsync<T>(BcJsonUtil.JsonOptions, cancellationToken: cancellationToken);
+        var data = DoesNotHaveContent<T>(response)
+            ? BcJsonUtil.Deserialize<T>("{}")
+            : await response.Content.ReadFromJsonAsync<T>(BcJsonUtil.JsonOptions, cancellationToken);
 
         if (data is null)
         {
@@ -165,10 +169,14 @@ public class BigCommerceApi : IBigCommerceApi
     )
     {
         var response = await _bigCommerce.Client.SendAsync(
-            requestMessage, 
-            cancellationToken)
+                requestMessage,
+                cancellationToken
+            )
             .ConfigureAwait(false);
 
         return response;
     }
+
+    private static bool DoesNotHaveContent<T>(HttpResponseMessage response) =>
+        response.StatusCode == HttpStatusCode.NoContent || response.Content.Headers.ContentLength == 0;
 }
