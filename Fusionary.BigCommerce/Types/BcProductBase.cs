@@ -18,5 +18,5 @@ public class BcProductBase : BcObject
     public double Weight { get; set; }
 
     [JsonPropertyName("price")]
-    public decimal Price { get; set; }
+    public BcFloat Price { get; set; }
 }
