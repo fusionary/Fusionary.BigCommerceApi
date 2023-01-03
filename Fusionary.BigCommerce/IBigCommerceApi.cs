@@ -50,4 +50,25 @@ public interface IBigCommerceApi
         HttpRequestMessage requestMessage,
         CancellationToken cancellationToken
     );
+
+    Task<T> PostAsync<T>(
+        string path,
+        MultipartFormDataContent content,
+        CancellationToken cancellationToken
+    );
+
+    Task<T> PostAsync<T>(
+        string path,
+        MultipartFormDataContent content,
+        QueryString queryString,
+        CancellationToken cancellationToken
+    );
+
+    Task<T> SendMultipartFormResponseAsync<T>(
+        HttpMethod method,
+        string path,
+        MultipartFormDataContent content,
+        QueryString queryString,
+        CancellationToken cancellationToken
+    );
 }

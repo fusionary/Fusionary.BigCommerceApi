@@ -1,3 +1,6 @@
+using Fusionary.BigCommerce.Operations;
+using Fusionary.BigCommerce.Types;
+
 using Microsoft.Extensions.DependencyInjection;
 
 using Xunit.Abstractions;

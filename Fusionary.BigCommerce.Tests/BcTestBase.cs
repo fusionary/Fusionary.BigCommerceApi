@@ -15,6 +15,8 @@ public abstract class BcTestBase : TestBase
     protected override IConfigurationBuilder BuildConfiguration(IConfigurationBuilder builder) =>
         builder.AddUserSecrets<BcTestBase>();
 
-    protected override void ConfigureServices(IServiceCollection services, IConfiguration configuration) =>
+    protected override void ConfigureServices(IServiceCollection services, IConfiguration configuration)
+    {
         services.AddBigCommerce(configuration);
+    }
 }

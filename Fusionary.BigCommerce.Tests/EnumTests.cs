@@ -2,6 +2,10 @@ using System.Diagnostics;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
+using Fusionary.BigCommerce.Operations;
+using Fusionary.BigCommerce.Types;
+using Fusionary.BigCommerce.Utils;
+
 namespace Fusionary.BigCommerce.Tests;
 
 public class EnumTests
@@ -27,18 +31,18 @@ public class EnumTests
     [Fact]
     public void Can_Serialize_Enum_Members()
     {
-        var json = JsonSerializer.Serialize(new BcTestObject
+        var json = BcJsonUtil.Serialize(new BcTestObject
         {
             Type = BcProductType.Digital,
             OrderSort = BcTestEnum.CustomerIdDesc
-        }, BigCommerceApi.JsonOptions);
+        });
         Assert.Equal("{\"type\":\"digital\",\"order_sort\":\"customer_id:desc\"}", json);
     }
     
     [Fact]
     public void Can_Deserialize_Enum_Members()
     {
-        var obj = JsonSerializer.Deserialize<BcTestObject>("{\"type\":\"digital\",\"order_sort\":\"customer_id:desc\"}", BigCommerceApi.JsonOptions);
+        var obj = BcJsonUtil.Deserialize<BcTestObject>("{\"type\":\"digital\",\"order_sort\":\"customer_id:desc\"}");
         Assert.NotNull(obj);
         if (obj is not null)
         {

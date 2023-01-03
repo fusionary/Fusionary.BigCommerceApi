@@ -3,23 +3,12 @@ using System.Net;
 using System.Net.Http.Json;
 using System.Text.Json;
 
+using Fusionary.BigCommerce.Utils;
+
 namespace Fusionary.BigCommerce;
 
 public class BigCommerceApi : IBigCommerceApi
 {
-    public static readonly JsonSerializerOptions JsonOptions = new()
-    {
-        PropertyNameCaseInsensitive = true,
-        PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-        DictionaryKeyPolicy = JsonNamingPolicy.CamelCase,
-        Converters =
-        {
-            new JsonStringEnumMemberConverter(JsonNamingPolicy.CamelCase),
-            new JsonStringEnumConverter(JsonNamingPolicy.CamelCase)
-        },
-        DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
-    };
-    
     private readonly IBigCommerceClient _bigCommerce;
 
     [SuppressMessage("ReSharper", "SuggestBaseTypeForParameterInConstructor")]
@@ -72,6 +61,21 @@ public class BigCommerceApi : IBigCommerceApi
     ) =>
         SendJsonResponseAsync<T>(HttpMethod.Post, path, payload, queryString, cancellationToken);
 
+    public Task<T> PostAsync<T>(
+        string path,
+        MultipartFormDataContent content,
+        CancellationToken cancellationToken
+    ) =>
+        PostAsync<T>(path, content, QueryString.Empty, cancellationToken);
+
+    public Task<T> PostAsync<T>(
+        string path,
+        MultipartFormDataContent content,
+        QueryString queryString,
+        CancellationToken cancellationToken
+    ) =>
+        SendMultipartFormResponseAsync<T>(HttpMethod.Post, path, content, queryString, cancellationToken);
+
     public Task<T> PutAsync<T>(string path, object? payload, CancellationToken cancellationToken) =>
         PutAsync<T>(path, payload, QueryString.Empty, cancellationToken);
 
@@ -91,6 +95,21 @@ public class BigCommerceApi : IBigCommerceApi
     ) =>
         SendJsonResponseAsync<T>(method, path, payload, new QueryString(), cancellationToken);
 
+    public async Task<T> SendMultipartFormResponseAsync<T>(
+        HttpMethod method,
+        string path,
+        MultipartFormDataContent content,
+        QueryString queryString,
+        CancellationToken cancellationToken
+    )
+    {
+        var requestMessage = CreateRequestMessage(method, path, queryString);
+
+        requestMessage.Content = content;
+        
+        return await SendJsonResponseAsync<T>(requestMessage, cancellationToken);
+    }
+    
     public async Task<T> SendJsonResponseAsync<T>(
         HttpMethod method,
         string path,
@@ -103,7 +122,7 @@ public class BigCommerceApi : IBigCommerceApi
 
         if (payload is not null)
         {
-            requestMessage.Content = JsonContent.Create(payload, options: JsonOptions);
+            requestMessage.Content = BcJsonUtil.CreateContent(payload);
         }
 
         return await SendJsonResponseAsync<T>(requestMessage, cancellationToken);
@@ -130,7 +149,7 @@ public class BigCommerceApi : IBigCommerceApi
 
         response.EnsureSuccessStatusCode();
 
-        var data = await response.Content.ReadFromJsonAsync<T>(JsonOptions, cancellationToken: cancellationToken);
+        var data = await response.Content.ReadFromJsonAsync<T>(BcJsonUtil.JsonOptions, cancellationToken: cancellationToken);
 
         if (data is null)
         {
