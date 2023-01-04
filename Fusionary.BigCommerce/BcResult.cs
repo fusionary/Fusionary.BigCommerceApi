@@ -10,8 +10,10 @@ public record BcResult
 
     public BcErrorBase? Error { get; init; } = default!;
 
+    [JsonIgnore]
     public bool HasError => Error is not null;
 
+    [JsonIgnore]
     public string? ResponseText { get; init; }
 
     public HttpStatusCode StatusCode { get; init; }

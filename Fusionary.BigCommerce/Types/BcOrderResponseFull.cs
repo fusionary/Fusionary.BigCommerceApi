@@ -14,13 +14,13 @@ public record BcOrderResponseFull
     public int CustomerId { get; set; }
 
     [JsonPropertyName("date_created")]
-    public string? DateCreated { get; set; }
+    public BcDateTime? DateCreated { get; set; }
 
     [JsonPropertyName("date_modified")]
-    public string? DateModified { get; set; }
+    public BcDateTime? DateModified { get; set; }
 
     [JsonPropertyName("date_shipped")]
-    public string? DateShipped { get; set; }
+    public BcDateTime? DateShipped { get; set; }
 
     [JsonPropertyName("status_id")]
     public int StatusId { get; set; }

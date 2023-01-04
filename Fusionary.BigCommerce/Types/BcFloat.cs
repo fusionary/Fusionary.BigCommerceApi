@@ -4,7 +4,7 @@ namespace Fusionary.BigCommerce.Types;
 /// Represents a BigCommerce Float, Float-As-String, Integer value
 /// </summary>
 [JsonConverter(typeof(BcFloatConverter))]
-public struct BcFloat
+public struct BcFloat : IFormattable
 {
     public static readonly BcFloat Zero = new(0);
 
@@ -51,4 +51,6 @@ public struct BcFloat
     public string ToString(string format) => Value.ToString(format);
 
     public override string ToString() => $"{Value:f}";
+
+    public string ToString(string? format, IFormatProvider? formatProvider) => Value.ToString(format, formatProvider);
 }

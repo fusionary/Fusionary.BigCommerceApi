@@ -18,8 +18,7 @@ public class BcFloatConverter : JsonConverter<BcFloat>
 
     public override void Write(
         Utf8JsonWriter writer,
-        BcFloat @float,
+        BcFloat value,
         JsonSerializerOptions options
-    ) =>
-        writer.WriteStringValue(@float.ToString());
+    ) => writer.WriteStringValue(value.ToString());
 }

@@ -65,26 +65,54 @@ public static class BcHttpResponseExtensions
         CancellationToken cancellationToken
     )
     {
-        if (response.DoesNotHaveContent())
+        try
         {
+            var result = await ReadResponseInternalAsync<TData, TMeta>(response, cancellationToken);
+
+            return result;
+        }
+        catch (Exception ex)
+        {
+            return new BcResult<TData, TMeta>
+            {
+                Success = false,
+                StatusCode = response.StatusCode,
+                Error = new BcErrorDetails
+                {
+                    Title = "Error reading response",
+                    Status = response.StatusCode,
+                    Type = "Exception",
+                    Errors = new Dictionary<string, string>
+                    {
+                        { "Exception", ex.ToString() }
+                    }
+                },
+                ResponseText = await response.Content.ReadAsStringAsync(cancellationToken)
+            };
+        }
+    }
+
+    private static async Task<BcResult<TData, TMeta>> ReadResponseInternalAsync<TData, TMeta>(
+        HttpResponseMessage response,
+        CancellationToken cancellationToken
+    )
+    {
+        if (response.DoesNotHaveContent()) {
             return new BcResult<TData, TMeta> { Success = true, StatusCode = response.StatusCode };
         }
 
         var json = await response.Content.ReadFromJsonAsync<JsonDocument>(BcJsonUtil.JsonOptions, cancellationToken);
 
-        if (json is null)
-        {
+        if (json is null) {
             throw new BcApiException("Unable to read JSON response");
         }
 
         var root = json.RootElement;
 
-        if (root.ValueKind == JsonValueKind.Array)
-        {
+        if (root.ValueKind == JsonValueKind.Array) {
             var arrayData = root.Deserialize<TData>(BcJsonUtil.JsonOptions);
 
-            return new BcResult<TData, TMeta>
-            {
+            return new BcResult<TData, TMeta> {
                 Success = true,
                 Data = arrayData!,
                 Meta = default!,
@@ -104,8 +132,7 @@ public static class BcHttpResponseExtensions
             ? root.Deserialize<TData>(BcJsonUtil.JsonOptions)
             : dataProperty.Deserialize<TData>(BcJsonUtil.JsonOptions);
 
-        return new BcResult<TData, TMeta>
-        {
+        return new BcResult<TData, TMeta> {
             Success = true,
             Data = data!,
             Meta = meta!,

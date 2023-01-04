@@ -17,7 +17,8 @@ public class OrderTests : BcTestBase
         var result = await bc
             .Orders()
             .Search()
-            .Limit(5)
+            .Limit(20)
+            .MinDateCreated(DateTime.Today.AddDays(-1))
             .Sort(BcOrderSort.DateCreated)
             .SendAsync(cancellationToken);
 
@@ -26,12 +27,38 @@ public class OrderTests : BcTestBase
 
         foreach (var order in result.Data)
         {
-            var id     = order.Id;
-            var status = order.Status;
-            var total  = order.TotalExTax;
-
-            LogMessage($"{id} | {status} | {total}");
+            DumpObject(order);
         }
+    }
+
+    [Fact]
+    public async Task Can_Create_Order_Metafields_Async()
+    {
+        var bc = Services.GetRequiredService<Bc>();
+
+        var cancellationToken = CancellationToken.None;
+
+        var result = await bc
+            .Orders()
+            .CreateMetafields()
+            .SendAsync(100,
+                BcPermissionSet.Read,
+                "Testing",
+                new []
+            {
+                new BcMetafieldItem
+                {
+                    Key = "Test",
+                    Value = "Test",
+                },
+                new BcMetafieldItem
+                {
+                    Key = "Test2",
+                    Value = "Test2"
+                }
+            }, cancellationToken);
+
+        DumpObject(result);
     }
 
     [Fact]
@@ -44,14 +71,16 @@ public class OrderTests : BcTestBase
         var result = await bc
             .Orders()
             .GetMetafields()
-            .Limit(5)
+            .Limit(10)
             .SendAsync(100, cancellationToken);
 
         if (result)
         {
-            foreach (var order in result.Data)
+            foreach (var metafield in result.Data)
             {
-                DumpObject(order);
+                DumpObject(metafield);
+
+                await bc.Orders().DeleteMetafield().SendAsync(100, metafield.Id, cancellationToken);
             }
         }
     }

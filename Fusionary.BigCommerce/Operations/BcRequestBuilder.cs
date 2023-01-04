@@ -38,7 +38,13 @@ public abstract record BcRequestBuilder<T> where T : BcRequestBuilder<T>
         return This;
     }
 
-    public T Add(string key, DateOnly value)
+    public T Add(string key, BcDateTime value)
+    {
+        Filter.Add(key, value);
+        return This;
+    }
+
+    public T Add(string key, BcDate value)
     {
         Filter.Add(key, value);
         return This;

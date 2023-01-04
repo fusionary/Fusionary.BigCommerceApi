@@ -12,7 +12,7 @@ public static class BcSearchFilterExtensions
     /// <summary>
     /// Filter items by date_last_imported.
     /// </summary>
-    public static T DateLastImported<T>(this T builder, DateOnly date, BcRange range = BcRange.None)
+    public static T DateLastImported<T>(this T builder, BcDateTime date, BcRange range = BcRange.None)
         where T : BcRequestBuilder<T>, IBcDateLastImportedFilter =>
         builder.Add(range.Apply("date_last_imported"), date);
 
@@ -26,7 +26,7 @@ public static class BcSearchFilterExtensions
     /// <summary>
     /// Filter items by date_modified.
     /// </summary>
-    public static T DateModified<T>(this T builder, DateOnly date, BcRange range = BcRange.None)
+    public static T DateModified<T>(this T builder, BcDateTime date, BcRange range = BcRange.None)
         where T : BcRequestBuilder<T>, IBcDateModifiedFilter =>
         builder.Add(range.Apply("date_modified"), date);
 

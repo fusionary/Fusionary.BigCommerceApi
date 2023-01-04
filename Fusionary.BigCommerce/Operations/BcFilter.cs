@@ -19,7 +19,9 @@ public record BcFilter
 
     public BcFilter Add(string key, object value) => Add(key, $"{value}");
 
-    public BcFilter Add(string key, DateOnly value) => Add(key, $"{value:yyyy-MM-dd}");
+    public BcFilter Add(string key, BcDateTime value) => Add(key, value.ToString());
+
+    public BcFilter Add(string key, BcDate value) => Add(key, value.ToString());
 
     public BcFilter Add(string key, int value) => Add(key, $"{value}");
 

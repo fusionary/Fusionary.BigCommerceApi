@@ -6,11 +6,20 @@ public record BcResult<TData, TMeta> : BcResult
 {
     public TData Data { get; init; } = default!;
 
+    [JsonIgnore]
     public bool HasData => Data is not null;
 
     public TMeta Meta { get; init; } = default!;
 
+    [JsonIgnore]
     public bool HasMeta => Meta is not null;
+
+    public void Deconstruct(out bool success, out TData data, out BcErrorBase? error)
+    {
+        success = Success;
+        error = Error;
+        data = Data;
+    }
 
     public void Deconstruct(out bool success, out TData data, out TMeta meta, out BcErrorBase? error)
     {

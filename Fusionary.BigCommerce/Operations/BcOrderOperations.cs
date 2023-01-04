@@ -17,5 +17,9 @@ public record BcOrderOperations
 
     public BcOrderMetafieldsGet GetMetafields() => new(_api);
 
+    public BcOrderMetafieldsCreate CreateMetafields() => new(_api);
+
+    public BcOrderMetafieldDelete DeleteMetafield() => new(_api);
+
     public BcOrdersSearch Search() => new(_api);
 }

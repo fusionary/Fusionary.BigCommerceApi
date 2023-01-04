@@ -2,7 +2,8 @@ namespace Fusionary.BigCommerce.Operations;
 
 public record BcCategoriesSearch : BcRequestBuilder<BcCategoriesSearch>,
     IBcIncludeFieldsFilter,
-    IBcExcludeFieldsFilter
+    IBcExcludeFieldsFilter,
+    IBcPageableFilter
 {
     internal BcCategoriesSearch(IBigCommerceApi api) : base(api)
     { }
@@ -28,19 +29,9 @@ public record BcCategoriesSearch : BcRequestBuilder<BcCategoriesSearch>,
     public BcCategoriesSearch Keyword(string keyword) => Add("keyword", keyword);
 
     /// <summary>
-    /// Controls the number of items per page in a limited (paginated) list of Categories.
-    /// </summary>
-    public BcCategoriesSearch Limit(int limit) => Add("limit", limit);
-
-    /// <summary>
     /// Filter items by name.
     /// </summary>
     public BcCategoriesSearch Name(params string[] names) => Add(names.Length > 1 ? "name:like" : "name", names);
-
-    /// <summary>
-    /// Specifies the page number in a limited (paginated) list of Categories.
-    /// </summary>
-    public BcCategoriesSearch Page(int page) => Add("page", page);
 
     /// <summary>
     /// Filter items by name.

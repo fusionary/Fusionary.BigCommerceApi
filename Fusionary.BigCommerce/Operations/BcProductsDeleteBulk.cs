@@ -1,6 +1,8 @@
 namespace Fusionary.BigCommerce.Operations;
 
-public record BcProductsDeleteBulk : BcRequestBuilder<BcProductsDeleteBulk>
+public record BcProductsDeleteBulk : BcRequestBuilder<BcProductsDeleteBulk>,
+    IBcDateLastImportedFilter,
+    IBcDateModifiedFilter
 {
     internal BcProductsDeleteBulk(IBigCommerceApi api) : base(api)
     { }
@@ -25,19 +27,6 @@ public record BcProductsDeleteBulk : BcRequestBuilder<BcProductsDeleteBulk>
     /// Filter items by condition.
     /// </summary>
     public BcProductsDeleteBulk Condition(BcCondition condition) => Add("condition", condition.ToValue());
-
-
-    /// <summary>
-    /// Filter items by date_last_imported. For example v3/catalog/products?date_last_imported:max=2018-06-15
-    /// </summary>
-    public BcProductsDeleteBulk DateLastImported(DateOnly date, BcRange range = BcRange.None) =>
-        Add(range.Apply("date_last_imported"), date);
-
-    /// <summary>
-    /// Filter items by date_modified. For example v3/catalog/products?date_modified:min=2018-06-15
-    /// </summary>
-    public BcProductsDeleteBulk DateModified(DateOnly date, BcRange range = BcRange.None) =>
-        Add(range.Apply("date_modified"), date);
 
     /// <summary>
     /// Filter items by ids.
