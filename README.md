@@ -68,7 +68,8 @@ public class BigCommerceProductDemo {
 ```csharp
 var config = new BigCommerceConfig {
    StoreHash = "12345",
-   AccessToken = "1845633E-S3CR3TS-8364B7FBE3A2"
+   AccessToken = "1845633E-S3CR3TS-8364B7FBE3A2",
+   StorefrontUrl = "https://mystore.bigcommerce.com"
 });
 
 IBigCommerceApi apiClient = BigCommerceClient.Create(config);
@@ -88,5 +89,40 @@ var response = await bc
     .Get()
     .Include(BcProductInclude.Variants, BcProductInclude.Images, BcProductInclude.CustomFields)
     .SendAsync(199, cancellationToken);
+    
+    
+// Storefront GraphQL Client
+var graphQL = service.GetRequiredService<IBcStorefrontGraphQL>();
+
+        var request = new GraphQLRequest(@"
+query paginateProducts {
+  site {
+    search {
+      searchProducts(
+        filters: {
+        	productAttributes: [
+            {
+              attribute: ""Color"", values: ""Red""
+            }
+          ]
+        }
+      ) {
+        products {
+          edges {
+            node {
+              name
+              sku
+            }
+          }
+        }
+      }
+    }
+  }
+}
+");
+        var response = await graphQL
+            .SendQueryAsync<dynamic>(request, cancellationToken);
+            
+        Console.WriteLine(JsonSerializer.Serialize(response.Data));
 
 ```

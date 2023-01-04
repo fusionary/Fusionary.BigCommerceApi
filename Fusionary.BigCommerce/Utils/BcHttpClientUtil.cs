@@ -11,7 +11,7 @@ public static class BcHttpClientUtil
     {
         client.BaseAddress = new UriBuilder($"{config.Host}")
         {
-            Scheme = Uri.UriSchemeHttps, Path = $"/stores/{config.StoreHash}/"
+            Path = $"/stores/{config.StoreHash}/"
         }.Uri;
 
         var headers = client.DefaultRequestHeaders;

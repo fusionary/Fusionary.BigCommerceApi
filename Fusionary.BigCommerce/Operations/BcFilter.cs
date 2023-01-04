@@ -9,11 +9,11 @@ public record BcFilter
         _queryString = queryString;
     }
 
-    public BcFilter Add(string key, params object[] values) => Add(key, string.Join(",", values));
+    public BcFilter Add(string key, IEnumerable<object> values) => Add(key, string.Join(",", values));
 
-    public BcFilter Add(string key, params int[] values) => Add(key, string.Join(",", values));
+    public BcFilter Add(string key, IEnumerable<int> values) => Add(key, string.Join(",", values));
 
-    public BcFilter Add(string key, params string[] values) => Add(key, string.Join(",", values));
+    public BcFilter Add(string key, IEnumerable<string> values) => Add(key, string.Join(",", values));
 
     public BcFilter Add(string key, bool value) => Add(key, value ? "true" : "false");
 

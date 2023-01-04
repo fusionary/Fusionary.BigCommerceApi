@@ -10,28 +10,29 @@ namespace Fusionary.BigCommerce;
 
 public class BigCommerceApi : IBigCommerceApi
 {
-    private readonly IBigCommerceClient _bigCommerce;
     private readonly ILogger _logger;
 
     [SuppressMessage("ReSharper", "SuggestBaseTypeForParameterInConstructor")]
-    public BigCommerceApi(BigCommerceClient bigCommerce, ILogger<BigCommerceApi> logger) : this(
-        (IBigCommerceClient)bigCommerce,
+    public BigCommerceApi(BigCommerceClient client, ILogger<BigCommerceApi> logger) : this(
+        (IBigCommerceClient) client,
         logger
     )
     { }
 
-    private BigCommerceApi(IBigCommerceClient bigCommerce, ILogger logger)
+    private BigCommerceApi(IBigCommerceClient client, ILogger logger)
     {
-        _bigCommerce = bigCommerce;
+        BigCommerceHttp = client;
         _logger = logger;
     }
+
+    public IBigCommerceClient BigCommerceHttp { get; }
 
     public async Task<HttpResponseMessage> SendAsync(
         HttpRequestMessage requestMessage,
         CancellationToken cancellationToken
     )
     {
-        var response = await _bigCommerce.Client.SendAsync(
+        var response = await BigCommerceHttp.Client.SendAsync(
                 requestMessage,
                 cancellationToken
             )

@@ -45,7 +45,7 @@ public record BcProductsSearch : BcRequestBuilder<BcProductsSearch>,
     /// <summary>
     /// Filter items by ids.
     /// </summary>
-    public BcProductsSearch Id(BcModifier modifier, params int[] id) => Add(modifier.Apply("id"), id);
+    public BcProductsSearch Id(IEnumerable<int> id, BcModifier modifier) => Add(modifier.Apply("id"), id);
 
     /// <summary>
     /// Filter items by inventory_level.
@@ -122,7 +122,7 @@ public record BcProductsSearch : BcRequestBuilder<BcProductsSearch>,
     /// <summary>
     /// Filter items by SKU.
     /// </summary>
-    public BcProductsSearch SkuIn(params string[] sku) => Add("sku:in", sku);
+    public BcProductsSearch SkuIn(IEnumerable<string> sku) => Add("sku:in", sku);
 
     /// <summary>
     /// Field name to sort by. Note: Since id increments when new products are added, you can use that field to sort by

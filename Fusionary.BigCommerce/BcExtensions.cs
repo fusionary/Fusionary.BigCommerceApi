@@ -21,4 +21,7 @@ public static class BcExtensions
     public static BcOrderOperations Orders(this Bc bc) => new(bc.Api);
 
     public static BcProductOperations Products(this Bc bc) => new(bc.Api);
+
+    public static BcStorefrontOperations Storefront(this Bc bc) => new(bc.Api);
 }
+

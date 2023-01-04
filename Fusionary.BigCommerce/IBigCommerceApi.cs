@@ -27,4 +27,6 @@ public interface IBigCommerceApi
         HttpRequestMessage requestMessage,
         CancellationToken cancellationToken
     );
+
+    IBigCommerceClient BigCommerceHttp { get; }
 }

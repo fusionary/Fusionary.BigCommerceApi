@@ -14,19 +14,19 @@ public abstract record BcRequestBuilder<T> where T : BcRequestBuilder<T>
 
     private T This => (T)this;
 
-    public T Add(string key, params object[] values)
+    public T Add(string key, IEnumerable<int> values)
     {
         Filter.Add(key, values);
         return This;
     }
 
-    public T Add(string key, params int[] values)
+    public T Add(string key, IEnumerable<string> values)
     {
         Filter.Add(key, values);
         return This;
     }
 
-    public T Add(string key, params string[] values)
+    public T Add(string key, IEnumerable<object> values)
     {
         Filter.Add(key, values);
         return This;
@@ -86,5 +86,44 @@ public abstract record BcRequestBuilder<T> where T : BcRequestBuilder<T>
         return This;
     }
 
+    public T ConfigureClient(Action<HttpClient> configureClient)
+    {
+        configureClient(Api.BigCommerceHttp.Client);
+        return This;
+    }
+
     public T When(bool condition, Func<T, T> builder) => condition ? builder(This) : This;
+
+    public T WithAccessToken(string accessToken) =>
+        ConfigureClient(
+            httpClient =>
+            {
+                var requestHeaders = httpClient.DefaultRequestHeaders;
+
+                requestHeaders.Remove("X-Auth-Client");
+                requestHeaders.TryAddWithoutValidation("X-Auth-Client", accessToken);
+            }
+        );
+
+    public T WithOverrides(BcRequestOverride? requestOverride)
+    {
+        if (!string.IsNullOrEmpty(requestOverride?.AccessToken))
+        {
+            WithAccessToken(requestOverride.AccessToken);
+        }
+
+        if (!string.IsNullOrEmpty(requestOverride?.StoreHash))
+        {
+            WithStoreHash(requestOverride.StoreHash);
+        }
+
+        return This;
+    }
+
+    public T WithStoreHash(string storeHash) => ConfigureClient(
+        httpClient =>
+        {
+            httpClient.BaseAddress = new UriBuilder(httpClient.BaseAddress!) { Path = $"/stores/{storeHash}/" }.Uri;
+        }
+    );
 }

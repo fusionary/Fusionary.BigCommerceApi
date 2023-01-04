@@ -1,5 +1,6 @@
 using System.Net;
 
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -17,7 +18,15 @@ public static class BigCommerceExtensions
                     AllowAutoRedirect = false, UseCookies = false, AutomaticDecompression = DecompressionMethods.All
                 }
             );
-        services.AddSingleton<IBigCommerceApi, BigCommerceApi>();
-        services.AddSingleton<Bc>();
+        services.AddTransient<IBigCommerceApi, BigCommerceApi>();
+        services.AddTransient<IBcStorefrontGraphQL, BcStorefrontGraphQL>();
+        services.AddTransient<Bc>();
+
+        if (!services.Contains(ServiceDescriptor.Singleton<IMemoryCache, MemoryCache>()))
+        {
+            services.AddMemoryCache();
+        }
+
+        services.AddSingleton<IBcTokenCache, BcTokenCache>();
     }
 }

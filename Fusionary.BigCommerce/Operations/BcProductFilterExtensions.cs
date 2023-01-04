@@ -18,6 +18,6 @@ public static class BcProductFilterExtensions
     /// limited to 10 per page.
     /// </summary>
     public static T Include<T>(this T builder, params BcProductInclude[] values)
-        where T : BcRequestBuilder<T>, IBcProductIncludeFilter =>
-        builder.Include(values.Select(x => x.ToValue()).ToArray());
+        where T : BcRequestBuilder<T>, IBcProductIncludeFilter
+        => builder.Add("include", values.Select(x => x.ToValue()));
 }

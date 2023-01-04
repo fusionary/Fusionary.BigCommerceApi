@@ -27,6 +27,8 @@ public static class BcEndpoint
     public static string CategoryProductSortOrderV3(object categoryId) =>
         $"v3/catalog/categories/{categoryId}/products/sort-order";
 
+    public static string StorefrontTokensV3() => "v3/storefront/api-token";
+
     public static string OrdersMetafieldsV3(object orderId) => $"v3/orders/{orderId}/metafields";
 
     public static string OrdersMetafieldsV3(object orderId, object metafieldId) =>

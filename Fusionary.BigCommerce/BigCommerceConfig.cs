@@ -15,4 +15,8 @@ public class BigCommerceConfig
     public string StoreHash { get; set; } = null!;
 
     public string AccessToken { get; set; } = null!;
+
+    public string StorefrontUrl { get; set; } = null!;
+
+    public int ChannelId { get; set; } = 1;
 }
