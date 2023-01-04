@@ -9,17 +9,9 @@ public static class BcEnumExtensions
         var type = typeof(T);
         foreach (var field in type.GetFields())
         {
-            if (field.GetCustomAttribute<JsonPropertyNameAttribute>() is { } jsonPropertyNameAttribute)
+            if (field.GetCustomAttribute<JsonPropertyNameAttribute>() is { } attr)
             {
-                if (TryGetEnumValue(value, jsonPropertyNameAttribute.Name, field, out T enumValue))
-                {
-                    return enumValue;
-                }
-            }
-
-            if (field.GetCustomAttribute<EnumMemberAttribute>() is { } enumMemberAttribute)
-            {
-                if (TryGetEnumValue(value, enumMemberAttribute.Value, field, out T enumValue))
+                if (TryGetEnumValue(value, attr.Name, field, out T enumValue))
                 {
                     return enumValue;
                 }
@@ -27,6 +19,12 @@ public static class BcEnumExtensions
         }
 
         return ParseEnumFromValue<T>(value);
+    }
+
+    private static T ParseEnumFromValue<T>(string? value) where T : struct
+    {
+        const bool ignoreCase = true;
+        return Enum.TryParse(value, ignoreCase, out T result) ? result : default;
     }
 
     public static string ToValue<T>(this T value) where T : struct
@@ -38,24 +36,10 @@ public static class BcEnumExtensions
         var field = type.GetFields()
             .FirstOrDefault(x => string.Equals(x.Name, stringValue, StringComparison.OrdinalIgnoreCase));
 
-        if (field is not null)
-        {
-            if (field.GetCustomAttribute<JsonPropertyNameAttribute>() is { } jsonPropertyNameAttribute)
-            {
-                return jsonPropertyNameAttribute.Name;
-            }
-
-            if (field.GetCustomAttribute<EnumMemberAttribute>() is { } enumMemberAttribute)
-            {
-                return enumMemberAttribute.Value ?? stringValue;
-            }
-        }
-
-        return stringValue;
+        return field?.GetCustomAttribute<JsonPropertyNameAttribute>() is { } jsonPropertyNameAttribute
+            ? jsonPropertyNameAttribute.Name
+            : stringValue;
     }
-
-    private static T ParseEnumFromValue<T>(string? value) where T : struct =>
-        Enum.TryParse(value, true, out T result) ? result : default;
 
     private static bool TryGetEnumValue<T>(string? value, string? name, FieldInfo field, out T enumValue)
         where T : struct
@@ -68,6 +52,7 @@ public static class BcEnumExtensions
         }
 
         var fieldValue = field.GetValue(null);
+
         if (fieldValue is null)
         {
             return false;

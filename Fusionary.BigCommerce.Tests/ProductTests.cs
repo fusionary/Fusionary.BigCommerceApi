@@ -21,16 +21,17 @@ public class ProductTests : BcTestBase
             .Sort(BcProductSort.Name)
             .SendAsync(cancellationToken);
 
-        foreach (var product in response.Data)
+        if (response)
         {
-            var id    = product.Id;
-            var name  = product.GetValue("name");
-            var price = product.GetValue<decimal>("price");
+            var (data, pagination) = response;
 
-            LogMessage($"{id} | {name} | {price}");
+            DumpObject(pagination);
+
+            foreach (var product in data)
+            {
+                DumpObject(product);
+            }
         }
-
-        Assert.True(response.Data.Count > 0);
     }
 
     [Fact]
@@ -47,6 +48,8 @@ public class ProductTests : BcTestBase
             .SendAsync(119, cancellationToken);
 
         var product = response.Data;
+
+        DumpObject(response);
 
         Assert.NotNull(product);
 

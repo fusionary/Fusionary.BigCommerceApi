@@ -2,9 +2,8 @@ namespace Fusionary.BigCommerce.Types;
 
 public record BcProductOption
 {
-    public int Id { get; set; }
-
     private Dictionary<string, string>? _valueData;
+    public int Id { get; set; }
 
     public bool IsDefault { get; set; }
 

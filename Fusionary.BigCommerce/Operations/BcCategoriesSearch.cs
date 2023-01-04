@@ -1,22 +1,11 @@
-using Fusionary.BigCommerce.Types;
-
 namespace Fusionary.BigCommerce.Operations;
 
-public record BcCategoriesSearch : BcRequestBuilder<BcCategoriesSearch>
+public record BcCategoriesSearch : BcRequestBuilder<BcCategoriesSearch>,
+    IBcIncludeFieldsFilter,
+    IBcExcludeFieldsFilter
 {
     internal BcCategoriesSearch(IBigCommerceApi api) : base(api)
     { }
-
-    /// <summary>
-    /// Fields to include, in a comma-separated list. The ID and the specified fields will be returned.
-    /// </summary>
-    public BcCategoriesSearch IncludeFields(params string[] values) => Add("include_fields", values);
-
-    /// <summary>
-    /// Fields to exclude, in a comma-separated list. The specified fields will be excluded from a response. The ID cannot
-    /// be excluded.
-    /// </summary>
-    public BcCategoriesSearch ExcludeFields(params string[] values) => Add("exclude_fields", values);
 
     /// <summary>
     /// Filter items by id.
@@ -34,24 +23,24 @@ public record BcCategoriesSearch : BcRequestBuilder<BcCategoriesSearch>
     public BcCategoriesSearch IsVisible(bool isVisible) => Add("is_visible", isVisible);
 
     /// <summary>
-    /// Controls the number of items per page in a limited (paginated) list of Categories.
-    /// </summary>
-    public BcCategoriesSearch Limit(int limit) => Add("limit", limit);
-
-    /// <summary>
-    /// Specifies the page number in a limited (paginated) list of Categories.
-    /// </summary>
-    public BcCategoriesSearch Page(int page) => Add("page", page);
-
-    /// <summary>
     /// Filter items by keywords found in the name or sku fields
     /// </summary>
     public BcCategoriesSearch Keyword(string keyword) => Add("keyword", keyword);
 
     /// <summary>
+    /// Controls the number of items per page in a limited (paginated) list of Categories.
+    /// </summary>
+    public BcCategoriesSearch Limit(int limit) => Add("limit", limit);
+
+    /// <summary>
     /// Filter items by name.
     /// </summary>
     public BcCategoriesSearch Name(params string[] names) => Add(names.Length > 1 ? "name:like" : "name", names);
+
+    /// <summary>
+    /// Specifies the page number in a limited (paginated) list of Categories.
+    /// </summary>
+    public BcCategoriesSearch Page(int page) => Add("page", page);
 
     /// <summary>
     /// Filter items by name.
@@ -72,11 +61,11 @@ public record BcCategoriesSearch : BcRequestBuilder<BcCategoriesSearch>
     public BcCategoriesSearch ParentId(BcModifier modifier, params int[] parentIds) =>
         Add(modifier.Apply("parent_id"), parentIds);
 
-    public Task<BcPagedResponse<BcCategory>> SendAsync(CancellationToken cancellationToken) =>
+    public Task<BcPagedResult<BcCategory>> SendAsync(CancellationToken cancellationToken) =>
         SendAsync<BcCategory>(cancellationToken);
 
-    public async Task<BcPagedResponse<T>> SendAsync<T>(CancellationToken cancellationToken) =>
-        await Api.GetAsync<BcPagedResponse<T>>(
+    public async Task<BcPagedResult<T>> SendAsync<T>(CancellationToken cancellationToken) =>
+        await Api.GetPagedAsync<T>(
             BcEndpoint.CategoriesV3(),
             Filter,
             cancellationToken

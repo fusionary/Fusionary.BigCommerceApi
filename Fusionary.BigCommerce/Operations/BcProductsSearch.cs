@@ -1,8 +1,12 @@
-using Fusionary.BigCommerce.Types;
-
 namespace Fusionary.BigCommerce.Operations;
 
-public record BcProductsSearch : BcRequestBuilder<BcProductsSearch>
+public record BcProductsSearch : BcRequestBuilder<BcProductsSearch>,
+    IBcPageableFilter,
+    IBcExcludeFieldsFilter,
+    IBcIncludeFieldsFilter,
+    IBcProductIncludeFilter,
+    IBcDateLastImportedFilter,
+    IBcDateModifiedFilter
 {
     internal BcProductsSearch(IBigCommerceApi api) : base(api)
     { }
@@ -34,51 +38,6 @@ public record BcProductsSearch : BcRequestBuilder<BcProductsSearch>
     public BcProductsSearch Condition(BcCondition condition) => Add("condition", condition.ToValue());
 
     /// <summary>
-    /// Filter items by date_modified. For example v3/catalog/products?date_modified:min=2018-06-15
-    /// </summary>
-    public BcProductsSearch DateModified(DateOnly date, BcRange range = BcRange.None) =>
-        Add(range.Apply("date_modified"), date);
-
-
-    /// <summary>
-    /// Filter items by date_last_imported. For example v3/catalog/products?date_last_imported:max=2018-06-15
-    /// </summary>
-    public BcProductsSearch DateLastImported(DateOnly date, BcRange range = BcRange.None) =>
-        Add(range.Apply("date_last_imported"), date);
-
-    /// <summary>
-    /// Sort direction.
-    /// </summary>
-    public BcProductsSearch Direction(BcDirection direction) => Add("direction", direction.ToValue());
-
-    /// <summary>
-    /// Sub-resources to include on a product, in a comma-separated list. If options or modifiers is used, results are
-    /// limited to 10 per page.
-    /// </summary>
-    /// <example>
-    /// variants, images, custom_fields, bulk_pricing_rules, primary_image, modifiers, options, videos
-    /// </example>
-    public BcProductsSearch Include(params string[] values) => Add("include", values);
-
-    /// <summary>
-    /// Sub-resources to include on a product, in a comma-separated list. If options or modifiers is used, results are
-    /// limited to 10 per page.
-    /// </summary>
-    public BcProductsSearch Include(params BcProductInclude[] values) =>
-        Include(values.Select(x => x.ToValue()).ToArray());
-
-    /// <summary>
-    /// Fields to include, in a comma-separated list. The ID and the specified fields will be returned.
-    /// </summary>
-    public BcProductsSearch IncludeFields(params string[] values) => Add("include_fields", values);
-
-    /// <summary>
-    /// Fields to exclude, in a comma-separated list. The specified fields will be excluded from a response. The ID cannot
-    /// be excluded.
-    /// </summary>
-    public BcProductsSearch ExcludeFields(params string[] values) => Add("exclude_fields", values);
-
-    /// <summary>
     /// Filter items by id.
     /// </summary>
     public BcProductsSearch Id(int id) => Add("id", id);
@@ -105,34 +64,14 @@ public record BcProductsSearch : BcRequestBuilder<BcProductsSearch>
     public BcProductsSearch IsFeatured(BcBit isFeatured) => Add("is_featured", isFeatured.ToValue());
 
     /// <summary>
-    /// Filter items based on whether the product is currently visible on the storefront.
-    /// </summary>
-    public BcProductsSearch IsVisible(bool isVisible) => Add("is_visible", isVisible);
-
-    /// <summary>
     /// Filter items by is_free_shipping.
     /// </summary>
     public BcProductsSearch IsFreeShipping(BcBit isFreeShipping) => Add("is_free_shipping", isFreeShipping.ToValue());
 
     /// <summary>
-    /// Controls the number of items per page in a limited (paginated) list of products.
+    /// Filter items based on whether the product is currently visible on the storefront.
     /// </summary>
-    public BcProductsSearch Limit(int limit) => Add("limit", limit);
-
-    /// <summary>
-    /// Specifies the page number in a limited (paginated) list of products.
-    /// </summary>
-    public BcProductsSearch Page(int page) => Add("page", page);
-
-    /// <summary>
-    /// Filter items by price.
-    /// </summary>
-    public BcProductsSearch Price(decimal price) => Add("price", price);
-
-    /// <summary>
-    /// Filter items by status.
-    /// </summary>
-    public BcProductsSearch Status(int status) => Add("status", status);
+    public BcProductsSearch IsVisible(bool isVisible) => Add("is_visible", isVisible);
 
     /// <summary>
     /// Filter items by keywords found in the name or sku fields
@@ -161,6 +100,21 @@ public record BcProductsSearch : BcRequestBuilder<BcProductsSearch>
     public BcProductsSearch OutOfStock() => Add("out_of_stock", "1");
 
     /// <summary>
+    /// Filter items by price.
+    /// </summary>
+    public BcProductsSearch Price(decimal price) => Add("price", price);
+
+    public Task<BcPagedResult<BcProductFull>> SendAsync(CancellationToken cancellationToken) =>
+        SendAsync<BcProductFull>(cancellationToken);
+
+    public async Task<BcPagedResult<T>> SendAsync<T>(CancellationToken cancellationToken) =>
+        await Api.GetPagedAsync<T>(
+            BcEndpoint.ProductsV3(),
+            Filter,
+            cancellationToken
+        );
+
+    /// <summary>
     /// Filter items by main SKU. To filter by variant SKU, see Get All Variants.
     /// </summary>
     public BcProductsSearch Sku(string sku) => Add("sku", sku);
@@ -177,14 +131,19 @@ public record BcProductsSearch : BcRequestBuilder<BcProductsSearch>
     public BcProductsSearch Sort(BcProductSort sort) => Add("sort", sort.ToValue());
 
     /// <summary>
-    /// Filter items by type.
+    /// Filter items by status.
     /// </summary>
-    public BcProductsSearch Type(BcProductType type) => Add("type", type.ToValue());
+    public BcProductsSearch Status(int status) => Add("status", status);
 
     /// <summary>
     /// Filter items by total_sold.
     /// </summary>
     public BcProductsSearch TotalSold(int totalSold) => Add("total_sold", totalSold);
+
+    /// <summary>
+    /// Filter items by type.
+    /// </summary>
+    public BcProductsSearch Type(BcProductType type) => Add("type", type.ToValue());
 
     /// <summary>
     /// Filter items by upc.
@@ -195,14 +154,4 @@ public record BcProductsSearch : BcRequestBuilder<BcProductsSearch>
     /// Filter items by weight.
     /// </summary>
     public BcProductsSearch Weight(int weight) => Add("weight", weight);
-
-    public Task<BcPagedResponse<BcObject>> SendAsync(CancellationToken cancellationToken) =>
-        SendAsync<BcObject>(cancellationToken);
-
-    public async Task<BcPagedResponse<T>> SendAsync<T>(CancellationToken cancellationToken) =>
-        await Api.GetAsync<BcPagedResponse<T>>(
-            BcEndpoint.ProductsV3(),
-            Filter,
-            cancellationToken
-        );
 }

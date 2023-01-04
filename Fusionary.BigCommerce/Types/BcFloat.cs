@@ -13,6 +13,16 @@ public struct BcFloat
         Value = value;
     }
 
+    public BcFloat(int value)
+    {
+        Value = Convert.ToDecimal(value);
+    }
+
+    public BcFloat(double value)
+    {
+        Value = Convert.ToDecimal(value);
+    }
+
     public BcFloat(string? value)
     {
         if (!string.IsNullOrEmpty(value))
@@ -30,9 +40,9 @@ public struct BcFloat
 
     public static implicit operator BcFloat(decimal value) => new(value);
 
-    public static implicit operator BcFloat(double value) => new(Convert.ToDecimal(value));
+    public static implicit operator BcFloat(double value) => new(value);
 
-    public static implicit operator BcFloat(int value) => new(Convert.ToDecimal(value));
+    public static implicit operator BcFloat(int value) => new(value);
 
     public static implicit operator string(BcFloat value) => value.ToString();
 

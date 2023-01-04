@@ -3,8 +3,8 @@ namespace Fusionary.BigCommerce.Types;
 public record BcOrderPost
 {
     private BcBillingAddressBase? _billingAddress;
-    private List<BcShippingAddressBase>? _shippingAddresses;
     private List<BcOrderCatalogProductPost>? _products;
+    private List<BcShippingAddressBase>? _shippingAddresses;
 
     [JsonPropertyName("customer_id")]
     public int CustomerId { get; set; }

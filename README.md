@@ -43,7 +43,7 @@ public class BigCommerceProductDemo {
 
     public async Task DisplayFiveProductsAsync(CancellationToken cancellationToken)
     {
-        return await _bc
+        var response = await _bc
             .Products()
             .Search()
             .Availability(BcAvailability.Available)
@@ -52,11 +52,12 @@ public class BigCommerceProductDemo {
             .Sort(BcProductSort.Name)
             .SendAsync(cancellationToken);
 
+
         foreach (var product in response.Data)
         {
             var id    = product.Id;
-            var name  = product.GetValue("name");
-            var price = product.GetValue<decimal>("price");
+            var name  = product.Name;
+            var price = product.Price;
 
             Console.WriteLine($"{id} | {name} | {price}");
         }

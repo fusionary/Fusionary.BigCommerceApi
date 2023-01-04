@@ -1,11 +1,10 @@
 namespace Fusionary.BigCommerce.Tests;
 
-public class BcImageTests: BcTestBase
+public class ImageTests : BcTestBase
 {
-    public BcImageTests(ITestOutputHelper outputHelper) : base(outputHelper)
-    {
-    }
-    
+    public ImageTests(ITestOutputHelper outputHelper) : base(outputHelper)
+    { }
+
     [Fact]
     public async Task Can_Get_Product_By_Id_Async()
     {
@@ -17,15 +16,15 @@ public class BcImageTests: BcTestBase
             .Products()
             .GetImages()
             .SendAsync(119, cancellationToken);
-        
+
         DumpObject(response);
-        
+
         foreach (var img in response.Data)
         {
-            var id = img.Id;
+            var id  = img.Id;
             var url = img.UrlStandard;
             var alt = img.Description;
-            
+
             LogMessage($"{id} | {url} | {alt}");
         }
     }

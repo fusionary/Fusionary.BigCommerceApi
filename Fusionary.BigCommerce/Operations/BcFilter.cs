@@ -9,10 +9,6 @@ public record BcFilter
         _queryString = queryString;
     }
 
-    public static BcFilter Create(QueryString queryString = default) => new(queryString);
-
-    public static implicit operator QueryString(BcFilter filter) => filter._queryString;
-
     public BcFilter Add(string key, params object[] values) => Add(key, string.Join(",", values));
 
     public BcFilter Add(string key, params int[] values) => Add(key, string.Join(",", values));
@@ -42,4 +38,8 @@ public record BcFilter
         _queryString = _queryString.Add(key, value);
         return this;
     }
+
+    public static BcFilter Create(QueryString queryString = default) => new(queryString);
+
+    public static implicit operator QueryString(BcFilter filter) => filter._queryString;
 }

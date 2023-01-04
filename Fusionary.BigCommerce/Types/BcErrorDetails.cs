@@ -1,16 +1,8 @@
-using System.Net;
-
 namespace Fusionary.BigCommerce.Types;
 
-public record BcMetaError
+public record BcErrorDetails : BcErrorBase
 {
     private Dictionary<string, string>? _errors;
-
-    public HttpStatusCode Status { get; set; }
-
-    public string Title { get; set; } = null!;
-
-    public string Type { get; set; } = null!;
 
     public string? Instance { get; set; }
 

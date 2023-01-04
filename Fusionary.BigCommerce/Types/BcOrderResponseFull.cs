@@ -3,9 +3,9 @@ namespace Fusionary.BigCommerce.Types;
 public record BcOrderResponseFull
 {
     private BcBillingAddressBase? _billingAddress;
+    private BcResource? _coupons;
     private BcResource? _products;
     private BcResource? _shippingAddresses;
-    private BcResource? _coupons;
 
     [JsonPropertyName("id")]
     public int Id { get; set; }

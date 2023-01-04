@@ -9,7 +9,12 @@ public class BcFloatConverter : JsonConverter<BcFloat>
         Type typeToConvert,
         JsonSerializerOptions options
     ) =>
-        new(reader.GetString());
+        reader switch
+        {
+            { TokenType: JsonTokenType.Number } => new BcFloat(reader.GetDecimal()),
+            { TokenType: JsonTokenType.String } => new BcFloat(reader.GetString()),
+            _ => throw new JsonException()
+        };
 
     public override void Write(
         Utf8JsonWriter writer,

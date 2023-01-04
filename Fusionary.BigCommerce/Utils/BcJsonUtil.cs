@@ -22,6 +22,10 @@ public static class BcJsonUtil
         DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
     };
 
+    public static JsonContent CreateContent(object? payload) => JsonContent.Create(payload, options: JsonOptions);
+
+    public static T? Deserialize<T>(string json) => JsonSerializer.Deserialize<T>(json, JsonOptions);
+
     public static string Serialize<T>(T value, bool writeIndented = false) =>
         JsonSerializer.Serialize(
             value,
@@ -29,8 +33,4 @@ public static class BcJsonUtil
                 ? new JsonSerializerOptions(JsonOptions) { WriteIndented = writeIndented }
                 : JsonOptions
         );
-
-    public static T? Deserialize<T>(string json) => JsonSerializer.Deserialize<T>(json, JsonOptions);
-
-    public static JsonContent CreateContent(object? payload) => JsonContent.Create(payload, options: JsonOptions);
 }
