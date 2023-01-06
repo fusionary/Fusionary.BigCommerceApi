@@ -1,12 +1,25 @@
+using System.Globalization;
+
 namespace Fusionary.BigCommerce.Types;
 
 /// <summary>
 /// Represents a BigCommerce Float, Float-As-String, Integer value
 /// </summary>
 [JsonConverter(typeof(BcFloatConverter))]
-public struct BcFloat : IFormattable
+public struct BcFloat : IFormattable, IComparable<BcFloat>
 {
-    public static readonly BcFloat Zero = new(0);
+    private sealed class ValueEqualityComparer : IEqualityComparer<BcFloat>
+    {
+        public bool Equals(BcFloat x, BcFloat y) => x.Value == y.Value;
+
+        public int GetHashCode(BcFloat obj) => obj.Value.GetHashCode();
+    }
+
+    public static IEqualityComparer<BcFloat> ValueComparer { get; } = new ValueEqualityComparer();
+
+    public int CompareTo(BcFloat other) => Value.CompareTo(other.Value);
+
+    public static readonly BcFloat Zero = default;
 
     public BcFloat(decimal value)
     {
@@ -49,6 +62,11 @@ public struct BcFloat : IFormattable
     public static implicit operator BcFloat(string value) => new(value);
 
     public string ToString(string format) => Value.ToString(format);
+
+    public string ToMoney(int decimalDigits = 2, string currencySymbol = "$") => Value.ToString(
+        "c",
+        new NumberFormatInfo { CurrencySymbol = currencySymbol, CurrencyDecimalDigits = decimalDigits }
+    );
 
     public override string ToString() => $"{Value:f}";
 

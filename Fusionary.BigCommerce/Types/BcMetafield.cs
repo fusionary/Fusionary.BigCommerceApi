@@ -1,6 +1,6 @@
 namespace Fusionary.BigCommerce.Types;
 
-public record BcMetafield: BcMetafieldPost
+public record BcMetafield : BcMetafieldPost
 {
     public int Id { get; set; }
 

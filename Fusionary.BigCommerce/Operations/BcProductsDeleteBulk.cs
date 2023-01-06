@@ -61,7 +61,7 @@ public record BcProductsDeleteBulk : BcRequestBuilder<BcProductsDeleteBulk>,
     /// <summary>
     /// Filter items by price.
     /// </summary>
-    public BcProductsDeleteBulk Price(decimal price) => Add("price", price);
+    public BcProductsDeleteBulk Price(BcFloat price) => Add("price", price);
 
     public async Task<bool> SendAsync(CancellationToken cancellationToken) =>
         await Api.DeleteAsync(

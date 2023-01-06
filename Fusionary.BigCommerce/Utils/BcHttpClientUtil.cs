@@ -9,10 +9,7 @@ public static class BcHttpClientUtil
         BigCommerceConfig config
     )
     {
-        client.BaseAddress = new UriBuilder($"{config.Host}")
-        {
-            Path = $"/stores/{config.StoreHash}/"
-        }.Uri;
+        client.BaseAddress = new UriBuilder($"{config.Host}") { Path = $"/stores/{config.StoreHash}/" }.Uri;
 
         var headers = client.DefaultRequestHeaders;
 

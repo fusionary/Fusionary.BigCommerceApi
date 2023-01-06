@@ -2,7 +2,7 @@ namespace Fusionary.BigCommerce.Types;
 
 public record BcProductVariant
 {
-    private List<BcOptionValue>? _optionValues;
+    private List<BcProductVariantOptionValue>? _optionValues;
 
     public int Id { get; set; }
 
@@ -61,7 +61,7 @@ public record BcProductVariant
     /// Array of option and option values IDs that make up this variant. Will be empty if the variant is the product's base
     /// variant.
     /// </summary>
-    public List<BcOptionValue> OptionValues
+    public List<BcProductVariantOptionValue> OptionValues
     {
         get => LazyInitializer.EnsureInitialized(ref _optionValues);
         set => _optionValues = value;

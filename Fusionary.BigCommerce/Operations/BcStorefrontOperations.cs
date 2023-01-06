@@ -8,6 +8,6 @@ public class BcStorefrontOperations
     {
         _api = api;
     }
-    
+
     public BcStorefrontTokenGet GetToken() => new(_api);
 }

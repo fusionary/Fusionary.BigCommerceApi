@@ -1,6 +1,6 @@
 namespace Fusionary.BigCommerce.Types;
 
-public record BcMetafieldPost: BcMetafieldItem
+public record BcMetafieldPost : BcMetafieldItem
 {
     /// <summary>
     /// Determines the visibility and writeability of the field by other API consumers.

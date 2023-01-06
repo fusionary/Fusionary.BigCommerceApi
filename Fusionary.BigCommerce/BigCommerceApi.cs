@@ -1,8 +1,6 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Net;
 
-using Fusionary.BigCommerce.Utils;
-
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 
@@ -14,7 +12,7 @@ public class BigCommerceApi : IBigCommerceApi
 
     [SuppressMessage("ReSharper", "SuggestBaseTypeForParameterInConstructor")]
     public BigCommerceApi(BigCommerceClient client, ILogger<BigCommerceApi> logger) : this(
-        (IBigCommerceClient) client,
+        (IBigCommerceClient)client,
         logger
     )
     { }
@@ -85,10 +83,25 @@ public class BigCommerceApi : IBigCommerceApi
         {
             case { StatusCode: HttpStatusCode.OK }:
             case { StatusCode: HttpStatusCode.NoContent }:
-                return await response.ReadResponseAsync<TResult, TMeta>(cancellationToken);
-            default:
-                return await response.ReadErrorResponseAsync<TResult, TMeta>(cancellationToken);
+                {
+                    return await response.ReadResponseAsync<TResult, TMeta>(cancellationToken);
+                }
+            case { StatusCode: HttpStatusCode.TooManyRequests }:
+                {
+                    if (response.TryGetHeaderValue<int>("X-Rate-Limit-Time-Reset-Ms", out var retryAfterMs))
+                    {
+                        return await RetryRequestAfterDelayAsync<TResult, TMeta>(
+                            requestMessage,
+                            retryAfterMs,
+                            cancellationToken
+                        );
+                    }
+
+                    break;
+                }
         }
+
+        return await response.ReadErrorResponseAsync<TResult, TMeta>(cancellationToken);
     }
 
     public static IBigCommerceApi Create(IBigCommerceClient client) =>
@@ -96,4 +109,20 @@ public class BigCommerceApi : IBigCommerceApi
 
     public static IBigCommerceApi Create(IBigCommerceClient client, ILogger logger) =>
         new BigCommerceApi(client, logger);
+
+    private async Task<BcResult<TResult, TMeta>> RetryRequestAfterDelayAsync<TResult, TMeta>(
+        HttpRequestMessage requestMessage,
+        int retryAfterMs,
+        CancellationToken cancellationToken
+    )
+    {
+        _logger.LogWarning(
+            "BigCommerce API rate limit exceeded. Waiting {RetryAfterMs}ms before retrying.",
+            retryAfterMs
+        );
+
+        await Task.Delay(retryAfterMs, cancellationToken);
+
+        return await SendRequestAsync<TResult, TMeta>(requestMessage, cancellationToken);
+    }
 }

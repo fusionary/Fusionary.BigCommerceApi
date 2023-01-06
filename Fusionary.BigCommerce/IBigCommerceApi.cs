@@ -2,6 +2,8 @@ namespace Fusionary.BigCommerce;
 
 public interface IBigCommerceApi
 {
+    IBigCommerceClient BigCommerceHttp { get; }
+
     Task<HttpResponseMessage> SendAsync(
         HttpRequestMessage requestMessage,
         CancellationToken cancellationToken
@@ -27,6 +29,4 @@ public interface IBigCommerceApi
         HttpRequestMessage requestMessage,
         CancellationToken cancellationToken
     );
-
-    IBigCommerceClient BigCommerceHttp { get; }
 }

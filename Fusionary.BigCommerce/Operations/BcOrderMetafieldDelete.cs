@@ -8,25 +8,31 @@ public record BcOrderMetafieldDelete : BcRequestBuilder<BcProductDelete>
     { }
 
     public Task<BcResult> SendAsync(object orderId, object metafieldId, CancellationToken cancellationToken) =>
-        Api.DeleteAsync(BcEndpoint.OrdersMetafieldsV3(orderId, metafieldId), Filter, cancellationToken);
+        Api.DeleteAsync(BcEndpoint.OrderMetafieldsV3(orderId, metafieldId), Filter, cancellationToken);
 
-    public async Task<BcResult> SendAsync(object orderId, IEnumerable<object> metafieldIds, CancellationToken cancellationToken)
+    public async Task<BcResult> SendAsync(
+        object orderId,
+        IEnumerable<object> metafieldIds,
+        CancellationToken cancellationToken
+    )
     {
         foreach (var metafieldId in metafieldIds)
         {
-           var result = await Api.DeleteAsync(BcEndpoint.OrdersMetafieldsV3(orderId, metafieldId), Filter, cancellationToken);
+            var result = await Api.DeleteAsync(
+                BcEndpoint.OrderMetafieldsV3(orderId, metafieldId),
+                Filter,
+                cancellationToken
+            );
 
-           if (!result.Success)
-           {
-               return result;
-           }
+            if (!result.Success)
+            {
+                return result;
+            }
         }
 
         return new BcResult
         {
-            Success = true,
-            StatusCode = HttpStatusCode.NoContent,
-            ResponseText = "Metafields deleted"
+            Success = true, StatusCode = HttpStatusCode.NoContent, ResponseText = "Metafields deleted"
         };
     }
 }

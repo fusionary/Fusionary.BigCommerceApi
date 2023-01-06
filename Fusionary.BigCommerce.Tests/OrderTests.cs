@@ -17,17 +17,22 @@ public class OrderTests : BcTestBase
         var result = await bc
             .Orders()
             .Search()
-            .Limit(20)
-            .MinDateCreated(DateTime.Today.AddDays(-1))
+            .Limit(1)
+            .MinDateCreated(DateTime.Today.AddDays(-14))
             .Sort(BcOrderSort.DateCreated)
             .SendAsync(cancellationToken);
+
+        DumpObject(result);
 
         Assert.NotNull(result);
         Assert.True(result.Success);
 
-        foreach (var order in result.Data)
+        if (result.HasData)
         {
-            DumpObject(order);
+            foreach (var order in result.Data)
+            {
+                DumpObject(order);
+            }
         }
     }
 

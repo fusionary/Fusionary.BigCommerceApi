@@ -3,14 +3,13 @@ namespace Fusionary.BigCommerce.Types;
 public record BcTokenRequest
 {
     public BcTokenRequest()
-    {
-    }
+    { }
 
     public BcTokenRequest(TimeSpan expiresIn, string? corsOrigin, int? channelId)
     {
         AllowedCorsOrigins = string.IsNullOrWhiteSpace(corsOrigin)
             ? Array.Empty<string>()
-            : new []{ corsOrigin };
+            : new[] { corsOrigin };
         ChannelId = channelId.GetValueOrDefault(1);
         ExpiresAt = DateTimeOffset.UtcNow.Add(expiresIn).ToUnixTimeSeconds();
     }
@@ -29,6 +28,4 @@ public record BcTokenRequest
     /// Unix timestamp seconds (UTC time) defining when the token should expire.
     /// </summary>
     public long ExpiresAt { get; set; }
-
-
 }

@@ -45,7 +45,7 @@ public class ProductTests : BcTestBase
             .Products()
             .Get()
             .Include(BcProductInclude.Variants, BcProductInclude.Images, BcProductInclude.CustomFields)
-            .SendAsync(119, cancellationToken);
+            .SendAsync(114, cancellationToken);
 
         var product = response.Data;
 
@@ -54,11 +54,11 @@ public class ProductTests : BcTestBase
         Assert.NotNull(product);
 
         var id           = product.Id;
-        var name         = product.GetValue("name");
-        var price        = product.GetValue<decimal>("price");
-        var customFields = product.GetValue<BcCustomField[]>("custom_fields");
+        var name         = product.Name;
+        var price        = product.Price;
+        var customFields = product.CustomFields;
 
-        var customValues = string.Join(", ", customFields.Select(x => $"{x.Name}:{x.Value}"));
+        var customValues = customFields is not null ? string.Join(", ", customFields.Select(x => $"{x.Name}:{x.Value}")) : default;
 
         LogMessage($"{id} | {name} | {price} | {customValues}");
     }

@@ -1,5 +1,3 @@
-using Fusionary.BigCommerce.Operations;
-
 namespace Fusionary.BigCommerce;
 
 public static class BcExtensions
@@ -24,4 +22,3 @@ public static class BcExtensions
 
     public static BcStorefrontOperations Storefront(this Bc bc) => new(bc.Api);
 }
-

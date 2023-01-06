@@ -6,12 +6,12 @@ public record BcProductUpdate : BcRequestBuilder<BcProductUpdate>,
     public BcProductUpdate(IBigCommerceApi api) : base(api)
     { }
 
-    public Task<BcDataResult<BcObject>> SendAsync(
+    public Task<BcDataResult<BcProductFull>> SendAsync(
         int productId,
-        BcProductBase product,
+        BcProductFull product,
         CancellationToken cancellationToken
     ) =>
-        SendAsync<BcObject, BcProductBase>(productId, product, cancellationToken);
+        SendAsync<BcProductFull, BcProductFull>(productId, product, cancellationToken);
 
     public Task<BcDataResult<TResponse>> SendAsync<TResponse, TInput>(
         int productId,

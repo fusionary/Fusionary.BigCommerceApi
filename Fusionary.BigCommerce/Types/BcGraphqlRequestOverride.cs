@@ -1,6 +1,6 @@
 namespace Fusionary.BigCommerce.Types;
 
-public record BcGraphqlRequestOverride: BcRequestOverride
+public record BcGraphqlRequestOverride : BcRequestOverride
 {
     /// <summary>
     /// Override Storefront Url for this request

@@ -102,7 +102,7 @@ public record BcProductsSearch : BcRequestBuilder<BcProductsSearch>,
     /// <summary>
     /// Filter items by price.
     /// </summary>
-    public BcProductsSearch Price(decimal price) => Add("price", price);
+    public BcProductsSearch Price(BcFloat price) => Add("price", price);
 
     public Task<BcPagedResult<BcProductFull>> SendAsync(CancellationToken cancellationToken) =>
         SendAsync<BcProductFull>(cancellationToken);

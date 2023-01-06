@@ -7,6 +7,16 @@ public record BcOrderMetafieldsGet : BcRequestBuilder<BcOrderMetafieldsGet>,
     public BcOrderMetafieldsGet(IBigCommerceApi api) : base(api)
     { }
 
+    public Task<BcPagedResult<BcMetafield>> SendAsync(int orderId, CancellationToken cancellationToken) =>
+        SendAsync<BcMetafield>(orderId, cancellationToken);
+
+    public async Task<BcPagedResult<T>> SendAsync<T>(int orderId, CancellationToken cancellationToken) =>
+        await Api.GetPagedAsync<T>(
+            BcEndpoint.OrderMetafieldsV3(orderId),
+            Filter,
+            cancellationToken
+        );
+
     #region Filters
 
     /// <summary>
@@ -20,14 +30,4 @@ public record BcOrderMetafieldsGet : BcRequestBuilder<BcOrderMetafieldsGet>,
     public BcOrderMetafieldsGet Namespace(string value) => Add("namespace", value);
 
     #endregion
-
-    public Task<BcPagedResult<BcMetafield>> SendAsync(int orderId, CancellationToken cancellationToken) =>
-        SendAsync<BcMetafield>(orderId, cancellationToken);
-
-    public async Task<BcPagedResult<T>> SendAsync<T>(int orderId, CancellationToken cancellationToken) =>
-        await Api.GetPagedAsync<T>(
-            BcEndpoint.OrdersMetafieldsV3(orderId),
-            Filter,
-            cancellationToken
-        );
 }

@@ -10,7 +10,7 @@ public record BcOrderMetafieldsCreate : BcRequestBuilder<BcOrderMetafieldsCreate
         BcMetafieldPost metafield,
         CancellationToken cancellationToken
     ) => Api.PostDataAsync<BcMetafield>(
-        BcEndpoint.OrdersMetafieldsV3(orderId),
+        BcEndpoint.OrderMetafieldsV3(orderId),
         metafield,
         Filter,
         cancellationToken
@@ -27,7 +27,7 @@ public record BcOrderMetafieldsCreate : BcRequestBuilder<BcOrderMetafieldsCreate
         foreach (var metafield in metafields)
         {
             var result = await Api.PostDataAsync<BcMetafield>(
-                BcEndpoint.OrdersMetafieldsV3(orderId),
+                BcEndpoint.OrderMetafieldsV3(orderId),
                 metafield.ToMetafieldPost(permissionSet, metafieldNamespace),
                 cancellationToken
             );
@@ -42,7 +42,7 @@ public record BcOrderMetafieldsCreate : BcRequestBuilder<BcOrderMetafieldsCreate
         }
 
         return await Api.GetPagedAsync<BcMetafield>(
-            BcEndpoint.OrdersMetafieldsV3(orderId),
+            BcEndpoint.OrderMetafieldsV3(orderId),
             QueryString.Create("namespace", metafieldNamespace),
             cancellationToken
         );

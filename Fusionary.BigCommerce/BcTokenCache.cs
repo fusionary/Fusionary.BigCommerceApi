@@ -4,8 +4,8 @@ namespace Fusionary.BigCommerce;
 
 public class BcTokenCache : IBcTokenCache
 {
-    private readonly IMemoryCache _cache;
     private readonly Bc _bc;
+    private readonly IMemoryCache _cache;
 
     public BcTokenCache(IMemoryCache cache, Bc bc)
     {
@@ -16,7 +16,11 @@ public class BcTokenCache : IBcTokenCache
     public Task<string> GetOrCreateTokenAsync(BcTokenRequest tokenRequest, CancellationToken cancellationToken) =>
         GetOrCreateTokenAsync(tokenRequest, default, cancellationToken);
 
-    public async Task<string> GetOrCreateTokenAsync(BcTokenRequest tokenRequest, BcRequestOverride? requestOverride, CancellationToken cancellationToken)
+    public async Task<string> GetOrCreateTokenAsync(
+        BcTokenRequest tokenRequest,
+        BcRequestOverride? requestOverride,
+        CancellationToken cancellationToken
+    )
     {
         var keyParts = new List<string?>
         {
@@ -26,18 +30,21 @@ public class BcTokenCache : IBcTokenCache
             requestOverride?.AccessToken
         };
 
-        string cacheKey = $"bc-token-{string.Join("-", keyParts.RemoveAll(string.IsNullOrWhiteSpace))}";
+        var cacheKey = $"bc-token-{string.Join("-", keyParts.RemoveAll(string.IsNullOrWhiteSpace))}";
 
-        return await _cache.GetOrCreateAsync(cacheKey, async entry =>
-        {
-            entry.AbsoluteExpiration = DateTimeOffset.FromUnixTimeSeconds(tokenRequest.ExpiresAt);
+        return await _cache.GetOrCreateAsync(
+            cacheKey,
+            async entry =>
+            {
+                entry.AbsoluteExpiration = DateTimeOffset.FromUnixTimeSeconds(tokenRequest.ExpiresAt);
 
-            var result = await _bc.Storefront()
-                .GetToken()
-                .WithOverrides(requestOverride)
-                .SendAsync(tokenRequest, cancellationToken);
+                var result = await _bc.Storefront()
+                    .GetToken()
+                    .WithOverrides(requestOverride)
+                    .SendAsync(tokenRequest, cancellationToken);
 
-            return result.Data.Token;
-        });
+                return result.Data.Token;
+            }
+        );
     }
 }

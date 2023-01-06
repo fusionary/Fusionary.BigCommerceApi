@@ -1,5 +1,3 @@
-using Fusionary.BigCommerce.Utils;
-
 using Microsoft.Extensions.Options;
 
 namespace Fusionary.BigCommerce;

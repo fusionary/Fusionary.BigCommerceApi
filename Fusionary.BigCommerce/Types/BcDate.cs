@@ -58,5 +58,6 @@ public struct BcDate : IFormattable
 
     public override string ToString() => HasValue ? Value.ToString("yyyy-MM-dd") : "";
 
-    public string ToString(string? format, IFormatProvider? formatProvider) => HasValue ? Value.ToString(format, formatProvider) : "";
+    public string ToString(string? format, IFormatProvider? formatProvider) =>
+        HasValue ? Value.ToString(format, formatProvider) : "";
 }

@@ -27,12 +27,15 @@ public static class BcEndpoint
     public static string CategoryProductSortOrderV3(object categoryId) =>
         $"v3/catalog/categories/{categoryId}/products/sort-order";
 
-    public static string StorefrontTokensV3() => "v3/storefront/api-token";
+    public static string OrderMetafieldsV3(object orderId) => $"v3/orders/{orderId}/metafields";
 
-    public static string OrdersMetafieldsV3(object orderId) => $"v3/orders/{orderId}/metafields";
-
-    public static string OrdersMetafieldsV3(object orderId, object metafieldId) =>
+    public static string OrderMetafieldsV3(object orderId, object metafieldId) =>
         $"v3/orders/{orderId}/metafields/{metafieldId}";
+
+    public static string OrderProductsV2(object orderId) => $"v3/orders/{orderId}/products";
+
+    public static string OrderProductsV2(object orderId, object productId) =>
+        $"v3/orders/{orderId}/products/{productId}";
 
     public static string OrdersV2(object orderId) => $"v2/orders/{orderId}";
 
@@ -61,4 +64,6 @@ public static class BcEndpoint
     public static string ProductVariantsV3(object productId) => $"v3/catalog/products/{productId}/variants";
 
     public static string ProductVideosV3(object productId) => $"v3/catalog/products/{productId}/videos";
+
+    public static string StorefrontTokensV3() => "v3/storefront/api-token";
 }

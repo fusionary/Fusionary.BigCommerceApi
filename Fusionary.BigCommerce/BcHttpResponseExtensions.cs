@@ -1,8 +1,7 @@
+using System.Diagnostics.CodeAnalysis;
 using System.Net;
 using System.Net.Http.Json;
 using System.Text.Json;
-
-using Fusionary.BigCommerce.Utils;
 
 namespace Fusionary.BigCommerce;
 
@@ -10,6 +9,22 @@ public static class BcHttpResponseExtensions
 {
     public static bool DoesNotHaveContent(this HttpResponseMessage response) =>
         response.StatusCode == HttpStatusCode.NoContent || response.Content.Headers.ContentLength == 0;
+
+    public static BcRateLimitResponseHeaders GetRateLimitHeaders(this HttpResponseMessage response)
+    {
+        response.TryGetHeaderValue<int>("X-Rate-Limit-Requests-Left", out var requestsLeft);
+        response.TryGetHeaderValue<int>("X-Rate-Limit-Requests-Quota", out var requestsQuota);
+        response.TryGetHeaderValue<int>("X-Rate-Limit-Time-Reset-Ms", out var timeResetMs);
+        response.TryGetHeaderValue<int>("X-Rate-Limit-Time-Window-Ms", out var timeWindowMs);
+
+        return new BcRateLimitResponseHeaders
+        {
+            RequestsLeft = requestsLeft,
+            RequestsQuota = requestsQuota,
+            TimeResetMs = timeResetMs,
+            TimeWindowMs = timeWindowMs
+        };
+    }
 
     public static bool HasJsonContent(this HttpResponseMessage response) =>
         response.Content.Headers.ContentType?.MediaType?.Contains("json", StringComparison.OrdinalIgnoreCase) ?? false;
@@ -49,13 +64,15 @@ public static class BcHttpResponseExtensions
         CancellationToken cancellationToken
     )
     {
-        var error = await response.ReadErrorFromResponseAsync(cancellationToken);
+        var rateLimits = response.GetRateLimitHeaders();
+        var error      = await response.ReadErrorFromResponseAsync(cancellationToken);
 
         return new BcResult<TResult, TMeta>
         {
             Success = false,
             StatusCode = response.StatusCode,
             Error = error,
+            RateLimits = rateLimits,
             ResponseText = await response.Content.ReadAsStringAsync(cancellationToken)
         };
     }
@@ -82,10 +99,7 @@ public static class BcHttpResponseExtensions
                     Title = "Error reading response",
                     Status = response.StatusCode,
                     Type = "Exception",
-                    Errors = new Dictionary<string, string>
-                    {
-                        { "Exception", ex.ToString() }
-                    }
+                    Errors = new Dictionary<string, string> { { "Exception", ex.ToString() } }
                 },
                 ResponseText = await response.Content.ReadAsStringAsync(cancellationToken)
             };
@@ -97,26 +111,35 @@ public static class BcHttpResponseExtensions
         CancellationToken cancellationToken
     )
     {
-        if (response.DoesNotHaveContent()) {
-            return new BcResult<TData, TMeta> { Success = true, StatusCode = response.StatusCode };
+        var rateLimits = response.GetRateLimitHeaders();
+
+        if (response.DoesNotHaveContent())
+        {
+            return new BcResult<TData, TMeta>
+            {
+                Success = true, StatusCode = response.StatusCode, RateLimits = rateLimits
+            };
         }
 
         var json = await response.Content.ReadFromJsonAsync<JsonDocument>(BcJsonUtil.JsonOptions, cancellationToken);
 
-        if (json is null) {
+        if (json is null)
+        {
             throw new BcApiException("Unable to read JSON response");
         }
 
         var root = json.RootElement;
 
-        if (root.ValueKind == JsonValueKind.Array) {
+        if (root.ValueKind == JsonValueKind.Array)
+        {
             var arrayData = root.Deserialize<TData>(BcJsonUtil.JsonOptions);
 
-            return new BcResult<TData, TMeta> {
+            return new BcResult<TData, TMeta>
+            {
                 Success = true,
                 Data = arrayData!,
-                Meta = default!,
                 StatusCode = response.StatusCode,
+                RateLimits = rateLimits,
                 ResponseText = json.RootElement.GetRawText()
             };
         }
@@ -132,12 +155,35 @@ public static class BcHttpResponseExtensions
             ? root.Deserialize<TData>(BcJsonUtil.JsonOptions)
             : dataProperty.Deserialize<TData>(BcJsonUtil.JsonOptions);
 
-        return new BcResult<TData, TMeta> {
+        return new BcResult<TData, TMeta>
+        {
             Success = true,
             Data = data!,
             Meta = meta!,
             StatusCode = response.StatusCode,
+            RateLimits = rateLimits,
             ResponseText = json.RootElement.GetRawText()
         };
+    }
+
+    public static bool TryGetHeaderValue<T>(
+        this HttpResponseMessage response,
+        string headerName,
+        [NotNullWhen(true)] out T? headerValue
+    )
+    {
+        headerValue = default;
+
+        if (response.Headers.TryGetValues(headerName, out var values))
+        {
+            var value = values.FirstOrDefault();
+
+            if (value is not null)
+            {
+                headerValue = value.As<T>();
+            }
+        }
+
+        return headerValue is not null;
     }
 }

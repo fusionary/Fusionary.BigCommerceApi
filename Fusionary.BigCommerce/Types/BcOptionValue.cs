@@ -1,6 +1,6 @@
 namespace Fusionary.BigCommerce.Types;
 
-public class BcOptionValue
+public record BcOptionValue
 {
     [JsonPropertyName("id")]
     public int Id { get; set; }

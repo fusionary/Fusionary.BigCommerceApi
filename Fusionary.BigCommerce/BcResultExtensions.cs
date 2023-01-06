@@ -10,6 +10,7 @@ public static class BcResultExtensions
             Error = result.Error,
             StatusCode = result.StatusCode,
             Success = result.Success,
+            RateLimits = result.RateLimits,
             ResponseText = result.ResponseText
         };
 
@@ -21,6 +22,7 @@ public static class BcResultExtensions
             Error = result.Error,
             StatusCode = result.StatusCode,
             Success = result.Success,
+            RateLimits = result.RateLimits,
             ResponseText = result.ResponseText
         };
 }
