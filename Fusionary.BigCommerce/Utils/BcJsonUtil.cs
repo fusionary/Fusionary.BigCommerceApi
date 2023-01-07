@@ -5,7 +5,7 @@ namespace Fusionary.BigCommerce.Utils;
 
 public static class BcJsonUtil
 {
-    public static readonly JsonSnakeCaseNamingPolicy SnakeCaseNamingPolicy = new();
+    public static readonly BcSnakeCaseNamingPolicy SnakeCaseNamingPolicy = new();
 
     public static readonly JsonSerializerOptions JsonOptions = new()
     {

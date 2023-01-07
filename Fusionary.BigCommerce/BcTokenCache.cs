@@ -4,10 +4,10 @@ namespace Fusionary.BigCommerce;
 
 public class BcTokenCache : IBcTokenCache
 {
-    private readonly Bc _bc;
+    private readonly IBcApi _bc;
     private readonly IMemoryCache _cache;
 
-    public BcTokenCache(IMemoryCache cache, Bc bc)
+    public BcTokenCache(IMemoryCache cache, IBcApi bc)
     {
         _cache = cache;
         _bc = bc;
@@ -36,9 +36,10 @@ public class BcTokenCache : IBcTokenCache
             cacheKey,
             async entry =>
             {
-                entry.AbsoluteExpiration = DateTimeOffset.FromUnixTimeSeconds(tokenRequest.ExpiresAt);
+                entry.AbsoluteExpiration = DateTimeOffset.FromUnixTimeSeconds(tokenRequest.ExpiresAt).Subtract(TimeSpan.FromSeconds(30));
 
-                var result = await _bc.Storefront()
+                var result = await _bc
+                    .Storefront()
                     .GetToken()
                     .WithOverrides(requestOverride)
                     .SendAsync(tokenRequest, cancellationToken);

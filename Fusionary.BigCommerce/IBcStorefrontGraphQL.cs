@@ -6,12 +6,13 @@ public interface IBcStorefrontGraphQL
 {
     Task<GraphQLResponse<TResponse>> SendQueryAsync<TResponse>(
         GraphQLRequest request,
-        CancellationToken cancellationToken
-    );
+        CancellationToken cancellationToken = default
+    ) =>
+        SendQueryAsync<TResponse>(request, default, cancellationToken);
 
     Task<GraphQLResponse<TResponse>> SendQueryAsync<TResponse>(
         GraphQLRequest request,
         BcGraphqlRequestOverride? requestOverride,
-        CancellationToken cancellationToken
+        CancellationToken cancellationToken = default
     );
 }

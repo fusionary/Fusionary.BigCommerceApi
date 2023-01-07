@@ -10,6 +10,8 @@ Add env variables to your project:
 dotnet user-secrets set "BigCommerce:StoreHash" "12345"
 dotnet user-secrets set "BigCommerce:AccessToken" "1845633E-S3CR3TS-8364B7FBE3A2"
 dotnet user-secrets set "BigCommerce:StorefrontUrl" "https://mystore.bigcommerce.com"
+dotnet user-secrets set "BigCommerce:StorefrontChannelId" "1"
+dotnet user-secrets set "BigCommerce:StorefrontAccessToken" "1845633E-S3CR3TS-8364B7FBE3A2"
 ```
 
 or in appSettings.json:
@@ -19,10 +21,17 @@ or in appSettings.json:
   "BigCommerce": {
     "Host": "https://api.bigcommerce.com",
     "StoreHash": "12345",
-    "AccessToken": "1845633E-S3CR3TS-8364B7FBE3A2"
+    "AccessToken": "1845633E-S3CR3TS-8364B7FBE3A2",
+    "StorefrontUrl": "https://mystore.bigcommerce.com",
+    "StorefrontChannelId": "1",
+    "StorefrontAccessToken": "1845633E-S3CR3TS-8364B7FBE3A2"
   }
 }
 ```
+
+**Storefront** config values are only needed for Storefront GraphQL APIs.
+
+-----
 
 Register BigCommerceApi in your Startup.cs:
 
@@ -33,18 +42,17 @@ services.AddBigCommerce(configuration);
 ## Usage
 
 ```csharp
-
 public class BigCommerceProductDemo {
 
-    private readonly Bc _bc;
-    
-    public BigCommerceProductDemo(Bc bc) {
-        _bc = bc;
+    private readonly IBcApi _bcApi;
+
+    public BigCommerceProductDemo(IBcApi bcApi) {
+        _bcApi = bcApi;
     }
 
     public async Task DisplayFiveProductsAsync(CancellationToken cancellationToken)
     {
-        var response = await _bc
+        var response = await _bcApi
             .Products()
             .Search()
             .Availability(BcAvailability.Available)
@@ -53,8 +61,28 @@ public class BigCommerceProductDemo {
             .Sort(BcProductSort.Name)
             .SendAsync(cancellationToken);
 
+        if (response.HasError)
+        {
+            var error = response.Error;
 
-        foreach (var product in response.Data)
+            Console.WriteLine($"Error: {error.Status} | {error.Title} | {error.Type}");
+
+            if (error.HasErrorDetails)
+            {
+                foreach (var (key, value) in error.ErrorDetails)
+                {
+                    Console.WriteLine($"{key}: {value}");
+                }
+            }
+            
+            return;
+        }
+
+        var (products, pagination) = response;
+
+        Console.WriteLine($"Page {pagination.CurrentPage} of {pagination.TotalPages} ({pagination.Total})");
+
+        foreach (var product in products)
         {
             var id    = product.Id;
             var name  = product.Name;
@@ -70,6 +98,8 @@ public class BigCommerceProductDemo {
 var config = new BigCommerceConfig {
    StoreHash = "12345",
    AccessToken = "1845633E-S3CR3TS-8364B7FBE3A2",
+   // Only needed for Storefront GraphQL API
+   ChannelId = 1,
    StorefrontUrl = "https://mystore.bigcommerce.com"
 });
 
@@ -83,7 +113,7 @@ var response = await apiClient
         cancellationToken);
 
 // Fluent API
-var bc = new Bc(apiClient);
+var bc = BcApi.Create(apiClient);
 
 var response = await bc
     .Products()
@@ -93,7 +123,7 @@ var response = await bc
     
     
 // Storefront GraphQL Client
-var graphQL = service.GetRequiredService<IBcStorefrontGraphQL>();
+var graphQL = services.GetRequiredService<IBcStorefrontGraphQL>();
 
         var request = new GraphQLRequest(@"
 query paginateProducts {

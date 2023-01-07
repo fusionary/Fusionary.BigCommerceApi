@@ -8,7 +8,7 @@ public class ProductTests : BcTestBase
     [Fact]
     public async Task Can_Get_All_Products_Async()
     {
-        var bc = Services.GetRequiredService<Bc>();
+        var bc = Services.GetRequiredService<IBcApi>();
 
         var cancellationToken = CancellationToken.None;
 
@@ -37,7 +37,7 @@ public class ProductTests : BcTestBase
     [Fact]
     public async Task Can_Get_Product_By_Id_Async()
     {
-        var bc = Services.GetRequiredService<Bc>();
+        var bc = Services.GetRequiredService<IBcApi>();
 
         var cancellationToken = CancellationToken.None;
 

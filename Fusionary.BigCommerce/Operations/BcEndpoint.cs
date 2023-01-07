@@ -48,10 +48,18 @@ public static class BcEndpoint
 
     public static string ProductCustomFieldsV3(object productId) => $"v3/catalog/products/{productId}/custom-fields";
 
+    public static string ProductCustomFieldsV3(object productId, object customFieldId) =>
+        $"v3/catalog/products/{productId}/custom-fields/{customFieldId}";
+
     public static string ProductImagesV3(object productId) => $"v3/catalog/products/{productId}/images";
 
     public static string ProductImagesV3(object productId, object imageId) =>
         $"v3/catalog/products/{productId}/images/{imageId}";
+
+    public static string ProductMetafieldsV3(object productId) => $"v3/catalog/products/{productId}/metafields";
+
+    public static string ProductMetafieldsV3(object productId, object customFieldId) =>
+        $"v3/catalog/products/{productId}/metafields/{customFieldId}";
 
     public static string ProductOptionsV3(object productId) => $"v3/catalog/products/{productId}/options";
 

@@ -3,9 +3,13 @@ namespace Fusionary.BigCommerce.Types;
 public record BcOrderProduct
 {
     public int Id { get; set; }
+
     public int OrderId { get; set; }
+
     public int ProductId { get; set; }
+
     public int OrderAddressId { get; set; }
+
     public string Name { get; set; } = null!;
 
     public string? NameCustomer { get; set; }

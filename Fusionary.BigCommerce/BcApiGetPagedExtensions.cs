@@ -2,18 +2,12 @@ namespace Fusionary.BigCommerce;
 
 public static class BcApiGetPagedExtensions
 {
-    public static Task<BcPagedResult<T>> GetPagedAsync<T>(
-        this IBigCommerceApi api,
+    public static async Task<BcResultPaged<T>> GetPagedAsync<T>(
+        this IBcApi api,
         string path,
-        CancellationToken cancellationToken
-    ) =>
-        api.GetPagedAsync<T>(path, QueryString.Empty, cancellationToken);
-
-    public static async Task<BcPagedResult<T>> GetPagedAsync<T>(
-        this IBigCommerceApi api,
-        string path,
-        QueryString queryString,
-        CancellationToken cancellationToken
+        QueryString queryString = default,
+        BcRequestOptions? options = default,
+        CancellationToken cancellationToken = default
     )
     {
         var result = await api.SendRequestAsync<List<T>, BcMetadataPagination>(
@@ -21,6 +15,7 @@ public static class BcApiGetPagedExtensions
             path,
             null,
             queryString,
+            options,
             cancellationToken
         );
 

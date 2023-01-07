@@ -1,5 +1,6 @@
 namespace Fusionary.BigCommerce.Types;
 
+[DebuggerDisplay("Page {CurrentPage} of {TotalPages} ({Total})")]
 public record BcPagination
 {
     private BcPaginationLinks? _links;
@@ -21,4 +22,6 @@ public record BcPagination
     }
 
     public bool TooMany { get; set; }
+
+    public override string ToString() => $"Page {CurrentPage} of {TotalPages} ({Total})";
 }

@@ -1,5 +1,6 @@
 namespace Fusionary.BigCommerce.Types;
 
+[DebuggerDisplay("{Key}:{Value}")]
 public record BcMetafieldItem
 {
     /// <summary>

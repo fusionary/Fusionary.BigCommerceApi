@@ -1,5 +1,6 @@
 namespace Fusionary.BigCommerce.Types;
 
+[DebuggerDisplay("Category {Id}:{Name}")]
 public record BcCategory
 {
     /// <summary>

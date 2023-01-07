@@ -18,5 +18,7 @@ public class BigCommerceConfig
 
     public string StorefrontUrl { get; set; } = null!;
 
-    public int ChannelId { get; set; } = 1;
+    public int StorefrontChannelId { get; set; } = 1;
+
+    public string? StorefrontAccessToken { get; set; }
 }

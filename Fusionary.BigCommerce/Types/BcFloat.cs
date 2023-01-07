@@ -5,6 +5,7 @@ namespace Fusionary.BigCommerce.Types;
 /// <summary>
 /// Represents a BigCommerce Float, Float-As-String, Integer value
 /// </summary>
+[DebuggerDisplay("{Value}")]
 [JsonConverter(typeof(BcFloatConverter))]
 public struct BcFloat : IFormattable, IComparable<BcFloat>
 {

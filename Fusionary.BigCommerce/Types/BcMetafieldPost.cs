@@ -14,7 +14,7 @@ public record BcMetafieldPost : BcMetafieldItem
     /// Namespace for the metafield, for organizational purposes.
     /// </summary>
     /// <remarks>
-    /// REQUIRED &lt;= 1 characters &gt;= 64 characters
+    /// REQUIRED - Maxlength 64
     /// </remarks>
     public string Namespace { get; set; } = null!;
 }

@@ -1,5 +1,9 @@
 namespace Fusionary.BigCommerce.Types;
 
+/// <summary>
+/// DateTime values
+/// </summary>
+[DebuggerDisplay("{Value)}")]
 [JsonConverter(typeof(BcDateTimeConverter))]
 public struct BcDateTime : IFormattable
 {

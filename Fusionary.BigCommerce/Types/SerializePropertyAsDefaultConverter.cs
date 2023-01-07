@@ -1,6 +1,6 @@
 using System.Text.Json;
 
-namespace Fusionary.BigCommerce.Utils;
+namespace Fusionary.BigCommerce.Types;
 
 /// <summary>
 /// Apply this converter to a property to force the property to be serialized with default options.

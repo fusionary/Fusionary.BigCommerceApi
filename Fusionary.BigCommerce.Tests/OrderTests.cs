@@ -10,7 +10,7 @@ public class OrderTests : BcTestBase
     [Fact]
     public async Task Can_Get_All_Orders_Async()
     {
-        var bc = Services.GetRequiredService<Bc>();
+        var bc = Services.GetRequiredService<IBcApi>();
 
         var cancellationToken = CancellationToken.None;
 
@@ -39,7 +39,7 @@ public class OrderTests : BcTestBase
     [Fact]
     public async Task Can_Create_Order_Metafields_Async()
     {
-        var bc = Services.GetRequiredService<Bc>();
+        var bc = Services.GetRequiredService<IBcApi>();
 
         var cancellationToken = CancellationToken.None;
 
@@ -69,13 +69,13 @@ public class OrderTests : BcTestBase
     [Fact]
     public async Task Can_Get_Order_Metafields_Async()
     {
-        var bc = Services.GetRequiredService<Bc>();
+        var bc = Services.GetRequiredService<IBcApi>();
 
         var cancellationToken = CancellationToken.None;
 
         var result = await bc
             .Orders()
-            .GetMetafields()
+            .GetAllMetafields()
             .Limit(10)
             .SendAsync(100, cancellationToken);
 

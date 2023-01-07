@@ -19,15 +19,10 @@ public class BcStorefrontGraphQL : IBcStorefrontGraphQL
         _tokenCache = tokenCache;
     }
 
-    public Task<GraphQLResponse<TResponse>> SendQueryAsync<TResponse>(
-        GraphQLRequest request,
-        CancellationToken cancellationToken
-    ) => SendQueryAsync<TResponse>(request, default, cancellationToken);
-
     public async Task<GraphQLResponse<TResponse>> SendQueryAsync<TResponse>(
         GraphQLRequest request,
-        BcGraphqlRequestOverride? requestOverride,
-        CancellationToken cancellationToken
+        BcGraphqlRequestOverride? requestOverride = default,
+        CancellationToken cancellationToken = default
     )
     {
         var config = _options.Value;
@@ -56,7 +51,7 @@ public class BcStorefrontGraphQL : IBcStorefrontGraphQL
     }
 
     private static int? GetChannelId(BigCommerceConfig config, BcGraphqlRequestOverride? requestOverride) =>
-        requestOverride?.ChannelId ?? config.ChannelId;
+        requestOverride?.ChannelId ?? config.StorefrontChannelId;
 
     private static string GetGraphQlEndpoint(string storefrontUrl) => $"{storefrontUrl}/graphql";
 
@@ -66,11 +61,13 @@ public class BcStorefrontGraphQL : IBcStorefrontGraphQL
         CancellationToken cancellationToken
     )
     {
-        var storefrontUrl = GetStorefrontUrl(config, requestOverride);
+        var options = GetRequestOptions(config, requestOverride);
 
-        var channelId = GetChannelId(config, requestOverride);
+        var storefrontUrl = GetStorefrontUrl(config, options);
 
-        var token = await GetAuthTokenAsync(storefrontUrl, channelId, requestOverride, cancellationToken);
+        var channelId = GetChannelId(config, options);
+
+        var token = await GetAuthTokenAsync(storefrontUrl, channelId, options, cancellationToken);
 
         var graphQLEndpoint = GetGraphQlEndpoint(storefrontUrl);
 
@@ -79,6 +76,25 @@ public class BcStorefrontGraphQL : IBcStorefrontGraphQL
         client.HttpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
         return client;
+    }
+
+    private static BcGraphqlRequestOverride? GetRequestOptions(
+        BigCommerceConfig config,
+        BcGraphqlRequestOverride? requestOverride
+    )
+    {
+        if (requestOverride is not null)
+        {
+            return string.IsNullOrWhiteSpace(requestOverride.AccessToken)
+                ? requestOverride with { AccessToken = config.StorefrontAccessToken }
+                : requestOverride;
+        }
+
+        return new BcGraphqlRequestOverride
+        {
+            AccessToken = config.StorefrontAccessToken
+        };
+
     }
 
     private static string GetStorefrontUrl(BigCommerceConfig config, BcGraphqlRequestOverride? requestOverride)

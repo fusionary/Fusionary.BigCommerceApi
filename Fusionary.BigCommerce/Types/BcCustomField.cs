@@ -1,5 +1,6 @@
 namespace Fusionary.BigCommerce.Types;
 
+[DebuggerDisplay("{Name}:{Value}")]
 public record BcCustomField
 {
     /// <summary>

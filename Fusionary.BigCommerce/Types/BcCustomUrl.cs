@@ -1,5 +1,6 @@
 namespace Fusionary.BigCommerce.Types;
 
+[DebuggerDisplay("{Url}")]
 public record BcCustomUrl
 {
     [JsonPropertyName("url")]

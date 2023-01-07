@@ -8,7 +8,7 @@ public class ImageTests : BcTestBase
     [Fact]
     public async Task Can_Get_Product_By_Id_Async()
     {
-        var bc = Services.GetRequiredService<Bc>();
+        var bc = Services.GetRequiredService<IBcApi>();
 
         var cancellationToken = CancellationToken.None;
 

@@ -3,23 +3,18 @@ namespace Fusionary.BigCommerce;
 public static class BcApiPostFormExtensions
 {
     public static Task<BcResult<TResult, TMeta>> PostFormAsync<TResult, TMeta>(
-        this IBigCommerceApi api,
+        this IBcApi api,
         string path,
         MultipartFormDataContent content,
-        CancellationToken cancellationToken
-    ) => api.PostFormAsync<TResult, TMeta>(path, content, QueryString.Empty, cancellationToken);
-
-    public static Task<BcResult<TResult, TMeta>> PostFormAsync<TResult, TMeta>(
-        this IBigCommerceApi api,
-        string path,
-        MultipartFormDataContent content,
-        QueryString queryString,
-        CancellationToken cancellationToken
+        QueryString queryString = default,
+        BcRequestOptions? options = default,
+        CancellationToken cancellationToken = default
     ) => api.SendMultipartFormRequestAsync<TResult, TMeta>(
         HttpMethod.Post,
         path,
         content,
         queryString,
+        options,
         cancellationToken
     );
 }

@@ -43,5 +43,7 @@ public record BcFilter
 
     public static BcFilter Create(QueryString queryString = default) => new(queryString);
 
-    public static implicit operator QueryString(BcFilter filter) => filter._queryString;
+    public static implicit operator QueryString(BcFilter filter) => filter.ToQueryString();
+
+    public QueryString ToQueryString() => _queryString;
 }

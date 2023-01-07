@@ -2,19 +2,13 @@ namespace Fusionary.BigCommerce;
 
 public static class BcApiPostDataExtensions
 {
-    public static Task<BcDataResult<T>> PostDataAsync<T>(
-        this IBigCommerceApi api,
+    public static async Task<BcResultData<T>> PostDataAsync<T>(
+        this IBcApi api,
         string path,
         object? payload,
-        CancellationToken cancellationToken
-    ) => api.PostDataAsync<T>(path, payload, QueryString.Empty, cancellationToken);
-
-    public static async Task<BcDataResult<T>> PostDataAsync<T>(
-        this IBigCommerceApi api,
-        string path,
-        object? payload,
-        QueryString queryString,
-        CancellationToken cancellationToken
+        QueryString queryString = default,
+        BcRequestOptions? options = default,
+        CancellationToken cancellationToken = default
     )
     {
         var result = await api.SendRequestAsync<T, BcMetadataEmpty>(
@@ -22,6 +16,7 @@ public static class BcApiPostDataExtensions
             path,
             payload,
             queryString,
+            options,
             cancellationToken
         );
 
