@@ -1,8 +1,8 @@
 namespace Fusionary.BigCommerce.Operations;
 
-public class BcProductCustomFieldCreate : BcRequestBuilder
+public class BcProductCustomsFieldCreate : BcRequestBuilder
 {
-    public BcProductCustomFieldCreate(IBcApi api) : base(api)
+    public BcProductCustomsFieldCreate(IBcApi api) : base(api)
     { }
 
     public Task<BcResultData<BcCustomField>> SendAsync(
@@ -10,11 +10,11 @@ public class BcProductCustomFieldCreate : BcRequestBuilder
         BcCustomField customField,
         CancellationToken cancellationToken
     ) =>
-        SendAsync<BcCustomField, BcCustomField>(productId, customField, cancellationToken);
+        SendAsync<BcCustomField>(productId, customField, cancellationToken);
 
-    public Task<BcResultData<TResponse>> SendAsync<TResponse, TInput>(
+    public Task<BcResultData<TResponse>> SendAsync<TResponse>(
         object productId,
-        TInput customField,
+        object customField,
         CancellationToken cancellationToken
     ) =>
         Api.PostDataAsync<TResponse>(

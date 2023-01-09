@@ -16,7 +16,6 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Folder Include="Operations\Products\Modifiers" />
         <Folder Include="Operations\Products\Reviews" />
         <Folder Include="Operations\Products\Variants" />
     </ItemGroup>

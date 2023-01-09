@@ -8,6 +8,31 @@ public class OrderTests : BcTestBase
     { }
 
     [Fact]
+    public async Task Can_Create_Order_Metafields_Async()
+    {
+        var bc = Services.GetRequiredService<IBcApi>();
+
+        var cancellationToken = CancellationToken.None;
+
+        var result = await bc
+            .Orders()
+            .CreateMetafields()
+            .SendAsync(
+                100,
+                BcPermissionSet.Read,
+                "Testing",
+                new[]
+                {
+                    new BcMetafieldItem { Key = "Test", Value = "Test" },
+                    new BcMetafieldItem { Key = "Test2", Value = "Test2" }
+                },
+                cancellationToken
+            );
+
+        DumpObject(result);
+    }
+
+    [Fact]
     public async Task Can_Get_All_Orders_Async()
     {
         var bc = Services.GetRequiredService<IBcApi>();
@@ -34,36 +59,6 @@ public class OrderTests : BcTestBase
                 DumpObject(order);
             }
         }
-    }
-
-    [Fact]
-    public async Task Can_Create_Order_Metafields_Async()
-    {
-        var bc = Services.GetRequiredService<IBcApi>();
-
-        var cancellationToken = CancellationToken.None;
-
-        var result = await bc
-            .Orders()
-            .CreateMetafields()
-            .SendAsync(100,
-                BcPermissionSet.Read,
-                "Testing",
-                new []
-            {
-                new BcMetafieldItem
-                {
-                    Key = "Test",
-                    Value = "Test",
-                },
-                new BcMetafieldItem
-                {
-                    Key = "Test2",
-                    Value = "Test2"
-                }
-            }, cancellationToken);
-
-        DumpObject(result);
     }
 
     [Fact]

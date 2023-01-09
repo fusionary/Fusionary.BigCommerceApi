@@ -10,6 +10,7 @@ public record BcErrorDetails
 
     public string? Instance { get; set; }
 
+    [JsonIgnore]
     public bool HasErrorDetails => ErrorDetails?.Count > 0;
 
     public Dictionary<string, string> ErrorDetails { get; set; } = null!;

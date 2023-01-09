@@ -10,7 +10,7 @@ public static class BcFieldFilterExtensions
     /// See https://developer.bigcommerce.com/docs/ZG9jOjIyMDYxMQ-filtering#include-and-exclude-fields
     /// </remarks>
     public static T ExcludeFields<T>(this T builder, params string[] values)
-        where T : IBcRequestBuilder, IBcExcludeFieldsFilter =>
+        where T : IBcExcludeFieldsFilter =>
         builder.Add("exclude_fields", values);
 
     /// <summary>
@@ -20,6 +20,6 @@ public static class BcFieldFilterExtensions
     /// See https://developer.bigcommerce.com/docs/ZG9jOjIyMDYxMQ-filtering#include-and-exclude-fields
     /// </remarks>
     public static T IncludeFields<T>(this T builder, params string[] values)
-        where T : IBcRequestBuilder, IBcIncludeFieldsFilter =>
+        where T : IBcIncludeFieldsFilter =>
         builder.Add("include_fields", values);
 }

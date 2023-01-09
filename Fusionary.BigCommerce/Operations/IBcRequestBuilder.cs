@@ -1,6 +1,6 @@
 namespace Fusionary.BigCommerce.Operations;
 
-public interface IBcRequestBuilder
+public interface IBcRequestBuilder : IFluentInterface
 {
     IBcApi Api { get; }
 

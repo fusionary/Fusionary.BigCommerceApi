@@ -36,7 +36,8 @@ public class BcTokenCache : IBcTokenCache
             cacheKey,
             async entry =>
             {
-                entry.AbsoluteExpiration = DateTimeOffset.FromUnixTimeSeconds(tokenRequest.ExpiresAt).Subtract(TimeSpan.FromSeconds(30));
+                entry.AbsoluteExpiration = DateTimeOffset.FromUnixTimeSeconds(tokenRequest.ExpiresAt)
+                    .Subtract(TimeSpan.FromSeconds(30));
 
                 var result = await _bc
                     .Storefront()

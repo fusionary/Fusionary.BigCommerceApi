@@ -1,4 +1,4 @@
 namespace Fusionary.BigCommerce.Operations;
 
-public interface IBcPageTitleFilter
+public interface IBcPageTitleFilter : IBcRequestBuilder
 { }

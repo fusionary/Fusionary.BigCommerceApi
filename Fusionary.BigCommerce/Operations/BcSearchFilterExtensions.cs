@@ -6,28 +6,28 @@ public static class BcSearchFilterExtensions
     /// Filter items by date_last_imported.
     /// </summary>
     public static T DateLastImported<T>(this T builder, string date, BcRange range = BcRange.None)
-        where T : IBcRequestBuilder, IBcDateLastImportedFilter =>
+        where T : IBcDateLastImportedFilter =>
         builder.Add(range.Apply("date_last_imported"), date);
 
     /// <summary>
     /// Filter items by date_last_imported.
     /// </summary>
     public static T DateLastImported<T>(this T builder, BcDateTime date, BcRange range = BcRange.None)
-        where T : IBcRequestBuilder, IBcDateLastImportedFilter =>
+        where T : IBcDateLastImportedFilter =>
         builder.Add(range.Apply("date_last_imported"), date);
 
     /// <summary>
     /// Filter items by date_modified.
     /// </summary>
     public static T DateModified<T>(this T builder, string date, BcRange range = BcRange.None)
-        where T : IBcRequestBuilder, IBcDateModifiedFilter =>
+        where T : IBcDateModifiedFilter =>
         builder.Add(range.Apply("date_modified"), date);
 
     /// <summary>
     /// Filter items by date_modified.
     /// </summary>
     public static T DateModified<T>(this T builder, BcDateTime date, BcRange range = BcRange.None)
-        where T : IBcRequestBuilder, IBcDateModifiedFilter =>
+        where T : IBcDateModifiedFilter =>
         builder.Add(range.Apply("date_modified"), date);
 
     /// <summary>
@@ -43,14 +43,15 @@ public static class BcSearchFilterExtensions
     /// <remarks>
     /// See https://developer.bigcommerce.com/docs/ZG9jOjIyMDYxMQ-filtering#pagination-and-limit
     /// </remarks>
-    public static T Limit<T>(this T builder, int limit) where T : IBcRequestBuilder, IBcPageableFilter =>
+    public static T Limit<T>(this T builder, int limit)
+        where T : IBcPageableFilter =>
         builder.Add("limit", limit);
 
     /// <summary>
     /// Filter items by name
     /// </summary>
     public static T Name<T>(this T builder, string name, BcModifier modifier = BcModifier.None)
-        where T : IBcRequestBuilder, IBcNameFilter =>
+        where T : IBcNameFilter =>
         builder.Add(modifier.Apply("name"), name);
 
     /// <summary>
@@ -59,13 +60,21 @@ public static class BcSearchFilterExtensions
     /// <remarks>
     /// See https://developer.bigcommerce.com/docs/ZG9jOjIyMDYxMQ-filtering#pagination-and-limit
     /// </remarks>
-    public static T Page<T>(this T builder, int page) where T : IBcRequestBuilder, IBcPageableFilter =>
+    public static T Page<T>(this T builder, int page)
+        where T : IBcPageableFilter =>
         builder.Add("page", page);
 
     /// <summary>
     /// Filter items by page_title
     /// </summary>
     public static T PageTitle<T>(this T builder, string pageTitle, BcModifier modifier = BcModifier.None)
-        where T : IBcRequestBuilder, IBcPageTitleFilter =>
+        where T : IBcPageTitleFilter =>
         builder.Add(modifier.Apply("page_title"), pageTitle);
+
+    /// <summary>
+    /// Filter items by sku
+    /// </summary>
+    public static T Sku<T>(this T builder, string sku, BcModifier modifier = BcModifier.None)
+        where T : IBcSkuFilter =>
+        builder.Add(modifier.Apply("sku"), sku);
 }

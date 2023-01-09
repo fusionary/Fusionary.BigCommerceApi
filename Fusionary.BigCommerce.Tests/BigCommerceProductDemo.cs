@@ -1,10 +1,11 @@
 namespace Fusionary.BigCommerce.Tests;
 
-public class BigCommerceProductDemo {
-
+public class BigCommerceProductDemo
+{
     private readonly IBcApi _bcApi;
 
-    public BigCommerceProductDemo(IBcApi bcApi) {
+    public BigCommerceProductDemo(IBcApi bcApi)
+    {
         _bcApi = bcApi;
     }
 

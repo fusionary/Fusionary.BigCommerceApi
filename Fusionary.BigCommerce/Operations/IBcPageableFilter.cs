@@ -1,4 +1,4 @@
 namespace Fusionary.BigCommerce.Operations;
 
-public interface IBcPageableFilter
+public interface IBcPageableFilter : IBcRequestBuilder
 { }

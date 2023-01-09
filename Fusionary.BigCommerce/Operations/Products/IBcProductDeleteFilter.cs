@@ -1,4 +1,4 @@
 namespace Fusionary.BigCommerce.Operations;
 
-public interface IBcProductDeleteFilter
+public interface IBcProductDeleteFilter : IBcRequestBuilder
 { }

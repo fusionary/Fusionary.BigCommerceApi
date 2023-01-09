@@ -1,0 +1,23 @@
+namespace Fusionary.BigCommerce.Utils;
+
+public static class BcStreamExtensions
+{
+    public static async Task<byte[]> ReadAllBytesAsync(this Stream stream, CancellationToken cancellationToken)
+    {
+        if (stream is MemoryStream contentStream)
+        {
+            return contentStream.GetBuffer();
+        }
+
+        var memoryStream = new MemoryStream();
+
+        if (stream.CanSeek)
+        {
+            stream.Seek(0, SeekOrigin.Begin);
+        }
+
+        await stream.CopyToAsync(memoryStream, cancellationToken);
+
+        return memoryStream.GetBuffer();
+    }
+}

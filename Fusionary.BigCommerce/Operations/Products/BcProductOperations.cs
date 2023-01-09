@@ -13,6 +13,26 @@ public class BcProductOperations
 
     public BcProductImagesGet GetImages() => new(_api);
 
+    public BcProductImagesCreate CreateImage() => new(_api);
+
+    public BcProductImageUpdate UpdateImage() => new(_api);
+
+    public BcProductImageDelete DeleteImage() => new(_api);
+
+    #endregion
+
+    #region Modifiers
+
+    public BcProductModifiersGet GetModifier() => new(_api);
+
+    public BcProductModifiersGetList GetModifierList() => new(_api);
+
+    public BcProductModifiersCreate CreateModifier() => new(_api);
+
+    public BcProductModifiersUpdate UpdateModifier() => new(_api);
+
+    public BcProductModifiersDelete DeleteModifier() => new(_api);
+
     #endregion
 
     #region Products
@@ -21,27 +41,33 @@ public class BcProductOperations
 
     public BcProductGet Get() => new(_api);
 
+    /// <summary>
+    /// Search/Get all products
+    /// </summary>
+    /// <remarks>
+    /// See https://developer.bigcommerce.com/api-reference/4101d472a814d-get-all-products
+    /// </remarks>
     public BcProductsSearch Search() => new(_api);
 
-    public BcProductUpdate Update() => new(_api);
+    public BcProductsUpdate Update() => new(_api);
 
-    public BcProductDelete Delete() => new(_api);
+    public BcProductsDelete Delete() => new(_api);
 
-    public BcProductDeleteBulk DeleteBulk() => new(_api);
+    public BcProductsDeleteBulk DeleteBulk() => new(_api);
 
     #endregion
 
     #region Custom Fields
 
-    public BcProductCustomFieldCreate CreateCustomField() => new(_api);
+    public BcProductCustomsFieldCreate CreateCustomField() => new(_api);
 
-    public BcProductCustomFieldGet GetCustomField() => new(_api);
+    public BcProductCustomFieldsGet GetCustomField() => new(_api);
 
-    public BcProductCustomFieldGetList GetCustomFieldList() => new(_api);
+    public BcProductCustomFieldsGetList GetCustomFieldList() => new(_api);
 
-    public BcProductCustomFieldUpdate UpdateCustomField() => new(_api);
+    public BcProductCustomFieldsUpdate UpdateCustomField() => new(_api);
 
-    public BcProductCustomFieldDelete DeleteCustomField() => new(_api);
+    public BcProductCustomFieldsDelete DeleteCustomField() => new(_api);
 
     #endregion
 
@@ -55,7 +81,7 @@ public class BcProductOperations
 
     public BcProductMetafieldsUpdate UpdateMetafields() => new(_api);
 
-    public BcProductMetafieldDelete DeleteMetafield() => new(_api);
+    public BcProductMetafieldselete DeleteMetafield() => new(_api);
 
     #endregion
 }

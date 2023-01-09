@@ -90,11 +90,7 @@ public class BcStorefrontGraphQL : IBcStorefrontGraphQL
                 : requestOverride;
         }
 
-        return new BcGraphqlRequestOverride
-        {
-            AccessToken = config.StorefrontAccessToken
-        };
-
+        return new BcGraphqlRequestOverride { AccessToken = config.StorefrontAccessToken };
     }
 
     private static string GetStorefrontUrl(BigCommerceConfig config, BcGraphqlRequestOverride? requestOverride)

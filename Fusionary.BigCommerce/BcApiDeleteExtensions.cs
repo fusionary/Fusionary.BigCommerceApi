@@ -22,7 +22,7 @@ public static class BcApiDeleteExtensions
         var requestMessage =
             BcRequestMessageBuilder.CreateRequestMessage(HttpMethod.Delete, path, queryString, options);
 
-        var response = await api.SendRequestAsync<bool, BcMetadataEmpty>(requestMessage, cancellationToken);
+        var response = await api.SendRequestAsync<object?, BcMetadataEmpty>(requestMessage, cancellationToken);
 
         return response;
     }

@@ -5,7 +5,9 @@ public static class BcIdFilterExtensions
     /// <summary>
     /// Filter items by id.
     /// </summary>
-    public static T Id<T>(this T builder, object id) where T : IBcRequestBuilder, IBcIdFilter => builder.Add("id", id);
+    public static T Id<T>(this T builder, object id)
+        where T : IBcIdFilter =>
+        builder.Add("id", id);
 
     /// <summary>
     /// Filter items by ids.
@@ -14,5 +16,6 @@ public static class BcIdFilterExtensions
     /// See https://developer.bigcommerce.com/docs/ZG9jOjIyMDYxMQ-filtering
     /// </remarks>
     public static T Id<T>(this T builder, IEnumerable<object> id, BcModifier modifier)
-        where T : IBcRequestBuilder, IBcIdRangeFilter => builder.Add(modifier.Apply("id"), id);
+        where T : IBcIdRangeFilter =>
+        builder.Add(modifier.Apply("id"), id);
 }

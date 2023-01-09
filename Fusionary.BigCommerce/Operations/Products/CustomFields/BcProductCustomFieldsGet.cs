@@ -1,27 +1,26 @@
 namespace Fusionary.BigCommerce.Operations;
 
-public class BcProductCustomFieldUpdate : BcRequestBuilder
+public class BcProductCustomFieldsGet : BcRequestBuilder,
+    IBcIncludeFieldsFilter,
+    IBcExcludeFieldsFilter
 {
-    public BcProductCustomFieldUpdate(IBcApi api) : base(api)
+    public BcProductCustomFieldsGet(IBcApi api) : base(api)
     { }
 
     public Task<BcResultData<BcCustomField>> SendAsync(
         object productId,
         object customFieldId,
-        BcCustomField customField,
         CancellationToken cancellationToken
     ) =>
-        SendAsync<BcCustomField, BcCustomField>(productId, customFieldId, customField, cancellationToken);
+        SendAsync<BcCustomField>(productId, customFieldId, cancellationToken);
 
-    public Task<BcResultData<TResponse>> SendAsync<TResponse, TInput>(
+    public async Task<BcResultData<T>> SendAsync<T>(
         object productId,
         object customFieldId,
-        TInput customField,
         CancellationToken cancellationToken
     ) =>
-        Api.PutDataAsync<TResponse>(
+        await Api.GetDataAsync<T>(
             BcEndpoint.ProductCustomFieldsV3(productId, customFieldId),
-            customField,
             Filter,
             Options,
             cancellationToken

@@ -1,8 +1,8 @@
 namespace Fusionary.BigCommerce.Operations;
 
-public class BcProductMetafieldDelete : BcMetafieldDeleteBase
+public class BcProductMetafieldselete : BcMetafieldDeleteBase
 {
-    public BcProductMetafieldDelete(IBcApi api) : base(api)
+    public BcProductMetafieldselete(IBcApi api) : base(api)
     { }
 
     protected override string MetafieldResourceEndpoint(object resourceId, object metafieldId) =>

@@ -2,12 +2,10 @@ using GraphQL;
 
 namespace Fusionary.BigCommerce.Tests;
 
-public class StorefrontGraphQLTests: BcTestBase
+public class StorefrontGraphQLTests : BcTestBase
 {
     public StorefrontGraphQLTests(ITestOutputHelper outputHelper) : base(outputHelper)
-    {
-
-    }
+    { }
 
     [Fact]
     public async Task Can_Query_GraphQL_Async()
@@ -16,7 +14,8 @@ public class StorefrontGraphQLTests: BcTestBase
 
         var cancellationToken = CancellationToken.None;
 
-        var request = new GraphQLRequest(@"
+        var request = new GraphQLRequest(
+            @"
 query paginateProducts {
   site {
     search {
@@ -41,7 +40,8 @@ query paginateProducts {
     }
   }
 }
-");
+"
+        );
         var response = await graphQL
             .SendQueryAsync<dynamic>(request, cancellationToken);
 

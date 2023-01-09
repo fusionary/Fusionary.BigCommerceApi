@@ -13,7 +13,7 @@ public static class BcEndpoint
 
     public static string BrandsV3(object brandId) => $"v3/catalog/brands/{brandId}";
 
-    public static string CategoriesBulkV3() => "v3/catalog/trees/categories";
+    public static string CategoriesBatchV3() => "v3/catalog/trees/categories";
 
     public static string CategoriesV3() => "v3/catalog/categories";
 
@@ -61,7 +61,15 @@ public static class BcEndpoint
     public static string ProductMetafieldsV3(object productId, object customFieldId) =>
         $"v3/catalog/products/{productId}/metafields/{customFieldId}";
 
+    public static string ProductModifiersV3(object productId) => $"v3/catalog/products/{productId}/modifiers";
+
+    public static string ProductModifiersV3(object productId, object modifierId) =>
+        $"v3/catalog/products/{productId}/modifiers/{modifierId}";
+
     public static string ProductOptionsV3(object productId) => $"v3/catalog/products/{productId}/options";
+
+    public static string ProductOptionsV3(object productId, object optionId) =>
+        $"v3/catalog/products/{productId}/options/{optionId}";
 
     public static string ProductSkusV3(object productId) => $"v3/catalog/products/{productId}/skus";
 
@@ -74,4 +82,8 @@ public static class BcEndpoint
     public static string ProductVideosV3(object productId) => $"v3/catalog/products/{productId}/videos";
 
     public static string StorefrontTokensV3() => "v3/storefront/api-token";
+
+    public static string SummaryV3() => "v3/catalog/summary";
+
+    public static string VariantsV3() => "v3/catalog/variants";
 }

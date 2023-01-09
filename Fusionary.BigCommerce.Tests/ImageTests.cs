@@ -6,7 +6,7 @@ public class ImageTests : BcTestBase
     { }
 
     [Fact]
-    public async Task Can_Get_Product_By_Id_Async()
+    public async Task Can_Get_Product_Images_By_Id_Async()
     {
         var bc = Services.GetRequiredService<IBcApi>();
 
@@ -27,5 +27,44 @@ public class ImageTests : BcTestBase
 
             LogMessage($"{id} | {url} | {alt}");
         }
+    }
+
+    [Fact]
+    public async Task Can_Upload_Image_Async()
+    {
+        var bcApi = Services.GetRequiredService<IBcApi>();
+
+        var cancellationToken = CancellationToken.None;
+
+        const string fileName = "logo.png";
+
+        const int productId = 119;
+        var       imageFile = await BcFile.ReadFromFileAsync(fileName, cancellationToken);
+
+        var response = await bcApi
+            .Products()
+            .CreateImage()
+            .SendAsync(productId, imageFile, cancellationToken);
+
+        var createdImage = response.Data;
+
+        var updatedImage = new BcProductImagePut
+        {
+            ProductId = createdImage.ProductId, Id = createdImage.Id, Description = "Test"
+        };
+
+        var updateResponse = await bcApi
+            .Products()
+            .UpdateImage()
+            .SendAsync(updatedImage, cancellationToken);
+
+        DumpObject(updateResponse);
+
+        var deletedResponse = await bcApi
+            .Products()
+            .DeleteImage()
+            .SendAsync(createdImage.ProductId, createdImage.Id, cancellationToken);
+
+        DumpObject(deletedResponse);
     }
 }

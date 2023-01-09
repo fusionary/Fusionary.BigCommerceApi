@@ -1,4 +1,4 @@
 namespace Fusionary.BigCommerce.Operations;
 
-public interface IBcDateModifiedFilter
+public interface IBcDateModifiedFilter : IBcRequestBuilder
 { }

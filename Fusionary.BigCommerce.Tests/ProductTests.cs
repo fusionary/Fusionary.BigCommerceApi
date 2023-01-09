@@ -17,7 +17,7 @@ public class ProductTests : BcTestBase
             .Search()
             .Availability(BcAvailability.Available)
             .Include(BcProductInclude.Variants, BcProductInclude.Images, BcProductInclude.CustomFields)
-            .Limit(5)
+            .Limit(25)
             .Sort(BcProductSort.Name)
             .SendAsync(cancellationToken);
 
@@ -45,7 +45,7 @@ public class ProductTests : BcTestBase
             .Products()
             .Get()
             .Include(BcProductInclude.Variants, BcProductInclude.Images, BcProductInclude.CustomFields)
-            .SendAsync(114, cancellationToken);
+            .SendAsync(81, cancellationToken);
 
         var product = response.Data;
 
@@ -58,7 +58,9 @@ public class ProductTests : BcTestBase
         var price        = product.Price;
         var customFields = product.CustomFields;
 
-        var customValues = customFields is not null ? string.Join(", ", customFields.Select(x => $"{x.Name}:{x.Value}")) : default;
+        var customValues = customFields is not null
+            ? string.Join(", ", customFields.Select(x => $"{x.Name}:{x.Value}"))
+            : default;
 
         LogMessage($"{id} | {name} | {price} | {customValues}");
     }

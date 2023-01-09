@@ -1,5 +1,3 @@
-using System.Text.Json;
-
 namespace Fusionary.BigCommerce.Types;
 
 public class BcDateTimeConverter : JsonConverter<BcDateTime>

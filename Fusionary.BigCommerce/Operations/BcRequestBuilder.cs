@@ -2,7 +2,7 @@ using System.ComponentModel;
 
 namespace Fusionary.BigCommerce.Operations;
 
-public abstract class BcRequestBuilder : IBcRequestBuilder, IFluentInterface
+public abstract class BcRequestBuilder : IBcRequestBuilder
 {
     protected BcRequestBuilder(IBcApi api)
     {

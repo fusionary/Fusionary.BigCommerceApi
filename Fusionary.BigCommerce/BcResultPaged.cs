@@ -10,7 +10,8 @@ public record BcResultPaged<TData> : BcResult<List<TData>, BcMetadataPagination>
         set => _data = value;
     }
 
-    public BcPagination Pagination => Meta.Pagination;
+    [JsonIgnore]
+    public BcPagination Pagination => Meta?.Pagination!;
 
     public void Deconstruct(out List<TData> data, out BcPagination pagination)
     {

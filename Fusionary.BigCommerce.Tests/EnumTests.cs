@@ -50,6 +50,16 @@ public class EnumTests
         Assert.Equal("customer_id:desc", value);
     }
 
+    [Theory]
+    [InlineData("ExampleOne", "example_one")]
+    [InlineData("XML-test", "xml_test")]
+    [InlineData("Example1", "example1")]
+    public void Can_Snake_Case(string input, string expected)
+    {
+        var snaked = input.ToSnakeCase();
+        Assert.Equal(expected, snaked);
+    }
+
     public class BcTestObject
     {
         [JsonPropertyName("type")]

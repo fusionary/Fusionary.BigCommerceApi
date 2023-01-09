@@ -1,8 +1,8 @@
 namespace Fusionary.BigCommerce.Operations;
 
-public class BcProductDelete : BcRequestBuilder
+public class BcProductsDelete : BcRequestBuilder
 {
-    public BcProductDelete(IBcApi api) : base(api)
+    public BcProductsDelete(IBcApi api) : base(api)
     { }
 
     public Task<BcResult> SendAsync(object productId, CancellationToken cancellationToken) =>
