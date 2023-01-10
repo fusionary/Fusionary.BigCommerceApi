@@ -9,9 +9,9 @@ public static class BcRequestMessageBuilder
         BcRequestOptions? options = default
     )
     {
-        var requestPath = string.IsNullOrWhiteSpace(options?.RequestOverrides.StoreHash)
-            ? path
-            : $"/stores/{options.RequestOverrides.StoreHash}/{path}";
+        var requestPath = !string.IsNullOrWhiteSpace(options?.RequestOverrides?.StoreHash)
+            ? $"/stores/{options.RequestOverrides.StoreHash}/{path}"
+            : path;
 
         if (queryString.HasValue)
         {
@@ -20,12 +20,15 @@ public static class BcRequestMessageBuilder
 
         var requestMessage = new HttpRequestMessage(method, requestPath);
 
-        if (!string.IsNullOrWhiteSpace(options?.RequestOverrides.AccessToken))
+        if (options?.RequestOverrides?.HasHeaders == true)
         {
-            var headers = requestMessage.Headers;
+            var requestHeaders = requestMessage.Headers;
 
-            headers.Remove("X-Auth-Token");
-            headers.TryAddWithoutValidation("X-Auth-Token", options.RequestOverrides.AccessToken);
+            foreach (var (key, value) in options.RequestOverrides.Headers)
+            {
+                requestHeaders.Remove(key);
+                requestHeaders.TryAddWithoutValidation(key, value);
+            }
         }
 
         return requestMessage;

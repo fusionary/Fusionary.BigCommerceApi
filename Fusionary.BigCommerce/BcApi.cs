@@ -89,7 +89,7 @@ public class BcApi : IBcApi
                 }
             case { StatusCode: HttpStatusCode.TooManyRequests }:
                 {
-                    if (response.TryGetHeaderValue<int>("X-Rate-Limit-Time-Reset-Ms", out var retryAfterMs))
+                    if (response.TryGetHeaderValue<int>(BcHeaderName.XRateLimitTimeResetMs, out var retryAfterMs))
                     {
                         return await RetryRequestAfterDelayAsync<TResult, TMeta>(
                             requestMessage,

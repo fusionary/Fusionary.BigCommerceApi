@@ -51,7 +51,7 @@ public class BcStorefrontGraphQL : IBcStorefrontGraphQL
     }
 
     private static int? GetChannelId(BigCommerceConfig config, BcGraphqlRequestOverride? requestOverride) =>
-        requestOverride?.ChannelId ?? config.StorefrontChannelId;
+        requestOverride?.ChannelId ?? config.StorefrontChannelId.GetValueOrDefault(1);
 
     private static string GetGraphQlEndpoint(string storefrontUrl) => $"{storefrontUrl}/graphql";
 
@@ -71,7 +71,11 @@ public class BcStorefrontGraphQL : IBcStorefrontGraphQL
 
         var graphQLEndpoint = GetGraphQlEndpoint(storefrontUrl);
 
-        var client = new GraphQLHttpClient(graphQLEndpoint, new SystemTextJsonSerializer());
+        var jsonSerializer = requestOverride?.ConfigureSerializerOptions is { } configure
+            ? new SystemTextJsonSerializer(configure)
+            : new SystemTextJsonSerializer();
+
+        var client = new GraphQLHttpClient(graphQLEndpoint, jsonSerializer);
 
         client.HttpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
@@ -83,14 +87,21 @@ public class BcStorefrontGraphQL : IBcStorefrontGraphQL
         BcGraphqlRequestOverride? requestOverride
     )
     {
-        if (requestOverride is not null)
+        var storefrontAccessToken = config.StorefrontAccessToken;
+
+        if (string.IsNullOrWhiteSpace(storefrontAccessToken))
         {
-            return string.IsNullOrWhiteSpace(requestOverride.AccessToken)
-                ? requestOverride with { AccessToken = config.StorefrontAccessToken }
-                : requestOverride;
+            return requestOverride;
         }
 
-        return new BcGraphqlRequestOverride { AccessToken = config.StorefrontAccessToken };
+        var overrideOptions = requestOverride ?? new BcGraphqlRequestOverride();
+
+        if (!overrideOptions.Headers.ContainsKey(BcHeaderName.XAuthToken))
+        {
+            overrideOptions.Headers[BcHeaderName.XAuthToken] = storefrontAccessToken;
+        }
+
+        return overrideOptions;
     }
 
     private static string GetStorefrontUrl(BigCommerceConfig config, BcGraphqlRequestOverride? requestOverride)

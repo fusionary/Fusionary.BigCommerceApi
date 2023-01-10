@@ -13,9 +13,6 @@ public class BcTokenCache : IBcTokenCache
         _bc = bc;
     }
 
-    public Task<string> GetOrCreateTokenAsync(BcTokenRequest tokenRequest, CancellationToken cancellationToken) =>
-        GetOrCreateTokenAsync(tokenRequest, default, cancellationToken);
-
     public async Task<string> GetOrCreateTokenAsync(
         BcTokenRequest tokenRequest,
         BcRequestOverride? requestOverride,
@@ -26,8 +23,7 @@ public class BcTokenCache : IBcTokenCache
         {
             tokenRequest.ChannelId.ToString(),
             string.Join("-", tokenRequest.AllowedCorsOrigins),
-            requestOverride?.StoreHash,
-            requestOverride?.AccessToken
+            requestOverride?.ToString(),
         };
 
         var cacheKey = $"bc-token-{string.Join("-", keyParts.RemoveAll(string.IsNullOrWhiteSpace))}";
@@ -39,14 +35,23 @@ public class BcTokenCache : IBcTokenCache
                 entry.AbsoluteExpiration = DateTimeOffset.FromUnixTimeSeconds(tokenRequest.ExpiresAt)
                     .Subtract(TimeSpan.FromSeconds(30));
 
-                var result = await _bc
-                    .Storefront()
-                    .GetToken()
-                    .WithOverrides(requestOverride)
-                    .SendAsync(tokenRequest, cancellationToken);
-
-                return result.Data.Token;
+                return await CreateTokenAsync(tokenRequest, requestOverride, cancellationToken);
             }
         );
+    }
+
+    public async Task<string> CreateTokenAsync(
+        BcTokenRequest tokenRequest,
+        BcRequestOverride? requestOverride,
+        CancellationToken cancellationToken
+    )
+    {
+        var result = await _bc
+            .Storefront()
+            .GetToken()
+            .WithOverrides(requestOverride)
+            .SendAsync(tokenRequest, cancellationToken);
+
+        return result.Data.Token;
     }
 }
