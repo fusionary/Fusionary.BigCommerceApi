@@ -17,7 +17,7 @@ public class ProductTests : BcTestBase
             .Search()
             .Availability(BcAvailability.Available)
             .Include(BcProductInclude.Variants, BcProductInclude.Images, BcProductInclude.CustomFields)
-            .Limit(2)
+            .Limit(25)
             .Sort(BcProductSort.Name)
             .SendAsync(cancellationToken);
 
@@ -37,6 +37,8 @@ public class ProductTests : BcTestBase
             LogMessage($"Total Items: {data.Count}");
 
             Assert.Equal(pagination.Total, data.Count);
+
+            DumpObject(data);
         }
     }
 

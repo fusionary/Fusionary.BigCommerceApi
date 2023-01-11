@@ -17,13 +17,13 @@ public record BcOrderOperations
 
     #region Orders
 
-    public BcOrderCreate Create() => new(_api);
+    public BcOrdersCreate Create() => new(_api);
 
-    public BcOrderGet Get() => new(_api);
+    public BcOrdersGet Get() => new(_api);
 
-    public BcOrderSearch Search() => new(_api);
+    public BcOrdersSearch Search() => new(_api);
 
-    public BcOrderUpdate Update() => new(_api);
+    public BcOrdersUpdate Update() => new(_api);
 
     public BcOrderArchive Archive() => new(_api);
 

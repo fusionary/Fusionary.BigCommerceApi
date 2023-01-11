@@ -19,9 +19,6 @@ public record BcOrderPost
     [JsonPropertyName("status_id")]
     public int StatusId { get; set; }
 
-    [JsonPropertyName("status")]
-    public string? Status { get; set; }
-
     [JsonPropertyName("subtotal_ex_tax")]
     public BcFloat? SubtotalExTax { get; set; }
 
