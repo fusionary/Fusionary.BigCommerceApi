@@ -8,58 +8,35 @@ public class OrderTests : BcTestBase
     { }
 
     [Fact]
-    public async Task Can_Create_Order_Async()
+    public async Task Can_Create_Sample_Order_Async()
     {
         var bc = Services.GetRequiredService<IBcApi>();
 
         var cancellationToken = CancellationToken.None;
 
-        const int AwaitingFulfillmentStatus = 11;
-
-        var order = new BcOrderPost
+        var newOrder = new BcOrderPost()
         {
-            BillingAddress =
-                new BcBillingAddressBase
-                {
-                    FirstName = "Jane",
-                    LastName = "Doe",
-                    Street1 = "123 Main Street",
-                    City = "Austin",
-                    State = "Texas",
-                    Zip = "78751",
-                    Country = "United States",
-                    CountryIso2 = "US",
-                    Email = "janedoe@email.com"
-                },
-            Products = new List<BcOrderCatalogProductPost> { new() { ProductId = 115, Quantity = 1 } },
-            ShippingAddresses = new List<BcShippingAddressBase>
+            BillingAddress = new BcBillingAddressBase
             {
-                new BcShippingAddressBase
-                {
-                    FirstName = "Jane",
-                    LastName = "Doe",
-                    Street1 = "123 Main Street",
-                    City = "Austin",
-                    State = "Texas",
-                    Zip = "78751",
-                    Country = "United States",
-                    CountryIso2 = "US"
-                }
+                FirstName = "Joe",
+                LastName = "Royston",
+                Street1 = "100 Test St.",
+                City = "Grand Rapids",
+                State = "MI",
+                Zip = "49418",
+                CountryIso2 = "US",
+                Email = "test@fusionary.com",
+                Phone = "616-555-1212",
+                Company = "Fusionary, Inc."
             },
-            StatusId = AwaitingFulfillmentStatus,
-            ChannelId = 1,
-            IpAddress = "127.0.0.1"
+            Products = { new BcOrderCatalogProductPost { Quantity = 1, ProductId = 114 } }
         };
 
-        var result = await bc
-            .Orders()
-            .Create()
-            .SendAsync(
-                order,
-                cancellationToken
-            );
-
-        DumpObject(result);
+        var test = BcJsonUtil.Serialize(newOrder);
+        var result = await bc.Orders().Create().SendAsync(newOrder, cancellationToken);
+        Logger.WriteLine(result.ResponseText);
+        Assert.NotNull(result);
+        Assert.True(result.Success);
     }
 
     [Fact]
