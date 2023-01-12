@@ -7,7 +7,7 @@ public record BcOrderPost
     private List<BcShippingAddressBase>? _shippingAddresses;
 
     [JsonPropertyName("customer_id")]
-    public int CustomerId { get; set; }
+    public int? CustomerId { get; set; }
 
     [JsonPropertyName("products")]
     public List<BcOrderCatalogProductPost> Products
@@ -17,7 +17,7 @@ public record BcOrderPost
     }
 
     [JsonPropertyName("status_id")]
-    public int StatusId { get; set; }
+    public int? StatusId { get; set; }
 
     [JsonPropertyName("status")]
     public string? Status { get; set; }
@@ -43,9 +43,6 @@ public record BcOrderPost
     [JsonPropertyName("shipping_cost_tax")]
     public BcFloat? ShippingCostTax { get; set; }
 
-    [JsonPropertyName("shipping_cost_tax_class_id")]
-    public int ShippingCostTaxClassId { get; set; }
-
     [JsonPropertyName("base_handling_cost")]
     public BcFloat? BaseHandlingCost { get; set; }
 
@@ -57,9 +54,6 @@ public record BcOrderPost
 
     [JsonPropertyName("handling_cost_tax")]
     public BcFloat? HandlingCostTax { get; set; }
-
-    [JsonPropertyName("handling_cost_tax_class_id")]
-    public int HandlingCostTaxClassId { get; set; }
 
     [JsonPropertyName("base_wrapping_cost")]
     public BcFloat? BaseWrappingCost { get; set; }
@@ -73,9 +67,6 @@ public record BcOrderPost
     [JsonPropertyName("wrapping_cost_tax")]
     public BcFloat? WrappingCostTax { get; set; }
 
-    [JsonPropertyName("wrapping_cost_tax_class_id")]
-    public int WrappingCostTaxClassId { get; set; }
-
     [JsonPropertyName("total_ex_tax")]
     public BcFloat? TotalExTax { get; set; }
 
@@ -86,10 +77,10 @@ public record BcOrderPost
     public BcFloat? TotalTax { get; set; }
 
     [JsonPropertyName("items_total")]
-    public int ItemsTotal { get; set; }
+    public int? ItemsTotal { get; set; }
 
     [JsonPropertyName("items_shipped")]
-    public int ItemsShipped { get; set; }
+    public int? ItemsShipped { get; set; }
 
     [JsonPropertyName("payment_method")]
     public string? PaymentMethod { get; set; }
@@ -104,7 +95,7 @@ public record BcOrderPost
     public BcFloat? RefundedAmount { get; set; }
 
     [JsonPropertyName("order_is_digital")]
-    public bool OrderIsDigital { get; set; }
+    public bool? OrderIsDigital { get; set; }
 
     [JsonPropertyName("store_credit_amount")]
     public BcFloat? StoreCreditAmount { get; set; }
@@ -124,17 +115,11 @@ public record BcOrderPost
     [JsonPropertyName("geoip_country_iso2")]
     public string? GeoipCountryIso2 { get; set; }
 
-    [JsonPropertyName("currency_id")]
-    public int CurrencyId { get; set; }
-
     [JsonPropertyName("currency_code")]
     public string? CurrencyCode { get; set; }
 
     [JsonPropertyName("currency_exchange_rate")]
     public string? CurrencyExchangeRate { get; set; }
-
-    [JsonPropertyName("default_currency_id")]
-    public int DefaultCurrencyId { get; set; }
 
     [JsonPropertyName("default_currency_code")]
     public string? DefaultCurrencyCode { get; set; }
@@ -151,12 +136,6 @@ public record BcOrderPost
     [JsonPropertyName("coupon_discount")]
     public BcFloat? CouponDiscount { get; set; }
 
-    [JsonPropertyName("shipping_address_count")]
-    public int ShippingAddressCount { get; set; }
-
-    [JsonPropertyName("is_deleted")]
-    public bool IsDeleted { get; set; }
-
     [JsonPropertyName("ebay_order_id")]
     public string? EbayOrderId { get; set; }
 
@@ -170,9 +149,6 @@ public record BcOrderPost
         set => _billingAddress = value;
     }
 
-    [JsonPropertyName("is_email_opt_in")]
-    public bool IsEmailOptIn { get; set; }
-
     [JsonPropertyName("credit_card_type")]
     public object? CreditCardType { get; set; }
 
@@ -180,7 +156,7 @@ public record BcOrderPost
     public string? OrderSource { get; set; }
 
     [JsonPropertyName("channel_id")]
-    public int ChannelId { get; set; }
+    public int? ChannelId { get; set; }
 
     [JsonPropertyName("external_source")]
     public string? ExternalSource { get; set; }

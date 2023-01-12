@@ -53,8 +53,8 @@ public static class BcHttpResponseExtensions
             {
                 Title = root.ToString(), Type = "Unknown", Status = response.StatusCode
             },
-            JsonValueKind.Object when root.GetProperty("status").ValueKind != JsonValueKind.Undefined &&
-                                      root.GetProperty("title").ValueKind != JsonValueKind.Undefined =>
+            JsonValueKind.Object when root.TryGetProperty("status", out var _) &&
+                                      root.TryGetProperty("title", out var _) =>
                 root.Deserialize<BcErrorDetails>(BcJsonUtil.JsonOptions),
             _ => new BcErrorDetails { Status = response.StatusCode }
         };
@@ -144,9 +144,9 @@ public static class BcHttpResponseExtensions
                 ResponseText = json.RootElement.GetRawText()
             };
         }
-
-        var dataProperty = root.GetProperty("data");
-        var metaProperty = root.GetProperty("meta");
+        
+        root.TryGetProperty("data", out var dataProperty);
+        root.TryGetProperty("meta", out var metaProperty);
 
         var meta = metaProperty.ValueKind == JsonValueKind.Undefined
             ? default

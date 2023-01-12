@@ -8,6 +8,38 @@ public class OrderTests : BcTestBase
     { }
 
     [Fact]
+    public async Task Can_Create_Sample_Order_Async()
+    {
+        var bc = Services.GetRequiredService<IBcApi>();
+
+        var cancellationToken = CancellationToken.None;
+
+        var newOrder = new BcOrderPost()
+        {
+            BillingAddress = new BcBillingAddressBase
+            {
+                FirstName = "Joe",
+                LastName = "Royston",
+                Street1 = "100 Test St.",
+                City = "Grand Rapids",
+                State = "MI",
+                Zip = "49418",
+                CountryIso2 = "US",
+                Email = "test@fusionary.com",
+                Phone = "616-555-1212",
+                Company = "Fusionary, Inc."
+            },
+            Products = { new BcOrderCatalogProductPost { Quantity = 1, ProductId = 114 } }
+        };
+
+        var test = BcJsonUtil.Serialize(newOrder);
+        var result = await bc.Orders().Create().SendAsync(newOrder, cancellationToken);
+        Logger.WriteLine(result.ResponseText);
+        Assert.NotNull(result);
+        Assert.True(result.Success);
+    }
+
+    [Fact]
     public async Task Can_Create_Order_Metafields_Async()
     {
         var bc = Services.GetRequiredService<IBcApi>();

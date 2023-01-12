@@ -84,6 +84,7 @@ public class BcApi : IBcApi
         {
             case { StatusCode: HttpStatusCode.OK }:
             case { StatusCode: HttpStatusCode.NoContent }:
+            case {StatusCode: HttpStatusCode.Created }:
                 {
                     return await response.ReadResponseAsync<TResult, TMeta>(cancellationToken);
                 }
