@@ -13,7 +13,7 @@ public static class BcHttpClientUtil
 
         var headers = client.DefaultRequestHeaders;
 
-        headers.TryAddWithoutValidation("X-Auth-Token", config.AccessToken);
+        headers.TryAddWithoutValidation(BcHeaderName.XAuthToken, config.AccessToken);
         headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
         return client;

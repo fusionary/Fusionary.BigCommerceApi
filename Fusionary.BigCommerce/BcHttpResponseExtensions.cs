@@ -10,10 +10,10 @@ public static class BcHttpResponseExtensions
 
     public static BcRateLimitResponseHeaders GetRateLimitHeaders(this HttpResponseMessage response)
     {
-        response.TryGetHeaderValue<int>("X-Rate-Limit-Requests-Left", out var requestsLeft);
-        response.TryGetHeaderValue<int>("X-Rate-Limit-Requests-Quota", out var requestsQuota);
-        response.TryGetHeaderValue<int>("X-Rate-Limit-Time-Reset-Ms", out var timeResetMs);
-        response.TryGetHeaderValue<int>("X-Rate-Limit-Time-Window-Ms", out var timeWindowMs);
+        response.TryGetHeaderValue<int>(BcHeaderName.XRateLimitRequestsLeft, out var requestsLeft);
+        response.TryGetHeaderValue<int>(BcHeaderName.XRateLimitRequestsQuota, out var requestsQuota);
+        response.TryGetHeaderValue<int>(BcHeaderName.XRateLimitTimeResetMs, out var timeResetMs);
+        response.TryGetHeaderValue<int>(BcHeaderName.XRateLimitTimeWindowMs, out var timeWindowMs);
 
         return new BcRateLimitResponseHeaders
         {

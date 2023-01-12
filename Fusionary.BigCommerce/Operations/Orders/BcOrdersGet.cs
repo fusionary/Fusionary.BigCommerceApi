@@ -1,8 +1,8 @@
 namespace Fusionary.BigCommerce.Operations;
 
-public class BcOrderGet : BcRequestBuilder
+public class BcOrdersGet : BcRequestBuilder
 {
-    public BcOrderGet(IBcApi api) : base(api)
+    public BcOrdersGet(IBcApi api) : base(api)
     { }
 
     public Task<BcResultData<BcOrderResponseFull>> SendAsync(object orderId, CancellationToken cancellationToken) =>

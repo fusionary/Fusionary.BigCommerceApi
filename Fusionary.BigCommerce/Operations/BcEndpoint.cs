@@ -32,10 +32,10 @@ public static class BcEndpoint
     public static string OrderMetafieldsV3(object orderId, object metafieldId) =>
         $"v3/orders/{orderId}/metafields/{metafieldId}";
 
-    public static string OrderProductsV2(object orderId) => $"v3/orders/{orderId}/products";
+    public static string OrderProductsV2(object orderId) => $"v2/orders/{orderId}/products";
 
     public static string OrderProductsV2(object orderId, object productId) =>
-        $"v3/orders/{orderId}/products/{productId}";
+        $"v2/orders/{orderId}/products/{productId}";
 
     public static string OrdersV2(object orderId) => $"v2/orders/{orderId}";
 

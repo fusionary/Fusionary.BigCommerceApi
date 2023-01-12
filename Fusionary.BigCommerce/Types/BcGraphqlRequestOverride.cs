@@ -11,4 +11,9 @@ public record BcGraphqlRequestOverride : BcRequestOverride
     /// Override ChannelId for this request
     /// </summary>
     public int? ChannelId { get; set; }
+
+    /// <summary>
+    /// Optional configure JsonSerializer options for this request
+    /// </summary>
+    public Action<JsonSerializerOptions>? ConfigureSerializerOptions { get; set; }
 }
