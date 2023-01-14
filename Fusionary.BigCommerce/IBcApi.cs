@@ -6,7 +6,7 @@ public interface IBcApi
 
     Task<HttpResponseMessage> SendAsync(
         HttpRequestMessage requestMessage,
-        CancellationToken cancellationToken
+        CancellationToken cancellationToken = default
     );
 
     Task<BcResult<TResult, TMeta>> SendMultipartFormRequestAsync<TResult, TMeta>(
@@ -28,7 +28,7 @@ public interface IBcApi
 
     Task<BcResult<TResult, TMeta>> SendRequestAsync<TResult, TMeta>(
         HttpRequestMessage requestMessage,
-        CancellationToken cancellationToken
+        CancellationToken cancellationToken = default
     );
 
     Task<BcResult<TResult, TMeta>> SendRequestAsync<TResult, TMeta>(

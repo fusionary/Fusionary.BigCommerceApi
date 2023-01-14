@@ -1,7 +1,7 @@
 namespace Fusionary.BigCommerce.Types;
 
 /// <summary>
-/// DateTime values
+/// Represents a BigCommerce RFC2822 or ISO8601 DateTime value
 /// </summary>
 [DebuggerDisplay("{Value)}")]
 [JsonConverter(typeof(BcDateTimeConverter))]

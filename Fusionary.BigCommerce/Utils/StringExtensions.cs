@@ -54,6 +54,7 @@ public static class StringExtensions
         return defaultValue;
     }
 
+    [SuppressMessage("ReSharper", "CognitiveComplexity")]
     public static string ToSnakeCase(this string text)
     {
         if (string.IsNullOrEmpty(text))

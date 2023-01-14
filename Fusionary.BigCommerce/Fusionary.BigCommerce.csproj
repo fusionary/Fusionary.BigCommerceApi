@@ -8,19 +8,19 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <FrameworkReference Include="Microsoft.AspNetCore.App" />
+        <FrameworkReference Include="Microsoft.AspNetCore.App"/>
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="GraphQL.Client" Version="5.1.0" />
-        <PackageReference Include="GraphQL.Client.Serializer.SystemTextJson" Version="5.1.0" />
-        <PackageReference Include="Macross.Json.Extensions" Version="3.0.0" />
-        <PackageReference Include="Polly.Extensions.Http" Version="3.0.0" />
+        <PackageReference Include="GraphQL.Client" Version="5.1.0"/>
+        <PackageReference Include="GraphQL.Client.Serializer.SystemTextJson" Version="5.1.0"/>
+        <PackageReference Include="Macross.Json.Extensions" Version="3.0.0"/>
+        <PackageReference Include="Polly.Extensions.Http" Version="3.0.0"/>
     </ItemGroup>
 
     <ItemGroup>
-        <Folder Include="Operations\Products\Reviews" />
-        <Folder Include="Operations\Products\Variants" />
+        <Folder Include="Operations\Abandoned Carts"/>
+        <Folder Include="Operations\Catalog\Product Reviews"/>
     </ItemGroup>
 
 </Project>

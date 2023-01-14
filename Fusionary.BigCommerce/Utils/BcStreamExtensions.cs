@@ -2,7 +2,10 @@ namespace Fusionary.BigCommerce.Utils;
 
 public static class BcStreamExtensions
 {
-    public static async Task<byte[]> ReadAllBytesAsync(this Stream stream, CancellationToken cancellationToken)
+    public static async Task<byte[]> ReadAllBytesAsync(
+        this Stream stream,
+        CancellationToken cancellationToken = default
+    )
     {
         if (stream is MemoryStream contentStream)
         {

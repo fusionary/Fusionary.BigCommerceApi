@@ -5,6 +5,8 @@ namespace Fusionary.BigCommerce.Types;
 [UsedImplicitly]
 public class BcObject : Dictionary<string, object>
 {
+    private static readonly JsonSerializerOptions Options = new(JsonSerializerDefaults.General);
+
     public int Id
     {
         get => GetValue<int>("id");
@@ -26,7 +28,7 @@ public class BcObject : Dictionary<string, object>
             ? ConvertToValue(value, defaultValue)
             : defaultValue;
 
-    public string ToJson() => JsonSerializer.Serialize(this);
+    public string ToJson() => JsonSerializer.Serialize(this, Options);
 
     public override string ToString() => ToJson();
 }

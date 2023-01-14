@@ -8,60 +8,58 @@ public class OrderTests : BcTestBase
     { }
 
     [Fact]
-    public async Task Can_Create_Sample_Order_Async()
-    {
-        var bc = Services.GetRequiredService<IBcApi>();
-
-        var cancellationToken = CancellationToken.None;
-
-        var newOrder = new BcOrderPost()
-        {
-            BillingAddress = new BcBillingAddressBase
-            {
-                FirstName = "Joe",
-                LastName = "Royston",
-                Street1 = "100 Test St.",
-                City = "Grand Rapids",
-                State = "MI",
-                Zip = "49418",
-                CountryIso2 = "US",
-                Email = "test@fusionary.com",
-                Phone = "616-555-1212",
-                Company = "Fusionary, Inc."
-            },
-            Products = { new BcOrderCatalogProductPost { Quantity = 1, ProductId = 114 } }
-        };
-
-        var test = BcJsonUtil.Serialize(newOrder);
-        var result = await bc.Orders().Create().SendAsync(newOrder, cancellationToken);
-        Logger.WriteLine(result.ResponseText);
-        Assert.NotNull(result);
-        Assert.True(result.Success);
-    }
-
-    [Fact]
     public async Task Can_Create_Order_Metafields_Async()
     {
-        var bc = Services.GetRequiredService<IBcApi>();
+        var orderMetafieldsApi = Services.GetRequiredService<BcApiOrderMetafields>();
 
         var cancellationToken = CancellationToken.None;
 
-        var result = await bc
-            .Orders()
-            .CreateMetafields()
+        var result = await orderMetafieldsApi
+            .Create()
             .SendAsync(
                 100,
                 BcPermissionSet.Read,
-                "Testing",
+                Faker.Hacker.Noun(),
                 new[]
                 {
-                    new BcMetafieldItem { Key = "Test", Value = "Test" },
-                    new BcMetafieldItem { Key = "Test2", Value = "Test2" }
+                    new BcMetafieldItem { Key = Faker.Hacker.Noun(), Value = Faker.Hacker.Phrase() },
+                    new BcMetafieldItem { Key = Faker.Hacker.Noun(), Value = Faker.Hacker.Phrase() }
                 },
                 cancellationToken
             );
 
         DumpObject(result);
+    }
+
+    [Fact]
+    public async Task Can_Create_Sample_Order_Async()
+    {
+        var createOrdersApi = Services.GetRequiredService<BcApiOrdersCreate>();
+
+        var cancellationToken = CancellationToken.None;
+
+        var newOrder = new BcOrderPost
+        {
+            BillingAddress = new BcBillingAddressBase
+            {
+                FirstName = Faker.Name.FirstName(),
+                LastName = Faker.Name.LastName(),
+                Street1 = Faker.Address.StreetAddress(),
+                City = Faker.Address.City(),
+                State = Faker.Address.State(),
+                Zip = Faker.Address.ZipCode(),
+                CountryIso2 = "US",
+                Email = Faker.Internet.Email(),
+                Phone = Faker.Phone.PhoneNumber(),
+                Company = Faker.Company.CompanyName()
+            },
+            Products = { new BcOrderCatalogProductPost { Quantity = Faker.Random.Int(0, 10), ProductId = 114 } }
+        };
+
+        var result = await createOrdersApi.SendAsync(newOrder, cancellationToken);
+
+        Assert.NotNull(result);
+        Assert.True(result.Success);
     }
 
     [Fact]
@@ -73,6 +71,7 @@ public class OrderTests : BcTestBase
 
         var result = await bc
             .Orders()
+            .Order()
             .Search()
             .Limit(1)
             .MinDateCreated(DateTime.Today.AddDays(-14))
@@ -102,7 +101,8 @@ public class OrderTests : BcTestBase
 
         var result = await bc
             .Orders()
-            .GetAllMetafields()
+            .OrderMetafields()
+            .GetAll()
             .Limit(10)
             .SendAsync(100, cancellationToken);
 
@@ -112,7 +112,7 @@ public class OrderTests : BcTestBase
             {
                 DumpObject(metafield);
 
-                await bc.Orders().DeleteMetafield().SendAsync(100, metafield.Id, cancellationToken);
+                await bc.Orders().OrderMetafields().Delete().SendAsync(100, metafield.Id, cancellationToken);
             }
         }
     }
@@ -122,11 +122,12 @@ public class OrderTests : BcTestBase
     {
         var order = new BcOrderPost
         {
-            BillingAddress = new BcBillingAddressBase { Company = "Fusionary", Zip = "49501" },
+            BillingAddress =
+                new BcBillingAddressBase { Company = Faker.Company.CompanyName(), Zip = Faker.Address.ZipCode() },
             Products = new List<BcOrderCatalogProductPost>
             {
-                new() { ProductId = 1, Quantity = 1, PriceExTax = 5.00m },
-                new()
+                new BcOrderCatalogProductPost { ProductId = 1, Quantity = 1, PriceExTax = 5.00m },
+                new BcOrderCatalogProductPost
                 {
                     ProductId = 2,
                     Quantity = 2,

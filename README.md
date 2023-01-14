@@ -50,7 +50,7 @@ public class BigCommerceProductDemo {
         _bcApi = bcApi;
     }
 
-    public async Task DisplayFiveProductsAsync(CancellationToken cancellationToken)
+    public async Task DisplayFiveProductsAsync(CancellationToken cancellationToken = default)
     {
         var response = await _bcApi
             .Products()

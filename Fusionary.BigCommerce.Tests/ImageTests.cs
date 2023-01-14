@@ -8,14 +8,11 @@ public class ImageTests : BcTestBase
     [Fact]
     public async Task Can_Get_Product_Images_By_Id_Async()
     {
-        var bc = Services.GetRequiredService<IBcApi>();
+        var productImagesApi = Services.GetRequiredService<BcApiProductImages>();
 
-        var cancellationToken = CancellationToken.None;
-
-        var response = await bc
-            .Products()
-            .GetImages()
-            .SendAsync(119, cancellationToken);
+        var response = await productImagesApi
+            .Get()
+            .SendAsync(119);
 
         DumpObject(response);
 
@@ -32,19 +29,16 @@ public class ImageTests : BcTestBase
     [Fact]
     public async Task Can_Upload_Image_Async()
     {
-        var bcApi = Services.GetRequiredService<IBcApi>();
-
-        var cancellationToken = CancellationToken.None;
+        var productImagesApi = Services.GetRequiredService<BcApiProductImages>();
 
         const string fileName = "logo.png";
 
         const int productId = 119;
-        var       imageFile = await BcFile.ReadFromFileAsync(fileName, cancellationToken);
+        var       imageFile = await BcFile.ReadFromFileAsync(fileName);
 
-        var response = await bcApi
-            .Products()
-            .CreateImage()
-            .SendAsync(productId, imageFile, cancellationToken);
+        var response = await productImagesApi
+            .Create()
+            .SendAsync(productId, imageFile);
 
         var createdImage = response.Data;
 
@@ -53,17 +47,15 @@ public class ImageTests : BcTestBase
             ProductId = createdImage.ProductId, Id = createdImage.Id, Description = "Test"
         };
 
-        var updateResponse = await bcApi
-            .Products()
-            .UpdateImage()
-            .SendAsync(updatedImage, cancellationToken);
+        var updateResponse = await productImagesApi
+            .Update()
+            .SendAsync(updatedImage);
 
         DumpObject(updateResponse);
 
-        var deletedResponse = await bcApi
-            .Products()
-            .DeleteImage()
-            .SendAsync(createdImage.ProductId, createdImage.Id, cancellationToken);
+        var deletedResponse = await productImagesApi
+            .Delete()
+            .SendAsync(createdImage.ProductId, createdImage.Id);
 
         DumpObject(deletedResponse);
     }

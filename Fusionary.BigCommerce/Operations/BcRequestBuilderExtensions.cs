@@ -79,7 +79,6 @@ public static class BcRequestBuilderExtensions
     /// </summary>
     /// <example>
     /// var firstPageResponse = await bcApi.Products.Search().Limit(5).Sort(BcProductSort.Name).SendAsync();
-    ///
     /// var nextPageResponse = await bcApi.Products.Search().Next(firstPageResponse.Meta.Pagination).SendAsync();
     /// </example>
     public static T Next<T>(this T builder, BcPagination pagination) where T : IBcRequestBuilder
@@ -88,8 +87,10 @@ public static class BcRequestBuilderExtensions
 
         if (string.IsNullOrWhiteSpace(next))
         {
-            throw new BcApiException("Next link not available, expected `pagination.links.next` " +
-                                     "to be a non-empty value similar to `?page=2&limit=50`");
+            throw new BcApiException(
+                "Next link not available, expected `pagination.links.next` " +
+                "to be a non-empty value similar to `?page=2&limit=50`"
+            );
         }
 
         builder.Filter.Add(new QueryString(next));
@@ -101,7 +102,6 @@ public static class BcRequestBuilderExtensions
     /// </summary>
     /// <example>
     /// var pageResponse = await bcApi.Products.Search().Limit(5).Sort(BcProductSort.Name).Page(3).SendAsync();
-    ///
     /// var previousPageResponse = await bcApi.Products.Search().Previous(pageResponse.Meta.Pagination).SendAsync();
     /// </example>
     public static T Previous<T>(this T builder, BcPagination pagination) where T : IBcRequestBuilder
@@ -110,8 +110,10 @@ public static class BcRequestBuilderExtensions
 
         if (string.IsNullOrWhiteSpace(previous))
         {
-            throw new BcApiException("Previous link not available, expected `pagination.links.previous` " +
-                                     "to be a non-empty value similar to `?page=1&limit=50`");
+            throw new BcApiException(
+                "Previous link not available, expected `pagination.links.previous` " +
+                "to be a non-empty value similar to `?page=1&limit=50`"
+            );
         }
 
         builder.Filter.Add(new QueryString(pagination.Links.Previous));
@@ -128,10 +130,8 @@ public static class BcRequestBuilderExtensions
     /// <summary>
     /// Sets the X-Auth-Token header for this request.
     /// </summary>
-    public static T WithAccessToken<T>(this T builder, string accessToken) where T : IBcRequestBuilder
-    {
-        return builder.WithHeader(BcHeaderName.XAuthToken, accessToken);
-    }
+    public static T WithAccessToken<T>(this T builder, string accessToken) where T : IBcRequestBuilder =>
+        builder.WithHeader(BcHeaderName.XAuthToken, accessToken);
 
     /// <summary>
     /// Sets the header value for the specified key for this request.

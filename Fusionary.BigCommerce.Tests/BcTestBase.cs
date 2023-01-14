@@ -1,3 +1,5 @@
+using Bogus;
+
 using Fusionary.BigCommerce.Utils;
 using Fusionary.UnitTesting;
 
@@ -9,6 +11,8 @@ public abstract class BcTestBase : TestBase
 {
     protected BcTestBase(ITestOutputHelper outputHelper) : base(outputHelper)
     { }
+
+    protected Faker Faker { get; } = new();
 
     protected override IConfigurationBuilder BuildConfiguration(IConfigurationBuilder builder) =>
         builder.AddUserSecrets<BcTestBase>();

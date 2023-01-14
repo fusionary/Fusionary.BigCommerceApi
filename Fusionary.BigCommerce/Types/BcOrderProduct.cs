@@ -50,7 +50,7 @@ public record BcOrderProduct
 
     public BcFloat CostPriceTax { get; set; }
 
-    public bool IsRefunded { get; set; }
+    public bool? IsRefunded { get; set; }
 
     public int? QuantityRefunded { get; set; }
 
@@ -76,7 +76,7 @@ public record BcOrderProduct
 
     public string? WrappingMessage { get; set; }
 
-    public int QuantityShipped { get; set; }
+    public int? QuantityShipped { get; set; }
 
     /// <summary>
     /// Name of promotional event/delivery date.

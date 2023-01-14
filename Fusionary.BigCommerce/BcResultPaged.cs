@@ -14,7 +14,7 @@ public record BcResultPaged<TData> : BcResult<List<TData>, BcMetadataPagination>
     public BcPagination Pagination => Meta?.Pagination!;
 
     /// <summary>
-    /// <see langword="true" /> if <see cref="Data"/> has 1 or more items.
+    /// <see langword="true" /> if <see cref="Data" /> has 1 or more items.
     /// </summary>
     [JsonIgnore]
     public new bool HasData => Data.Count > 0;

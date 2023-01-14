@@ -8,12 +8,11 @@ public class ProductTests : BcTestBase
     [Fact]
     public async Task Can_Get_All_Products_Async()
     {
-        var bc = Services.GetRequiredService<IBcApi>();
+        var productApi = Services.GetRequiredService<BcApiProduct>();
 
         var cancellationToken = CancellationToken.None;
 
-        var response = await bc
-            .Products()
+        var response = await productApi
             .Search()
             .Availability(BcAvailability.Available)
             .Include(BcProductInclude.Variants, BcProductInclude.Images, BcProductInclude.CustomFields)
@@ -29,7 +28,7 @@ public class ProductTests : BcTestBase
 
             if (response.HasNextPage)
             {
-                var remainingItems = await GetRemainingDataAsync(bc, pagination, cancellationToken);
+                var remainingItems = await GetRemainingDataAsync(productApi, pagination, cancellationToken);
 
                 data.AddRange(remainingItems);
             }
@@ -37,20 +36,17 @@ public class ProductTests : BcTestBase
             LogMessage($"Total Items: {data.Count}");
 
             Assert.Equal(pagination.Total, data.Count);
-
-            DumpObject(data);
         }
     }
 
     [Fact]
     public async Task Can_Get_Product_By_Id_Async()
     {
-        var bc = Services.GetRequiredService<IBcApi>();
+        var bcProductApi = Services.GetRequiredService<BcApiProduct>();
 
         var cancellationToken = CancellationToken.None;
 
-        var response = await bc
-            .Products()
+        var response = await bcProductApi
             .Get()
             .Include(BcProductInclude.Variants, BcProductInclude.Images, BcProductInclude.CustomFields)
             .SendAsync(81, cancellationToken);
@@ -74,9 +70,9 @@ public class ProductTests : BcTestBase
     }
 
     private static async Task<List<BcProductFull>> GetRemainingDataAsync(
-        IBcApi bc,
+        BcApiProduct productApi,
         BcPagination pagination,
-        CancellationToken cancellationToken
+        CancellationToken cancellationToken = default
     )
     {
         var remainingItems = new List<BcProductFull>();
@@ -87,8 +83,7 @@ public class ProductTests : BcTestBase
         {
             var nextPagination = nextPage?.Pagination ?? pagination;
 
-            nextPage = await bc
-                .Products()
+            nextPage = await productApi
                 .Search()
                 .Next(nextPagination)
                 .SendAsync(cancellationToken);

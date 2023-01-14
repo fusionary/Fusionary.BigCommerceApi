@@ -1,3 +1,5 @@
+using System.Reflection;
+
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -6,7 +8,7 @@ namespace Fusionary.BigCommerce;
 
 public static class ExtensionsForServiceCollection
 {
-    public static void AddBigCommerce(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection AddBigCommerce(this IServiceCollection services, IConfiguration configuration)
     {
         services.Configure<BigCommerceConfig>(configuration.GetSection("BigCommerce"));
         services.AddHttpClient<BigCommerceClient>()
@@ -25,5 +27,52 @@ public static class ExtensionsForServiceCollection
         }
 
         services.AddSingleton<IBcTokenCache, BcTokenCache>();
+        services.RegisterAllApiOperations(typeof(IBcApiOperation).Assembly);
+
+        return services;
+    }
+
+    public static void RegisterAllApiOperations(this IServiceCollection services, Assembly assembly)
+    {
+        var baseType = typeof(IBcApiOperation);
+
+        var typesFromAssemblies =
+            assembly.DefinedTypes.Where(x => !x.IsAbstract && x.GetInterfaces().Contains(baseType));
+
+        foreach (var type in typesFromAssemblies)
+        {
+            services.Add(new ServiceDescriptor(type, type, ServiceLifetime.Transient));
+        }
+    }
+
+    public static void RegisterAllTypes<T>(
+        this IServiceCollection services,
+        ServiceLifetime lifetime = ServiceLifetime.Transient
+    ) =>
+        RegisterAllTypes<T>(services, new[] { typeof(T).Assembly }, lifetime);
+
+    public static void RegisterAllTypes<T>(
+        this IServiceCollection services,
+        IEnumerable<Assembly> assemblies,
+        ServiceLifetime lifetime = ServiceLifetime.Transient
+    )
+    {
+        var baseType = typeof(T);
+
+        if (!baseType.IsInterface)
+        {
+            throw new ArgumentOutOfRangeException(nameof(T), $"{nameof(T)} must be an interface");
+        }
+
+        var typesFromAssemblies = assemblies.SelectMany(
+            a => a.DefinedTypes.Where(x => !x.IsAbstract && x.GetInterfaces().Contains(baseType))
+        );
+
+        foreach (var type in typesFromAssemblies)
+        {
+            var serviceType = type.GetInterfaces().FirstOrDefault(interfaceType => interfaceType != baseType) ?? type;
+
+            services.Add(new ServiceDescriptor(serviceType, type, lifetime));
+        }
     }
 }

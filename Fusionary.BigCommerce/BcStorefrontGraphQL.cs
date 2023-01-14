@@ -36,7 +36,7 @@ public class BcStorefrontGraphQL : IBcStorefrontGraphQL
         string storefrontUrl,
         int? channelId,
         BcRequestOverride? requestOverride,
-        CancellationToken cancellationToken
+        CancellationToken cancellationToken = default
     )
     {
         var tokenRequest = new BcTokenRequest(
@@ -58,7 +58,7 @@ public class BcStorefrontGraphQL : IBcStorefrontGraphQL
     private async Task<GraphQLHttpClient> GetGraphQLHttpClientAsync(
         BigCommerceConfig config,
         BcGraphqlRequestOverride? requestOverride,
-        CancellationToken cancellationToken
+        CancellationToken cancellationToken = default
     )
     {
         var options = GetRequestOptions(config, requestOverride);

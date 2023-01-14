@@ -16,7 +16,10 @@ public record BcRequestOverride
     /// </summary>
     public Dictionary<string, string> Headers
     {
-        get => LazyInitializer.EnsureInitialized(ref _headers, () => new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase));
+        get => LazyInitializer.EnsureInitialized(
+            ref _headers,
+            () => new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
+        );
         set => _headers = value;
     }
 

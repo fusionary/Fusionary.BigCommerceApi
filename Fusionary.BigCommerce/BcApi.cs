@@ -26,7 +26,7 @@ public class BcApi : IBcApi
 
     public async Task<HttpResponseMessage> SendAsync(
         HttpRequestMessage requestMessage,
-        CancellationToken cancellationToken
+        CancellationToken cancellationToken = default
     )
     {
         var response = await BigCommerceHttp.Client.SendAsync(
@@ -73,9 +73,15 @@ public class BcApi : IBcApi
         return await SendRequestAsync<TResult, TMeta>(requestMessage, cancellationToken);
     }
 
+    /// <summary>
+    /// Sends the API request to the server
+    /// </summary>
+    /// <remarks>
+    /// See https://developer.bigcommerce.com/docs/12f38e7c7b656-api-status-codes
+    /// </remarks>
     public async Task<BcResult<TResult, TMeta>> SendRequestAsync<TResult, TMeta>(
         HttpRequestMessage requestMessage,
-        CancellationToken cancellationToken
+        CancellationToken cancellationToken = default
     )
     {
         var response = await SendAsync(requestMessage, cancellationToken);
@@ -83,8 +89,10 @@ public class BcApi : IBcApi
         switch (response)
         {
             case { StatusCode: HttpStatusCode.OK }:
+            case { StatusCode: HttpStatusCode.Created }:
+            case { StatusCode: HttpStatusCode.Accepted }:
             case { StatusCode: HttpStatusCode.NoContent }:
-            case {StatusCode: HttpStatusCode.Created }:
+            case { StatusCode: HttpStatusCode.MultiStatus }:
                 {
                     return await response.ReadResponseAsync<TResult, TMeta>(cancellationToken);
                 }
@@ -115,7 +123,7 @@ public class BcApi : IBcApi
     private async Task<BcResult<TResult, TMeta>> RetryRequestAfterDelayAsync<TResult, TMeta>(
         HttpRequestMessage requestMessage,
         int retryAfterMs,
-        CancellationToken cancellationToken
+        CancellationToken cancellationToken = default
     )
     {
         _logger.LogWarning(
