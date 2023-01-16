@@ -1,5 +1,6 @@
 namespace Fusionary.BigCommerce.Types;
 
+[DebuggerDisplay("Order Status:{StatusId} Product Count: {Products.Count}")]
 public record BcOrderPost
 {
     private BcBillingAddressBase? _billingAddress;

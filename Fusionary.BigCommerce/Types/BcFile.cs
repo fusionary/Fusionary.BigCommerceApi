@@ -1,5 +1,6 @@
 namespace Fusionary.BigCommerce.Types;
 
+[DebuggerDisplay("{FileName}")]
 public record BcFile
 {
     public byte[] Contents { get; init; } = null!;

@@ -1,5 +1,6 @@
 namespace Fusionary.BigCommerce.Types;
 
+[DebuggerDisplay("Order Product {Name}")]
 public record BcOrderCatalogProductPost
 {
     [JsonPropertyName("product_id")]

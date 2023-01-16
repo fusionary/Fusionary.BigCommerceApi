@@ -3,7 +3,7 @@ namespace Fusionary.BigCommerce.Types;
 /// <summary>
 /// Represents a BigCommerce RFC2822 or ISO8601 DateTime value
 /// </summary>
-[DebuggerDisplay("{Value)}")]
+[DebuggerDisplay("{Value}")]
 [JsonConverter(typeof(BcDateTimeConverter))]
 public struct BcDateTime : IFormattable
 {

@@ -1,5 +1,6 @@
 namespace Fusionary.BigCommerce.Types;
 
+[DebuggerDisplay("{ImageUrl}, Description = {Description}, SortOrder = {SortOrder}")]
 public record BcProductImagePost
 {
     /// <summary>

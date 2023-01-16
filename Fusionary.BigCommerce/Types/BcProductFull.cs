@@ -1,5 +1,6 @@
 namespace Fusionary.BigCommerce.Types;
 
+[DebuggerDisplay("Product #{Id}: {Name} - {Sku}")]
 public record BcProductFull
 {
     private List<int>? _categories;

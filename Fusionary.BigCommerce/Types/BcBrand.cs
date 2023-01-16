@@ -1,5 +1,6 @@
 namespace Fusionary.BigCommerce.Types;
 
+[DebuggerDisplay("Brand {Id}:{Name}")]
 public record BcBrand
 {
     public int Id { get; set; }
