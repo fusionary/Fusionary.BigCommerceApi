@@ -10,7 +10,7 @@ public class BcApiBrandsGetAll : BcRequestBuilder,
     IBcNameFilter,
     IBcPageTitleFilter
 {
-    internal BcApiBrandsGetAll(IBcApi api) : base(api)
+    public BcApiBrandsGetAll(IBcApi api) : base(api)
     { }
 
     public Task<BcResultPaged<BcBrand>> SendAsync(CancellationToken cancellationToken = default) =>

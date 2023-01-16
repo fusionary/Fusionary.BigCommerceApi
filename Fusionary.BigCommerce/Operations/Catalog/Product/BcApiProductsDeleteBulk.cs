@@ -7,7 +7,7 @@ public class BcApiProductsDeleteBulk : BcRequestBuilder,
     IBcIdRangeFilter,
     IBcProductDeleteFilter
 {
-    internal BcApiProductsDeleteBulk(IBcApi api) : base(api)
+    public BcApiProductsDeleteBulk(IBcApi api) : base(api)
     { }
 
     public async Task<bool> SendAsync(CancellationToken cancellationToken = default) =>

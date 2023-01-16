@@ -9,7 +9,7 @@ public class BcApiCategoryGetAll : BcRequestBuilder,
     IBcPageableFilter,
     IBcCategoryFilter
 {
-    internal BcApiCategoryGetAll(IBcApi api) : base(api)
+    public BcApiCategoryGetAll(IBcApi api) : base(api)
     { }
 
     public Task<BcResultPaged<BcCategory>> SendAsync(CancellationToken cancellationToken = default) =>
