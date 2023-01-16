@@ -12,7 +12,7 @@ public class BcApiProductsSearch : BcRequestBuilder,
     IBcDateModifiedFilter,
     IBcProductSearchFilter
 {
-    internal BcApiProductsSearch(IBcApi api) : base(api)
+    public BcApiProductsSearch(IBcApi api) : base(api)
     { }
 
     public Task<BcResultPaged<BcProductFull>> SendAsync(CancellationToken cancellationToken = default) =>
