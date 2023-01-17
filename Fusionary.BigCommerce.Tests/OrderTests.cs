@@ -53,10 +53,33 @@ public class OrderTests : BcTestBase
                 Phone = Faker.Phone.PhoneNumber(),
                 Company = Faker.Company.CompanyName()
             },
-            Products = { new BcOrderCatalogProductPost { Quantity = Faker.Random.Int(0, 10), ProductId = 114 } }
+            Products = new List<BcOrderCatalogProductPost>
+            {
+                new() { Quantity = Faker.Random.Int(0, 10), ProductId = 114 }
+            }
         };
 
         var result = await createOrdersApi.SendAsync(newOrder, cancellationToken);
+
+        Assert.NotNull(result);
+        Assert.True(result.Success);
+    }
+
+    [Fact]
+    public async Task Can_Update_Sample_Order_Async()
+    {
+        var updateOrdersApi = Services.GetRequiredService<BcApiOrdersUpdate>();
+
+        var cancellationToken = CancellationToken.None;
+
+        var orderToUpdate = new BcOrderPut
+        {
+            StatusId = BcOrderStatus.Completed
+        };
+
+        var result = await updateOrdersApi.SendAsync<BcOrderResponseFull>(150, orderToUpdate, cancellationToken);
+
+        DumpObject(result);
 
         Assert.NotNull(result);
         Assert.True(result.Success);
@@ -126,8 +149,8 @@ public class OrderTests : BcTestBase
                 new BcBillingAddressBase { Company = Faker.Company.CompanyName(), Zip = Faker.Address.ZipCode() },
             Products = new List<BcOrderCatalogProductPost>
             {
-                new BcOrderCatalogProductPost { ProductId = 1, Quantity = 1, PriceExTax = 5.00m },
-                new BcOrderCatalogProductPost
+                new() { ProductId = 1, Quantity = 1, PriceExTax = 5.00m },
+                new()
                 {
                     ProductId = 2,
                     Quantity = 2,

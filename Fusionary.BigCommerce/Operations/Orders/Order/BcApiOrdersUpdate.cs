@@ -6,10 +6,11 @@ public class BcApiOrdersUpdate : BcRequestBuilder, IBcApiOperation
     { }
 
     public Task<BcResultData<BcOrderResponseFull>> SendAsync(
+        BcId orderId,
         BcOrderPut order,
         CancellationToken cancellationToken = default
     ) =>
-        SendAsync<BcOrderResponseFull>(order.Id, order, cancellationToken);
+        SendAsync<BcOrderResponseFull>(orderId, order, cancellationToken);
 
     public async Task<BcResultData<T>> SendAsync<T>(
         int orderId,

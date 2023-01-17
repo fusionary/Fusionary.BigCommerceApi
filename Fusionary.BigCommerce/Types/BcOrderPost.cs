@@ -3,20 +3,18 @@ namespace Fusionary.BigCommerce.Types;
 [DebuggerDisplay("Order Status:{StatusId} Product Count: {Products.Count}")]
 public record BcOrderPost
 {
-    private BcBillingAddressBase? _billingAddress;
-    private List<BcOrderCatalogProductPost>? _products;
-    private List<BcShippingAddressBase>? _shippingAddresses;
-
     [JsonPropertyName("customer_id")]
     public int? CustomerId { get; set; }
 
     [JsonPropertyName("products")]
-    public List<BcOrderCatalogProductPost> Products
-    {
-        get => LazyInitializer.EnsureInitialized(ref _products);
-        set => _products = value;
-    }
+    public List<BcOrderCatalogProductPost>? Products { get; set; }
 
+    /// <summary>
+    /// Sets the status_id
+    /// </summary>
+    /// <remarks>
+    /// See <see cref="BcOrderStatus"/> for a list of possible values
+    /// </remarks>
     [JsonPropertyName("status_id")]
     public int? StatusId { get; set; }
 
@@ -141,11 +139,7 @@ public record BcOrderPost
     public string CartId { get; set; } = null!;
 
     [JsonPropertyName("billing_address")]
-    public BcBillingAddressBase BillingAddress
-    {
-        get => LazyInitializer.EnsureInitialized(ref _billingAddress);
-        set => _billingAddress = value;
-    }
+    public BcBillingAddressBase? BillingAddress { get; set; }
 
     [JsonPropertyName("credit_card_type")]
     public object? CreditCardType { get; set; }
@@ -160,11 +154,7 @@ public record BcOrderPost
     public string? ExternalSource { get; set; }
 
     [JsonPropertyName("shipping_addresses")]
-    public List<BcShippingAddressBase> ShippingAddresses
-    {
-        get => LazyInitializer.EnsureInitialized(ref _shippingAddresses);
-        set => _shippingAddresses = value;
-    }
+    public List<BcShippingAddressBase>? ShippingAddresses { get; set; }
 
     [JsonPropertyName("external_id")]
     public object? ExternalId { get; set; }
