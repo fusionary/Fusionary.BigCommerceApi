@@ -19,16 +19,9 @@ public class BcTokenCache : IBcTokenCache
         CancellationToken cancellationToken = default
     )
     {
-        var keyParts = new List<string?>
-        {
-            tokenRequest.ChannelId.ToString(),
-            string.Join("-", tokenRequest.AllowedCorsOrigins),
-            requestOverride?.ToString()
-        };
+        var cacheKey = GenerateCacheKey(tokenRequest, requestOverride);
 
-        var cacheKey = $"bc-token-{string.Join("-", keyParts.RemoveAll(string.IsNullOrWhiteSpace))}";
-
-        return await _cache.GetOrCreateAsync(
+        string? token =  await _cache.GetOrCreateAsync(
             cacheKey,
             async entry =>
             {
@@ -38,6 +31,19 @@ public class BcTokenCache : IBcTokenCache
                 return await CreateTokenAsync(tokenRequest, requestOverride, cancellationToken);
             }
         );
+
+        return token!;
+    }
+
+    private static string GenerateCacheKey(BcTokenRequest tokenRequest, BcRequestOverride? requestOverride)
+    {
+        var keyParts = new List<string?> {
+            tokenRequest.ChannelId.ToString(),
+            string.Join("-", tokenRequest.AllowedCorsOrigins),
+            requestOverride?.ToString()
+        };
+
+        return $"bc-token-{string.Join("-", keyParts.RemoveAll(string.IsNullOrWhiteSpace))}";
     }
 
     public async Task<string> CreateTokenAsync(

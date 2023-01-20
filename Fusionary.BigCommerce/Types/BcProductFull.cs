@@ -442,4 +442,7 @@ public record BcProductFull
     /// Variants
     /// </summary>
     public List<BcProductVariant>? Variants { get; set; }
+
+    [JsonExtensionData]
+    public IDictionary<string, JsonElement>? ExtensionData { get; set; }
 }
