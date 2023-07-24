@@ -7,7 +7,7 @@ public class BcApiProductCreate : BcRequestBuilder, IBcApiOperation,
     { }
 
     public Task<BcResultData<BcProductFull>> SendAsync(
-        BcProductFull product,
+        BcProductPost product,
         CancellationToken cancellationToken = default
     ) =>
         SendAsync<BcProductFull>(product, cancellationToken);
