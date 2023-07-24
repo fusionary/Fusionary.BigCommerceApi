@@ -1,7 +1,7 @@
 namespace Fusionary.BigCommerce.Types;
 
 [DebuggerDisplay("Sku: {Sku} Product ID: {ProductId}")]
-public record BcProductVariantPost
+public record BcProductVariantPost: IExtensionData
 {
     private List<BcProductVariantOptionValue>? _optionValues;
 
@@ -90,4 +90,8 @@ public record BcProductVariantPost
         get => LazyInitializer.EnsureInitialized(ref _optionValues);
         set => _optionValues = value;
     }
+
+    /// <inheritdoc />
+    [JsonExtensionData]
+    public IDictionary<string, JsonElement>? ExtensionData { get; set; }
 }

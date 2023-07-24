@@ -1,6 +1,6 @@
 namespace Fusionary.BigCommerce.Types;
 
-public class BcOrderProductAppliedDiscount
+public record BcOrderProductAppliedDiscount
 {
     /// <summary>
     /// Name of the coupon applied to order.

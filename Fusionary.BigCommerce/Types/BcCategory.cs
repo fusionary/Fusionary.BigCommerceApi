@@ -1,7 +1,7 @@
 namespace Fusionary.BigCommerce.Types;
 
 [DebuggerDisplay("Category {Id}:{Name}")]
-public record BcCategory
+public record BcCategory: IExtensionData
 {
     /// <summary>
     /// Unique ID of the Category. Increments sequentially
@@ -90,4 +90,7 @@ public record BcCategory
     /// </summary>
     [JsonPropertyName("custom_url")]
     public BcCustomUrl? CustomUrl { get; set; }
+
+    /// <inheritdoc />
+    public IDictionary<string, JsonElement>? ExtensionData { get; set; }
 }

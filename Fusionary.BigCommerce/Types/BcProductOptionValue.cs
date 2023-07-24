@@ -1,6 +1,6 @@
 namespace Fusionary.BigCommerce.Types;
 
-public record BcProductOptionValue
+public record BcProductOptionValue: IExtensionData
 {
     /// <summary>
     /// The unique numerical ID of the option, increments sequentially.
@@ -19,7 +19,7 @@ public record BcProductOptionValue
     /// <remarks>
     /// Required in a /POST.
     /// </remarks>
-    public string Label { get; set; } = null!;
+    public required string Label { get; set; }
 
     /// <summary>
     /// The order in which the value will be displayed on the product page.
@@ -27,7 +27,7 @@ public record BcProductOptionValue
     /// <remarks>
     /// Required in a /POST.
     /// </remarks>
-    public int SortOrder { get; set; }
+    public required int SortOrder { get; set; }
 
     /// <summary>
     /// Extra data describing the value, based on the type of option or modifier with which the value is associated.
@@ -37,4 +37,7 @@ public record BcProductOptionValue
     /// be the checked state. If no data is available, returns null.
     /// </summary>
     public Dictionary<string, string>? ValueData { get; set; }
+
+    /// <inheritdoc />
+    public IDictionary<string, JsonElement>? ExtensionData { get; set; }
 }

@@ -46,7 +46,11 @@ public static class BcEndpoint
     public static string ProductBulkPricingRulesV3(BcId productId) =>
         $"v3/catalog/products/{productId}/bulk-pricing-rules";
 
+    public static string ProductCategoryAssignmentsV3() => "v3/catalog/products/category-assignments";
+
     public static string ProductChannelAssignmentsV3() => "v3/catalog/products/channel-assignments";
+
+    public static string ProductComplexRulesV3(BcId productId) => $"v3/catalog/products/{productId}/complex-rules";
 
     public static string ProductCustomFieldsV3(BcId productId) => $"v3/catalog/products/{productId}/custom-fields";
 
@@ -63,15 +67,30 @@ public static class BcEndpoint
     public static string ProductMetafieldsV3(BcId productId, BcId customFieldId) =>
         $"v3/catalog/products/{productId}/metafields/{customFieldId}";
 
+    public static string ProductModifierImageV3(BcId productId, BcId modifierId, BcId valueId) =>
+        $"v3/catalog/products/{productId}/modifiers/{modifierId}/values/{valueId}/image";
+
     public static string ProductModifiersV3(BcId productId) => $"v3/catalog/products/{productId}/modifiers";
 
     public static string ProductModifiersV3(BcId productId, BcId modifierId) =>
         $"v3/catalog/products/{productId}/modifiers/{modifierId}";
 
+    public static string ProductModifierValuesV3(BcId productId, BcId modifierId) =>
+        $"v3/catalog/products/{productId}/modifiers/{modifierId}/values";
+
+    public static string ProductModifierValuesV3(BcId productId, BcId modifierId, BcId valueId) =>
+        $"v3/catalog/products/{productId}/modifiers/{modifierId}/values/{valueId}";
+
     public static string ProductOptionsV3(BcId productId) => $"v3/catalog/products/{productId}/options";
 
     public static string ProductOptionsV3(BcId productId, BcId optionId) =>
         $"v3/catalog/products/{productId}/options/{optionId}";
+
+    public static string ProductReviewsV3(BcId productId) =>
+        $"v3/catalog/products/{productId}/reviews";
+
+    public static string ProductReviewsV3(BcId productId, BcId reviewId) =>
+        $"v3/catalog/products/{productId}/reviews/{reviewId}";
 
     public static string ProductSkusV3(BcId productId) => $"v3/catalog/products/{productId}/skus";
 
@@ -84,7 +103,19 @@ public static class BcEndpoint
     public static string ProductVariantsV3(BcId productId, BcId variantId) =>
         $"v3/catalog/products/{productId}/variants/{variantId}";
 
+    public static string ProductVariantImageV3(BcId productId, BcId variantId) =>
+        $"v3/catalog/products/{productId}/variants/{variantId}/image";
+
+    public static string ProductVariantMetafieldsV3(BcId productId, BcId variantId) =>
+        $"v3/catalog/products/{productId}/variants/{variantId}/metafields";
+
+    public static string ProductVariantMetafieldsV3(BcId productId, BcId variantId, BcId metafieldId) =>
+        $"v3/catalog/products/{productId}/variants/{variantId}/metafields/{metafieldId}";
+
     public static string ProductVideosV3(BcId productId) => $"v3/catalog/products/{productId}/videos";
+
+    public static string ProductVideosV3(BcId productId, BcId videoId) =>
+        $"v3/catalog/products/{productId}/videos/{videoId}";
 
     public static string StorefrontTokensV3() => "v3/storefront/api-token";
 

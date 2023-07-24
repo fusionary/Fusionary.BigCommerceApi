@@ -1,6 +1,6 @@
 namespace Fusionary.BigCommerce.Types;
 
-public class BcRequestOptions
+public record BcRequestOptions
 {
     private BcRequestOverride? _requestOverrides;
 

@@ -1,6 +1,6 @@
 namespace Fusionary.BigCommerce.Types;
 
-public class BcMetadataPagination
+public record BcMetadataPagination
 {
     private BcPagination? _pagination;
 

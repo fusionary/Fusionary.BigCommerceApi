@@ -1,7 +1,7 @@
 namespace Fusionary.BigCommerce.Types;
 
 [DebuggerDisplay("Brand {Id}:{Name}")]
-public record BcBrand
+public record BcBrand: IExtensionData
 {
     public int Id { get; set; }
 
@@ -16,4 +16,7 @@ public record BcBrand
     public string? SearchKeywords { get; set; }
 
     public BcCustomUrl? CustomUrl { get; set; }
+
+    /// <inheritdoc />
+    public IDictionary<string, JsonElement>? ExtensionData { get; set; }
 }

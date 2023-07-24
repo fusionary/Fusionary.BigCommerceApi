@@ -1,7 +1,9 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace Fusionary.BigCommerce.Types;
 
 [DebuggerDisplay("Product #{Id}: {Name} - {Sku}")]
-public record BcProductFull
+public record BcProductFull : IExtensionData
 {
     private List<int>? _categories;
 
@@ -16,12 +18,13 @@ public record BcProductFull
     /// <remarks>
     /// Required - Maxlength 250 characters
     /// </remarks>
-    public string Name { get; set; } = null!;
+    [StringLength(250, MinimumLength = 1)]
+    public required string Name { get; init; }
 
     /// <summary>
     /// The product type
     /// </summary>
-    public BcProductType Type { get; set; }
+    public required BcProductType Type { get; init; }
 
     /// <summary>
     /// A unique user-defined product code/stock keeping unit
@@ -29,6 +32,7 @@ public record BcProductFull
     /// <remarks>
     /// &gt;= 1 characters<br />&lt;= 250 characters
     /// </remarks>
+    [MaxLength(255)]
     public string? Sku { get; set; }
 
     /// <summary>
@@ -42,7 +46,7 @@ public record BcProductFull
     /// <remarks>
     /// Required
     /// </remarks>
-    public double Weight { get; set; }
+    public required double Weight { get; init; }
 
     /// <summary>
     /// Width of the product, which can be used when calculating shipping costs.
@@ -65,7 +69,7 @@ public record BcProductFull
     /// <remarks>
     /// Required
     /// </remarks>
-    public BcFloat Price { get; set; }
+    public required BcFloat Price { get; init; }
 
     /// <summary>
     /// The cost price of the product. Stored for reference only; it is not used or displayed anywhere on the store.
@@ -99,8 +103,9 @@ public record BcProductFull
     /// pass more than one code. The codes are case-sensitive. For details, please see Avalara's documentation.
     /// </summary>
     /// <remarks>
-    /// &gt;= 1 characters<br />&lt;= 250 characters
+    /// &gt;= 1 characters<br />&lt;= 255 characters
     /// </remarks>
+    [MaxLength(255)]
     public string? ProductTaxCode { get; set; }
 
     /// <summary>
@@ -217,8 +222,9 @@ public record BcProductFull
     /// The BIN picking number for the product.
     /// </summary>
     /// <remarks>
-    /// &gt;= 1 characters<br />&lt;= 250 characters
+    /// &gt;= 0 characters<br />&lt;= 255 characters
     /// </remarks>
+    [MaxLength(255)]
     public string? BinPickingNumber { get; set; }
 
     /// <summary>
@@ -237,6 +243,7 @@ public record BcProductFull
     /// <remarks>
     /// &gt;= 0 characters<br />&lt;= 32 characters
     /// </remarks>
+    [MaxLength(32)]
     public string? Upc { get; set; }
 
     /// <summary>
@@ -352,6 +359,7 @@ public record BcProductFull
     /// <remarks>
     /// &gt;= 0 characters<br />&lt;= 255 characters
     /// </remarks>
+    [MaxLength(255)]
     public string? PreorderMessage { get; set; }
 
     /// <summary>
@@ -375,6 +383,7 @@ public record BcProductFull
     /// <remarks>
     /// &gt;= 0 characters<br />&lt;= 200 characters
     /// </remarks>
+    [MaxLength(200)]
     public string? PriceHiddenLabel { get; set; }
 
     /// <summary>
@@ -443,6 +452,7 @@ public record BcProductFull
     /// </summary>
     public List<BcProductVariant>? Variants { get; set; }
 
+    /// <inheritdoc />
     [JsonExtensionData]
     public IDictionary<string, JsonElement>? ExtensionData { get; set; }
 }

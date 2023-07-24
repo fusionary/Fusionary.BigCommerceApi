@@ -1,6 +1,6 @@
 namespace Fusionary.BigCommerce.Types;
 
-public record BcOrderResponseFull
+public record BcOrderResponseFull: IExtensionData
 {
     private BcBillingAddressBase? _billingAddress;
     private BcResource? _coupons;
@@ -235,4 +235,7 @@ public record BcOrderResponseFull
 
     [JsonPropertyName("external_order_id")]
     public string? ExternalOrderId { get; set; }
+
+    /// <inheritdoc />
+    public IDictionary<string, JsonElement>? ExtensionData { get; set; }
 }

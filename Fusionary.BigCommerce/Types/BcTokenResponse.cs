@@ -1,6 +1,6 @@
 namespace Fusionary.BigCommerce.Types;
 
-public class BcTokenResponse
+public record BcTokenResponse
 {
     public string Token { get; set; } = null!;
 }

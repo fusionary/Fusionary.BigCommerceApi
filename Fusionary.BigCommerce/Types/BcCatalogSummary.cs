@@ -1,6 +1,6 @@
 namespace Fusionary.BigCommerce.Types;
 
-public class BcCatalogSummary
+public record BcCatalogSummary
 {
     public int InventoryCount { get; set; }
 
