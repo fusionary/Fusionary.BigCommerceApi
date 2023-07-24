@@ -5,11 +5,11 @@ public class BcApiCategoryUpdate : BcRequestBuilder, IBcApiOperation
     public BcApiCategoryUpdate(IBcApi api) : base(api)
     { }
 
-    public Task<BcResultData<BcOrderResponseFull>> SendAsync(
+    public Task<BcResultData<BcCategory>> SendAsync(
         BcCategory category,
         CancellationToken cancellationToken = default
     ) =>
-        SendAsync<BcOrderResponseFull>(category.Id, category, cancellationToken);
+        SendAsync<BcCategory>(category.Id, category, cancellationToken);
 
     public async Task<BcResultData<T>> SendAsync<T>(
         BcId categoryId,

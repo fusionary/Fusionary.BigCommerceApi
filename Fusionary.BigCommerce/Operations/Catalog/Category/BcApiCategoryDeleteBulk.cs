@@ -9,7 +9,7 @@ public class BcApiCategoryDeleteBulk : BcRequestBuilder,
     public BcApiCategoryDeleteBulk(IBcApi api) : base(api)
     { }
 
-    public async Task<BcResult> SendAsync<TProduct>(CancellationToken cancellationToken = default) =>
+    public async Task<BcResult> SendAsync(CancellationToken cancellationToken = default) =>
         await Api.DeleteAsync(
             BcEndpoint.CategoryV3(),
             Filter,
