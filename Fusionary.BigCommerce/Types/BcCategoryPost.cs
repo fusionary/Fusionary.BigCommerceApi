@@ -8,13 +8,13 @@ public record BcCategoryPost: IExtensionData
     /// that organize the catalog. Required in a POST if creating a child category.
     /// </summary>
     [JsonPropertyName("parent_id")]
-    public int? ParentId { get; set; }
+    public int ParentId { get; set; }
 
     /// <summary>
     /// The name displayed for the category. Name is unique with respect to the category's siblings. Required in a POST.
     /// </summary>
     [JsonPropertyName("name")]
-    public required string Name { get; set; } 
+    public required string Name { get; set; }
 
     /// <summary>
     /// The product description, which can include HTML formatting.

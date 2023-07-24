@@ -40,6 +40,10 @@ public class BcApiCatalog : IBcApiOperation
 
     public BcApiProductCustomFields ProductCustomFields() => new(_api);
 
+    public BcApiProductCategoryAssignments ProductCategoryAssignments() => new(_api);
+
+    public BcApiProductChannelAssignments ProductChannelAssignments() => new(_api);
+
     public BcApiProductImages ProductImages() => new(_api);
 
     public BcApiProductMetafields ProductMetafields() => new(_api);

@@ -9,7 +9,7 @@ public class BcApiProductCategoryAssignments : IBcApiOperation
         _api = api;
     }
 
-    public BcApiProductChannelAssignmentsCreate Create() => new(_api);
+    public BcApiProductCategoryAssignmentsCreate Create() => new(_api);
 
     public BcApiProductCategoryAssignmentsDelete Delete() => new(_api);
 

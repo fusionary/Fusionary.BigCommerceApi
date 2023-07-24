@@ -36,14 +36,14 @@ public static class ExtensionsForBcCategoryFilters
     /// <summary>
     /// Filter items by parent_id. If the category is a child or sub category it can be filtered with the parent_id.
     /// </summary>
-    public static T ParentId<T, TValue>(this T builder, object parentId)
+    public static T ParentId<T>(this T builder, BcId parentId)
         where T : IBcCategoryFilter =>
-        builder.Add("parent_id", parentId);
+        builder.Add("parent_id", parentId.Value);
 
     /// <summary>
     /// Filter items by parent_id. If the category is a child or sub category it can be filtered with the parent_id.
     /// </summary>
-    public static T ParentId<T>(this T builder, IEnumerable<object> parentIds, BcModifier modifier)
+    public static T ParentId<T>(this T builder, IEnumerable<BcId> parentIds, BcModifier modifier)
         where T : IBcCategoryFilter =>
-        builder.Add(modifier.Apply("parent_id"), parentIds);
+        builder.Add(modifier.Apply("parent_id"), parentIds.Select(x => x.Value));
 }
