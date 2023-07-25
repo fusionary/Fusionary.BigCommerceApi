@@ -8,6 +8,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="CsvHelper" Version="30.0.1" />
         <PackageReference Include="GraphQL.Client" Version="6.0.0" />
         <PackageReference Include="GraphQL.Client.Serializer.SystemTextJson" Version="6.0.0" />
         <PackageReference Include="Macross.Json.Extensions" Version="3.0.0" />
