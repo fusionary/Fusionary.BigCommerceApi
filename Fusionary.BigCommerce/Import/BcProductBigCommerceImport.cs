@@ -11,7 +11,7 @@ public record BcProductCsvImport
     public string? Id { get; set; }
 
     [Name("SKU")]
-    public string? SKU { get; set; }
+    public string? Sku { get; set; }
 
     [Name("Options")]
     public string? Options { get; set; }
@@ -23,28 +23,28 @@ public record BcProductCsvImport
     public int? LowStock { get; set; }
 
     [Name("Price")]
-    public required double Price { get; set; }
+    public decimal Price { get; set; }
 
     [Name("Cost Price")]
-    public double? CostPrice { get; set; }
+    public decimal? CostPrice { get; set; }
 
     [Name("Retail Price")]
-    public double? RetailPrice { get; set; }
+    public decimal? RetailPrice { get; set; }
 
     [Name("Sale Price")]
-    public double? SalePrice { get; set; }
+    public decimal? SalePrice { get; set; }
 
     [Name("Bin Picking Number")]
     public int? BinPickingNumber { get; set; }
 
     [Name("UPC/EAN")]
-    public string? UPC { get; set; }
+    public string? Upc { get; set; }
 
     [Name("Global Trade Number")]
-    public int? GlobalTradeNumber { get; set; }
+    public string? GlobalTradeNumber { get; set; }
 
     [Name("Manufacturer Part Number")]
-    public int? ManufacturerPartNumber { get; set; }
+    public string? ManufacturerPartNumber { get; set; }
 
     [Name("Free Shipping")]
     public BcImportTrueFalse FreeShipping { get; set; }
@@ -53,10 +53,13 @@ public record BcProductCsvImport
     public double? FixedShippingCost { get; set; }
 
     [Name("Weight")]
-    public required double Weight { get; set; }
+    public double Weight { get; set; }
 
     [Name("Height")]
     public double? Height { get; set; }
+
+    [Name("Width")]
+    public double? Width { get; set; }
 
     [Name("Depth")]
     public double? Depth { get; set; }
@@ -65,7 +68,7 @@ public record BcProductCsvImport
     public string? Name { get; set; }
 
     [Name("Type")]
-    public required BcProductType Type { get; set; }
+    public BcProductType Type { get; set; }
 
     [Name("Inventory Tracking")]
     public BcInventoryTracking InventoryTracking { get; set; }
