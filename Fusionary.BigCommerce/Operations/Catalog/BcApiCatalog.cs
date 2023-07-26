@@ -23,7 +23,7 @@ public class BcApiCatalog : IBcApiOperation
 
     public BcApiCategory Category() => new(_api);
 
-    public BcApiCategoryBatch CategoryBatch() => new(_api);
+    public BcApiCategoryTrees CategoryTrees() => new(_api);
 
     public BcApiCategoryImages CategoryImages() => new(_api);
 

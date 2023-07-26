@@ -29,6 +29,10 @@ public static class BcEndpoint
 
     public static string CategoryV3(BcId categoryId) => $"v3/catalog/categories/{categoryId}";
 
+    public static string CategoryTreesV3() => "v3/catalog/trees/categories";
+
+    public static string CategoryTreesV3(BcId treeId) => $"v3/catalog/trees/{treeId}/categories";
+
     public static string ChannelsV3() => "v3/channels";
 
     public static string ChannelsV3(BcId channelId) => $"v3/channels/{channelId}";
