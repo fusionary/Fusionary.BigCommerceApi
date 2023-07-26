@@ -23,6 +23,7 @@
     <ItemGroup>
         <Folder Include="Operations\Abandoned Carts" />
         <Folder Include="Operations\Catalog\Product Reviews" />
+        <Folder Include="Operations\Management\Price Lists\Price Lists Assignments\" />
     </ItemGroup>
 
 </Project>

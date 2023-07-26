@@ -143,6 +143,22 @@ public static class BcRequestBuilderExtensions
     }
 
     /// <summary>
+    /// Sets the header value for the specified key for this request.
+    /// </summary>
+    public static T StrictMode<T>(this T builder, bool enabled = true) where T : IBcRequestBuilder
+    {
+        if (enabled)
+        {
+            builder.Options.RequestOverrides.Headers[BcHeaderName.XStrictMode] = "true";
+        }
+        else
+        {
+            builder.Options.RequestOverrides.Headers.Remove(BcHeaderName.XStrictMode);
+        }
+        return builder;
+    }
+
+    /// <summary>
     /// Applies configured overrides to the request.
     /// </summary>
     public static T WithOverrides<T>(this T builder, BcRequestOverride? requestOverride) where T : IBcRequestBuilder

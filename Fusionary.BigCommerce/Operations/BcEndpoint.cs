@@ -29,6 +29,14 @@ public static class BcEndpoint
 
     public static string CategoryV3(BcId categoryId) => $"v3/catalog/categories/{categoryId}";
 
+    public static string ChannelsV3() => "v3/channels";
+
+    public static string ChannelsV3(BcId channelId) => $"v3/channels/{channelId}";
+
+    public static string CustomersV3() => "v3/customers";
+
+    public static string CustomersV3(BcId customerId) => $"v3/catalog/customers/{customerId}";
+
     public static string OrderMetafieldsV3(BcId orderId) => $"v3/orders/{orderId}/metafields";
 
     public static string OrderMetafieldsV3(BcId orderId, BcId metafieldId) =>
@@ -42,6 +50,15 @@ public static class BcEndpoint
     public static string OrdersV2(BcId orderId) => $"v2/orders/{orderId}";
 
     public static string OrdersV2() => "v2/orders";
+
+    public static string PriceListRecordsV3(BcId priceListId) => $"v3/pricelists/{priceListId}/records";
+
+    public static string PriceListRecordsV3(BcId priceListId, BcId recordId) =>
+        $"v3/pricelists/{priceListId}/records/{recordId}";
+
+    public static string PriceListsV3() => "v3/pricelists";
+
+    public static string PriceListsV3(BcId priceListId) => $"v3/pricelists/{priceListId}";
 
     public static string ProductBulkPricingRulesV3(BcId productId) =>
         $"v3/catalog/products/{productId}/bulk-pricing-rules";
@@ -98,11 +115,6 @@ public static class BcEndpoint
 
     public static string ProductsV3() => "v3/catalog/products";
 
-    public static string ProductVariantsV3(BcId productId) => $"v3/catalog/products/{productId}/variants";
-
-    public static string ProductVariantsV3(BcId productId, BcId variantId) =>
-        $"v3/catalog/products/{productId}/variants/{variantId}";
-
     public static string ProductVariantImageV3(BcId productId, BcId variantId) =>
         $"v3/catalog/products/{productId}/variants/{variantId}/image";
 
@@ -112,6 +124,11 @@ public static class BcEndpoint
     public static string ProductVariantMetafieldsV3(BcId productId, BcId variantId, BcId metafieldId) =>
         $"v3/catalog/products/{productId}/variants/{variantId}/metafields/{metafieldId}";
 
+    public static string ProductVariantsV3(BcId productId) => $"v3/catalog/products/{productId}/variants";
+
+    public static string ProductVariantsV3(BcId productId, BcId variantId) =>
+        $"v3/catalog/products/{productId}/variants/{variantId}";
+
     public static string ProductVideosV3(BcId productId) => $"v3/catalog/products/{productId}/videos";
 
     public static string ProductVideosV3(BcId productId, BcId videoId) =>
@@ -120,6 +137,4 @@ public static class BcEndpoint
     public static string StorefrontTokensV3() => "v3/storefront/api-token";
 
     public static string SummaryV3() => "v3/catalog/summary";
-
-    public static string VariantsV3() => "v3/catalog/variants";
 }

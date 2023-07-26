@@ -2,8 +2,15 @@ using CsvHelper.Configuration.Attributes;
 
 namespace Fusionary.BigCommerce.Import;
 
+/// <summary>
+///
+/// </summary>
+/// <see href="https://support.bigcommerce.com/s/article/V3-Import-Export" />
 public record BcProductCsvImport
 {
+    /// <summary>
+    /// The item type to import. This can be one of the following values: Product, Variant, Image, Video.
+    /// </summary>
     [Name("Item")]
     public required string Item { get; set; } = "Product";
 
@@ -77,7 +84,7 @@ public record BcProductCsvImport
     public int? BrandId { get; set; }
 
     [Name("Channels")]
-    public string Channels { get; set; } = "1";
+    public string? Channels { get; set; }
 
     [Name("Categories")]
     public string? Categories { get; set; }
@@ -101,10 +108,10 @@ public record BcProductCsvImport
     public string? MetaKeywords { get; set; }
 
     [Name("Is Visible")]
-    public BcImportTrueFalse IsVisible { get; set; }
+    public bool IsVisible { get; set; }
 
     [Name("Is Featured")]
-    public BcImportTrueFalse IsFeatured { get; set; }
+    public bool IsFeatured { get; set; }
 
     [Name("Warranty")]
     public string? Warranty { get; set; }
@@ -113,18 +120,20 @@ public record BcProductCsvImport
     public int TaxClass { get; set; }
 
     [Name("Product Condition")]
-    public string? ProductCondition { get; set; }
+    public BcCondition ProductCondition { get; set; }
 
     [Name("Show Product Condition")]
-    public BcImportTrueFalse ShowProductCondition { get; set; }
+    public bool ShowProductCondition { get; set; }
 
     [Name("Sort Order")]
     public int? SortOrder { get; set; }
 
-    // Image Item
+    // Variant Item
 
     [Name("Variant Image URL")]
     public string? VariantImageUrl { get; set; }
+
+    // Image Item
 
     [Name("Internal Image URL (Export)")]
     public string? InternalImageUrl { get; set; }
@@ -136,7 +145,7 @@ public record BcProductCsvImport
     public string? ImageDescription { get; set; }
 
     [Name("Image Is Thumbnail")]
-    public BcImportTrueFalse ImageIsThumbnail { get; set; }
+    public bool ImageIsThumbnail { get; set; }
 
     [Name("Image Sort Order")]
     public int? ImageSortOrder { get; set; }
