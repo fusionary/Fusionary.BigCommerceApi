@@ -15,8 +15,6 @@ public static class BcEndpoint
 
     public static string BrandsV3(BcId brandId) => $"v3/catalog/brands/{brandId}";
 
-    public static string CategoriesBatchV3() => "v3/catalog/trees/categories";
-
     public static string CategoryMetafieldsV3(BcId categoryId) => $"v3/catalog/categories/{categoryId}/metafields";
 
     public static string CategoryMetafieldsV3(BcId categoryId, BcId metafieldId) =>
@@ -29,9 +27,11 @@ public static class BcEndpoint
 
     public static string CategoryV3(BcId categoryId) => $"v3/catalog/categories/{categoryId}";
 
-    public static string CategoryTreesV3() => "v3/catalog/trees/categories";
+    public static string CategoryTreesV3() => "v3/catalog/trees";
 
-    public static string CategoryTreesV3(BcId treeId) => $"v3/catalog/trees/{treeId}/categories";
+    public static string CategoryTreeCategoriesV3() => "v3/catalog/trees/categories";
+
+    public static string CategoryTreeCategoriesV3(BcId treeId) => $"v3/catalog/trees/{treeId}/categories";
 
     public static string ChannelsV3() => "v3/channels";
 

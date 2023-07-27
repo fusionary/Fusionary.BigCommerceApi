@@ -12,7 +12,7 @@ public record BcProductCsvImport
     /// The item type to import. This can be one of the following values: Product, Variant, Image, Video.
     /// </summary>
     [Name("Item")]
-    public required string Item { get; set; } = "Product";
+    public string? Item { get; set; }
 
     [Name("ID")]
     public string? Id { get; set; }
@@ -30,7 +30,7 @@ public record BcProductCsvImport
     public int? LowStock { get; set; }
 
     [Name("Price")]
-    public decimal Price { get; set; }
+    public decimal? Price { get; set; }
 
     [Name("Cost Price")]
     public decimal? CostPrice { get; set; }
@@ -53,14 +53,16 @@ public record BcProductCsvImport
     [Name("Manufacturer Part Number")]
     public string? ManufacturerPartNumber { get; set; }
 
+    [BooleanTrueValues("TRUE")]
+    [BooleanFalseValues("FALSE")]
     [Name("Free Shipping")]
-    public BcImportTrueFalse FreeShipping { get; set; }
+    public bool? FreeShipping { get; set; }
 
     [Name("Fixed Shipping Cost")]
     public double? FixedShippingCost { get; set; }
 
     [Name("Weight")]
-    public double Weight { get; set; }
+    public double? Weight { get; set; }
 
     [Name("Height")]
     public double? Height { get; set; }
@@ -75,10 +77,10 @@ public record BcProductCsvImport
     public string? Name { get; set; }
 
     [Name("Type")]
-    public BcProductType Type { get; set; }
+    public string? Type { get; set; }
 
     [Name("Inventory Tracking")]
-    public BcInventoryTracking InventoryTracking { get; set; }
+    public string? InventoryTracking { get; set; }
 
     [Name("Brand ID")]
     public int? BrandId { get; set; }
@@ -107,23 +109,29 @@ public record BcProductCsvImport
     [Name("Meta Keywords")]
     public string? MetaKeywords { get; set; }
 
+    [BooleanTrueValues("TRUE")]
+    [BooleanFalseValues("FALSE")]
     [Name("Is Visible")]
-    public bool IsVisible { get; set; }
+    public bool? IsVisible { get; set; }
 
+    [BooleanTrueValues("TRUE")]
+    [BooleanFalseValues("FALSE")]
     [Name("Is Featured")]
-    public bool IsFeatured { get; set; }
+    public bool? IsFeatured { get; set; }
 
     [Name("Warranty")]
     public string? Warranty { get; set; }
 
     [Name("Tax Class")]
-    public int TaxClass { get; set; }
+    public string? TaxClass { get; set; }
 
     [Name("Product Condition")]
-    public BcCondition ProductCondition { get; set; }
+    public string? ProductCondition { get; set; }
 
+    [BooleanTrueValues("TRUE")]
+    [BooleanFalseValues("FALSE")]
     [Name("Show Product Condition")]
-    public bool ShowProductCondition { get; set; }
+    public bool? ShowProductCondition { get; set; }
 
     [Name("Sort Order")]
     public int? SortOrder { get; set; }
@@ -144,8 +152,10 @@ public record BcProductCsvImport
     [Name("Image Description")]
     public string? ImageDescription { get; set; }
 
+    [BooleanTrueValues("TRUE")]
+    [BooleanFalseValues("FALSE")]
     [Name("Image Is Thumbnail")]
-    public bool ImageIsThumbnail { get; set; }
+    public bool? ImageIsThumbnail { get; set; }
 
     [Name("Image Sort Order")]
     public int? ImageSortOrder { get; set; }

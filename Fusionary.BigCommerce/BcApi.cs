@@ -35,6 +35,10 @@ public class BcApi : IBcApi
             )
             .ConfigureAwait(false);
 
+        var rq = response.RequestMessage?.ToString();
+
+        _logger.LogInformation("{Message}", rq);
+
         return response;
     }
 

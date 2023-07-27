@@ -1,15 +1,15 @@
 namespace Fusionary.BigCommerce.Operations;
 
-public class BcApiCategoryTreesDelete: BcRequestBuilder,
+public class BcApiCategoryTreesDeleteCategories : BcRequestBuilder,
     IBcApiOperation,
-    IBcIdFilter
+    IBcCategoryTreeFilter
 {
-    public BcApiCategoryTreesDelete(IBcApi api) : base(api)
+    public BcApiCategoryTreesDeleteCategories(IBcApi api) : base(api)
     { }
 
     public async Task<BcResult> SendAsync<T>(CancellationToken cancellationToken = default) =>
         await Api.DeleteAsync(
-            BcEndpoint.CategoryTreesV3(),
+            BcEndpoint.CategoryTreeCategoriesV3(),
             Filter,
             Options,
             cancellationToken

@@ -8,7 +8,7 @@ public class BcApiCategoryTreesGetAll : BcRequestBuilder,
     public BcApiCategoryTreesGetAll(IBcApi api) : base(api)
     { }
 
-    public async Task<BcResultData<BcCategoryTree[]>> SendAsync<T>(CancellationToken cancellationToken = default) =>
+    public async Task<BcResultData<BcCategoryTree[]>> SendAsync(CancellationToken cancellationToken = default) =>
         await Api.GetDataAsync<BcCategoryTree[]>(
             BcEndpoint.CategoryTreesV3(),
             Filter,

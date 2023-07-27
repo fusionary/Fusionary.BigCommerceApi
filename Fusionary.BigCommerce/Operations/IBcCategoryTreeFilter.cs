@@ -1,4 +1,4 @@
 namespace Fusionary.BigCommerce.Operations;
 
-public interface IBcCategoryTreeFilter : IBcRequestBuilder
+public interface IBcCategoryTreeFilter : IParentIdFilter
 { }
