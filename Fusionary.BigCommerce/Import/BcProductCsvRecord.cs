@@ -3,10 +3,9 @@ using CsvHelper.Configuration.Attributes;
 namespace Fusionary.BigCommerce.Import;
 
 /// <summary>
-///
 /// </summary>
 /// <see href="https://support.bigcommerce.com/s/article/V3-Import-Export" />
-public record BcProductCsvImport
+public record BcProductCsvRecord
 {
     /// <summary>
     /// The item type to import. This can be one of the following values: Product, Variant, Image, Video.
@@ -174,5 +173,4 @@ public record BcProductCsvImport
 
     [Name("Video Sort Order")]
     public int? VideoSortOrder { get; set; }
-
 }

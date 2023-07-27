@@ -2,17 +2,19 @@ using System.Reflection;
 
 using CsvHelper;
 using CsvHelper.Configuration;
-using CsvHelper.Configuration.Attributes;
 using CsvHelper.TypeConversion;
 
 namespace Fusionary.BigCommerce.Import;
 
 public class BcEnumConverter : DefaultTypeConverter
 {
-    private readonly Type _type;
-    private readonly Dictionary<string, string> _enumNamesByAttributeNames = new();
-    private readonly Dictionary<string, string> _enumNamesByAttributeNamesIgnoreCase = new(StringComparer.OrdinalIgnoreCase);
     private readonly Dictionary<object, string> _attributeNamesByEnumValues = new();
+    private readonly Dictionary<string, string> _enumNamesByAttributeNames = new();
+
+    private readonly Dictionary<string, string> _enumNamesByAttributeNamesIgnoreCase =
+        new(StringComparer.OrdinalIgnoreCase);
+
+    private readonly Type _type;
 
     // enumNamesByAttributeNames
     // enumNamesByAttributeNamesIgnoreCase
@@ -22,7 +24,7 @@ public class BcEnumConverter : DefaultTypeConverter
     // 1:[Name("Foo")]
 
     /// <summary>
-    /// Creates a new <see cref="BcEnumConverter"/> for the given <see cref="Enum"/> <see cref="System.Type"/>.
+    /// Creates a new <see cref="BcEnumConverter" /> for the given <see cref="Enum" /> <see cref="System.Type" />.
     /// </summary>
     /// <param name="type">The type of the Enum.</param>
     public BcEnumConverter(Type type)
@@ -32,7 +34,7 @@ public class BcEnumConverter : DefaultTypeConverter
             throw new ArgumentException($"'{type.FullName}' is not an Enum.");
         }
 
-        this._type = type;
+        _type = type;
 
         foreach (var value in Enum.GetValues(type))
         {
@@ -51,7 +53,7 @@ public class BcEnumConverter : DefaultTypeConverter
         }
     }
 
-    /// <inheritdoc/>
+    /// <inheritdoc />
     public override object? ConvertFromString(string? text, IReaderRow row, MemberMapData memberMapData)
     {
         var ignoreCase = memberMapData.TypeConverterOptions.EnumIgnoreCase ?? false;
@@ -73,11 +75,9 @@ public class BcEnumConverter : DefaultTypeConverter
             : base.ConvertFromString(text, row, memberMapData);
     }
 
-    /// <inheritdoc/>
-    public override string? ConvertToString(object? value, IWriterRow row, MemberMapData memberMapData)
-    {
-        return value is not null && _attributeNamesByEnumValues.TryGetValue(value, out var name)
+    /// <inheritdoc />
+    public override string? ConvertToString(object? value, IWriterRow row, MemberMapData memberMapData) =>
+        value is not null && _attributeNamesByEnumValues.TryGetValue(value, out var name)
             ? name
             : base.ConvertToString(value, row, memberMapData);
-    }
 }

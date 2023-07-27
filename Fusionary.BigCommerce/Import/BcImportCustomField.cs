@@ -4,19 +4,22 @@ public record BcImportCustomField
 {
     public int? Id { get; set; }
 
-    public required string Name { get; set; }
+    public required string Key { get; set; }
 
     public required string Value { get; set; }
+
+    private static bool IsIdPart(string partValue) => partValue.StartsWith("id=", StringComparison.OrdinalIgnoreCase);
 
     public static BcImportCustomField Parse(string customFieldValue)
     {
         var parts = customFieldValue.Split('|', StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
 
-        switch (parts.Length) {
+        switch (parts.Length)
+        {
             case > 2:
                 throw new ArgumentException("Invalid custom field format", nameof(customFieldValue));
             case 0:
-                return new BcImportCustomField { Name = string.Empty, Value = string.Empty };
+                return new BcImportCustomField { Key = string.Empty, Value = string.Empty };
         }
 
         var idPart   = parts.FirstOrDefault(IsIdPart);
@@ -27,16 +30,14 @@ public record BcImportCustomField
             var id = ParseIdPart(idPart);
             var (name, value) = ParseNamePartName(namePart);
 
-            return new BcImportCustomField { Id = id, Name = name, Value = value };
+            return new BcImportCustomField { Id = id, Key = name, Value = value };
         }
         else
         {
             var (name, value) = ParseNamePartName(namePart);
-            return new BcImportCustomField { Name = name, Value = value };
+            return new BcImportCustomField { Key = name, Value = value };
         }
     }
-
-    private static bool IsIdPart(string partValue) => partValue.StartsWith("id=", StringComparison.OrdinalIgnoreCase);
 
     private static int ParseIdPart(string idPart) => int.Parse(
         idPart.Split('=', StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries)[1]
@@ -56,10 +57,12 @@ public record BcImportCustomField
         return (name, value);
     }
 
-    public override string ToString()
+    public string ToFormattedString()
     {
         var idPart   = Id.HasValue ? $"id={Id.Value}" : string.Empty;
-        var namePart = !string.IsNullOrWhiteSpace(Name) ? $"{Name}={Value}" : string.Empty;
+        var namePart = !string.IsNullOrWhiteSpace(Key) ? $"{Key}={Value}" : string.Empty;
         return string.Join('|', new[] { idPart, namePart }.Where(x => !string.IsNullOrWhiteSpace(x)));
     }
+
+    public override string ToString() => ToFormattedString();
 }

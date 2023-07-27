@@ -31,6 +31,11 @@
         <Content Include="appsettings.json" CopyToOutputDirectory="Always" />
         <None Remove="logo.png" />
         <Content Include="logo.png" CopyToOutputDirectory="Always" />
+        <None Remove="product_20230727_181830.csv" />
+        <None Remove="v3-product-import-template.csv" />
+        <Content Include="v3-product-import-template.csv">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
     </ItemGroup>
 
 </Project>
