@@ -80,9 +80,19 @@ public static class BcHttpResponseExtensions
             StatusCode = response.StatusCode,
             Error = error!,
             RateLimits = rateLimits,
-            ResponseText = await response.Content.ReadAsStringAsync(cancellationToken)
+            ResponseText = await response.Content.ReadAsStringAsync(cancellationToken),
+            RequestUri = response.RequestMessage?.RequestUri,
+            RequestBody = await ReadRequestBodyAsync(response, cancellationToken)
         };
     }
+
+    private static async Task<string?> ReadRequestBodyAsync(
+        HttpResponseMessage response,
+        CancellationToken cancellationToken
+    ) =>
+        response.RequestMessage?.Content is not null
+            ? await response.RequestMessage.Content.ReadAsStringAsync(cancellationToken)
+            : default;
 
     public static async Task<BcResult<TData, TMeta>> ReadResponseAsync<TData, TMeta>(
         this HttpResponseMessage response,
@@ -108,7 +118,9 @@ public static class BcHttpResponseExtensions
                     Type = "Exception",
                     ErrorDetails = new Dictionary<string, string> { { "Exception", ex.ToString() } }
                 },
-                ResponseText = await response.Content.ReadAsStringAsync(cancellationToken)
+                ResponseText = await response.Content.ReadAsStringAsync(cancellationToken),
+                RequestUri = response.RequestMessage?.RequestUri,
+                RequestBody = await ReadRequestBodyAsync(response, cancellationToken)
             };
         }
     }
@@ -124,7 +136,11 @@ public static class BcHttpResponseExtensions
         {
             return new BcResult<TData, TMeta>
             {
-                Success = true, StatusCode = response.StatusCode, RateLimits = rateLimits
+                Success = true,
+                StatusCode = response.StatusCode,
+                RateLimits = rateLimits,
+                RequestUri = response.RequestMessage?.RequestUri,
+                RequestBody = await ReadRequestBodyAsync(response, cancellationToken)
             };
         }
 
@@ -147,7 +163,9 @@ public static class BcHttpResponseExtensions
                 Data = arrayData!,
                 StatusCode = response.StatusCode,
                 RateLimits = rateLimits,
-                ResponseText = json.RootElement.GetRawText()
+                ResponseText = json.RootElement.GetRawText(),
+                RequestUri = response.RequestMessage?.RequestUri,
+                RequestBody = await ReadRequestBodyAsync(response, cancellationToken)
             };
         }
 
@@ -169,7 +187,9 @@ public static class BcHttpResponseExtensions
             Meta = meta!,
             StatusCode = response.StatusCode,
             RateLimits = rateLimits,
-            ResponseText = json.RootElement.GetRawText()
+            ResponseText = json.RootElement.GetRawText(),
+            RequestUri = response.RequestMessage?.RequestUri,
+            RequestBody = await ReadRequestBodyAsync(response, cancellationToken)
         };
     }
 

@@ -1,3 +1,5 @@
+using System.ComponentModel;
+
 namespace Fusionary.BigCommerce;
 
 [DebuggerDisplay("{StatusCode}")]
@@ -46,6 +48,21 @@ public record BcResult
     /// </summary>
     [JsonPropertyOrder(3)]
     public BcRateLimitResponseHeaders RateLimits { get; set; } = null!;
+
+    /// <summary>
+    /// The requested URI
+    /// </summary>
+    [JsonIgnore]
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    public Uri? RequestUri { get; init; }
+
+    /// <summary>
+    /// The body of the request (available only if Success is false)
+    /// </summary>
+    [JsonIgnore]
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    public string? RequestBody { get; init; }
+
 
     public void Deconstruct(out bool success, out BcErrorDetails? error)
     {
