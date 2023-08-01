@@ -1,12 +1,7 @@
 namespace Fusionary.BigCommerce.Types;
 
-[DebuggerDisplay("{Name}:{Value}")]
+[DebuggerDisplay("{Name}:{Value} ({Id})")]
 public record BcCustomField : BcCustomFieldPost
 {
-    /// <summary>
-    /// The unique numeric ID of the custom field; increments sequentially.
-    /// Required to update existing custom field in /PUT request. Read-Only
-    /// </summary>
-    [JsonPropertyName("id")]
-    public new int Id { get; set; }
+    
 }
