@@ -1,12 +1,18 @@
 namespace Fusionary.BigCommerce.Types;
 
-public record BcPriceListRecordPut
+public record BcPriceListRecordUpsert
 {
     private BcBulkPricingTier[]? _bulkPricingTiers;
 
-    [JsonPropertyName("price_list_id")]
-    public int PriceListId { get; set; }
+    /// <summary>
+    /// The SKU for the variant with which this price set is associated. Either sku or variant_id is required.
+    /// </summary>
+    [JsonPropertyName("sku")]
+    public string? Sku { get; set; }
 
+    /// <summary>
+    /// The variant ID with which this price set is associated. Either variant_id or sku is required.
+    /// </summary>
     [JsonPropertyName("variant_id")]
     public int? VariantId { get; set; }
 
