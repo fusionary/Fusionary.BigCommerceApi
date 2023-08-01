@@ -1,7 +1,7 @@
 namespace Fusionary.BigCommerce.Types;
 
 [DebuggerDisplay("Category {Name}")]
-public record BcCategoryPost: IExtensionData
+public record BcCategoryPost : IExtensionData
 {
     /// <summary>
     /// The unique numeric ID of the category's parent. This field controls where the category sits in the tree of categories
@@ -86,5 +86,5 @@ public record BcCategoryPost: IExtensionData
     public BcCustomUrl? CustomUrl { get; set; }
 
     /// <inheritdoc />
-    public IDictionary<string, JsonElement>? ExtensionData { get; set; }
+    public IDictionary<string, JsonElement>? ExtensionData { get; init; }
 }

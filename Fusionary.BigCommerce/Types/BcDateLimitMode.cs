@@ -5,10 +5,10 @@ public enum BcDateLimitMode
 {
     [JsonPropertyName("earliest")]
     Earliest,
-    
+
     [JsonPropertyName("range")]
     Range,
-    
+
     [JsonPropertyName("latest")]
     Latest
 }

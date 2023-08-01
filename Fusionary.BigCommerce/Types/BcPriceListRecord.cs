@@ -1,6 +1,6 @@
 namespace Fusionary.BigCommerce.Types;
 
-public record BcPriceListRecord: BcPriceListRecordPut
+public record BcPriceListRecord : BcPriceListRecordPut
 {
     [JsonPropertyName("calculated_price")]
     public BcFloat CalculatedPrice { get; set; }

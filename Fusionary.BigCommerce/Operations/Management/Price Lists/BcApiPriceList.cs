@@ -26,4 +26,8 @@ public class BcApiPriceList : IBcApiOperation
     public BcApiPriceListsGetAll GetAll() => new(_api);
 
     public BcApiPriceListsUpdate Update() => new(_api);
+
+    public BcApiPriceListAssignments Assignments() => new(_api);
+
+    public BcApiPriceListRecords Records() => new(_api);
 }

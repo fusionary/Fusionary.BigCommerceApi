@@ -1,4 +1,5 @@
 namespace Fusionary.BigCommerce.Types;
+
 [DebuggerDisplay("OptionValue {Id}: {Label}")]
 public record BcOptionValue
 {

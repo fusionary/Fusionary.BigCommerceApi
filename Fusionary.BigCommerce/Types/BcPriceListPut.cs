@@ -1,6 +1,4 @@
 namespace Fusionary.BigCommerce.Types;
 
-public record BcPriceListPut: BcPriceListPost
-{
-    
-}
+public record BcPriceListPut : BcPriceListPost
+{ }

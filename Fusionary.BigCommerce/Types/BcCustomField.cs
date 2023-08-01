@@ -1,7 +1,7 @@
 namespace Fusionary.BigCommerce.Types;
 
 [DebuggerDisplay("{Name}:{Value}")]
-public record BcCustomField: BcCustomFieldPost
+public record BcCustomField : BcCustomFieldPost
 {
     /// <summary>
     /// The unique numeric ID of the custom field; increments sequentially.

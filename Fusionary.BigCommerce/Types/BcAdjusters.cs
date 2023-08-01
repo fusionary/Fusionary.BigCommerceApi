@@ -1,15 +1,27 @@
 namespace Fusionary.BigCommerce.Types;
 
-public record BcAdjusters: IExtensionData
+public record BcAdjusters : IExtensionData
 {
-    public BcAdjusterItem? Price { get; set; }
+    /// <summary>
+    /// Gets or Sets Price
+    /// </summary>
+    public BcAdjusterItem? Price { get; init; }
 
-    public BcAdjusterItem? Weight { get; set; }
+    /// <summary>
+    /// Gets or Sets Weight
+    /// </summary>
+    public BcAdjusterItem? Weight { get; init; }
 
-    public string? ImageUrl { get; set; }
+    /// <summary>
+    /// The URL for an image displayed on the storefront when the modifier value is selected.
+    /// </summary>
+    public string? ImageUrl { get; init; }
 
-    public BcAdjusterPurchasingDisabled? PurchasingDisabled { get; set; }
+    /// <summary>
+    /// Gets or Sets PurchasingDisabled
+    /// </summary>
+    public BcAdjusterPurchasingDisabled? PurchasingDisabled { get; init; }
 
     /// <inheritdoc />
-    public IDictionary<string, JsonElement>? ExtensionData { get; set; }
+    public IDictionary<string, JsonElement>? ExtensionData { get; init; }
 }

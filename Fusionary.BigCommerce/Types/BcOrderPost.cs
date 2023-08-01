@@ -13,7 +13,7 @@ public record BcOrderPost
     /// Sets the status_id
     /// </summary>
     /// <remarks>
-    /// See <see cref="BcOrderStatus"/> for a list of possible values
+    /// See <see cref="BcOrderStatus" /> for a list of possible values
     /// </remarks>
     [JsonPropertyName("status_id")]
     public int? StatusId { get; set; }

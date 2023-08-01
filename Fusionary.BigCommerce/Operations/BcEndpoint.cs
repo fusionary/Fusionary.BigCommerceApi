@@ -60,6 +60,12 @@ public static class BcEndpoint
     public static string PriceListRecordsV3(BcId priceListId, BcId recordId) =>
         $"v3/pricelists/{priceListId}/records/{recordId}";
 
+    public static string PricingProductsV3() => "v3/pricing/products";
+
+    public static string PriceListAssignmentsV3() => "v3/pricelists/assignments";
+
+    public static string PriceListAssignmentsV3(BcId priceListId) => "v3/pricelists/{priceListId}/assignments";
+
     public static string PriceListsV3() => "v3/pricelists";
 
     public static string PriceListsV3(BcId priceListId) => $"v3/pricelists/{priceListId}";

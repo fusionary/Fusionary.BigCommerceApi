@@ -449,5 +449,5 @@ public record BcProductPost : IExtensionData
 
     /// <inheritdoc />
     [JsonExtensionData]
-    public IDictionary<string, JsonElement>? ExtensionData { get; set; }
+    public IDictionary<string, JsonElement>? ExtensionData { get; init; }
 }

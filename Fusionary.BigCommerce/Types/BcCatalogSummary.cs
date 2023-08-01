@@ -1,24 +1,56 @@
 namespace Fusionary.BigCommerce.Types;
 
+[DebuggerDisplay("{InventoryCount}")]
 public record BcCatalogSummary
 {
-    public int InventoryCount { get; set; }
+    /// <summary>
+    /// A count of all inventory items in the catalog.
+    /// </summary>
+    public int InventoryCount { get; init; }
 
-    public BcFloat InventoryValue { get; set; }
+    /// <summary>
+    /// Total value of store's inventory.
+    /// </summary>
+    public BcFloat InventoryValue { get; init; }
 
-    public int PrimaryCategoryId { get; set; }
+    /// <summary>
+    /// ID of the category containing the most products.
+    /// </summary>
+    public int PrimaryCategoryId { get; init; }
 
-    public string PrimaryCategoryName { get; set; } = null!;
+    /// <summary>
+    /// Total number of variants
+    /// </summary>
+    public string PrimaryCategoryName { get; init; } = null!;
 
-    public int VariantCount { get; set; }
+    /// <summary>
+    /// Total number of variants
+    /// </summary>
+    public int VariantCount { get; init; }
 
-    public BcFloat HighestVariantPrice { get; set; }
+    /// <summary>
+    /// Highest priced variant
+    /// </summary>
+    public BcFloat HighestVariantPrice { get; init; }
 
-    public BcFloat AverageVariantPrice { get; set; }
+    /// <summary>
+    /// Average price of all variants
+    /// </summary>
+    public BcFloat AverageVariantPrice { get; init; }
 
-    public BcFloat LowestVariantPrice { get; set; }
+    /// <summary>
+    /// Lowest priced variant in the store
+    /// </summary>
+    public BcFloat LowestVariantPrice { get; init; }
 
-    public BcDateTime OldestVariantDate { get; set; }
 
-    public BcDateTime NewestVariantDate { get; set; }
+    /// <summary>
+    /// Oldest variant in the store
+    /// </summary>
+    public BcDateTime OldestVariantDate { get; init; }
+
+    /// <summary>
+    /// Newest variant in the store
+    /// </summary>
+    public BcDateTime NewestVariantDate { get; init; }
 }

@@ -5,7 +5,7 @@ public enum BcFileTypesMode
 {
     [JsonPropertyName("specific")]
     Specific,
-    
+
     [JsonPropertyName("all")]
     All
 }

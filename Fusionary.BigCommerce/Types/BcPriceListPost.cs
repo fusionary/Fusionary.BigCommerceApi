@@ -1,6 +1,6 @@
 namespace Fusionary.BigCommerce.Types;
 
-public record BcPriceListPost: IExtensionData
+public record BcPriceListPost : IExtensionData
 {
     [JsonPropertyName("name")]
     public required string Name { get; set; }
@@ -8,5 +8,5 @@ public record BcPriceListPost: IExtensionData
     [JsonPropertyName("active")]
     public bool Active { get; set; }
 
-    public IDictionary<string, JsonElement>? ExtensionData { get; set; }
+    public IDictionary<string, JsonElement>? ExtensionData { get; init; }
 }

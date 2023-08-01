@@ -4,28 +4,28 @@ public enum BcDefaultProductSort
 {
     [JsonPropertyName("use_store_settings")]
     UseStoreSettings,
-    
+
     [JsonPropertyName("featured")]
     Featured,
-    
+
     [JsonPropertyName("newest")]
     Newest,
-    
+
     [JsonPropertyName("best_selling")]
-    BestSelling , 
-    
+    BestSelling,
+
     [JsonPropertyName("alpha_asc")]
-    AlphaAsc , 
-    
+    AlphaAsc,
+
     [JsonPropertyName("alpha_desc")]
-    AlphaDesc , 
-    
+    AlphaDesc,
+
     [JsonPropertyName("avg_customer_review")]
-    AvgCustomerReview , 
-    
+    AvgCustomerReview,
+
     [JsonPropertyName("price_asc")]
-    PriceAsc , 
-    
+    PriceAsc,
+
     [JsonPropertyName("price_desc")]
     PriceDesc
 }

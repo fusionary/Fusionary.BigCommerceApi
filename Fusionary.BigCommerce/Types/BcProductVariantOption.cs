@@ -5,7 +5,7 @@ namespace Fusionary.BigCommerce.Types;
 /// </summary>
 /// <see href="https://developer.bigcommerce.com/docs/rest-catalog/product-variant-options" />
 [DebuggerDisplay("{DisplayName}")]
-public record BcProductVariantOption: IExtensionData
+public record BcProductVariantOption : IExtensionData
 {
     /// <summary>
     /// The unique numerical ID of the option, increments sequentially.
@@ -26,7 +26,9 @@ public record BcProductVariantOption: IExtensionData
     public required string DisplayName { get; set; }
 
     /// <summary>
-    /// The type of option, which determines how it will display on the storefront. Acceptable values: radio_buttons, rectangles, dropdown, product_list, product_list_with_images, swatch. For reference, the former v2 API values are: RB = radio_buttons, RT = rectangles, S = dropdown, P = product_list, PI = product_list_with_images, CS = swatch.
+    /// The type of option, which determines how it will display on the storefront. Acceptable values: radio_buttons,
+    /// rectangles, dropdown, product_list, product_list_with_images, swatch. For reference, the former v2 API values are: RB =
+    /// radio_buttons, RT = rectangles, S = dropdown, P = product_list, PI = product_list_with_images, CS = swatch.
     /// </summary>
     [JsonPropertyName("type")]
     public required string Type { get; set; }
@@ -35,7 +37,7 @@ public record BcProductVariantOption: IExtensionData
     /// The values for option config can vary based on the Modifier created.
     /// </summary>
     [JsonPropertyName("config")]
-    public BcOptionConfig Config { get; set; }= null!;
+    public BcOptionConfig Config { get; set; } = null!;
 
     /// <summary>
     /// Order in which the option is displayed on the storefront.
@@ -61,5 +63,5 @@ public record BcProductVariantOption: IExtensionData
 
     /// <inheritdoc />
     [JsonExtensionData]
-    public IDictionary<string, JsonElement>? ExtensionData { get; set; }
+    public IDictionary<string, JsonElement>? ExtensionData { get; init; }
 }

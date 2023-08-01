@@ -1,6 +1,6 @@
 namespace Fusionary.BigCommerce.Types;
 
-public record BcOptionConfig: IExtensionData
+public record BcOptionConfig : IExtensionData
 {
     /// <summary>
     /// The default value. Shown on a date option as an ISO-8601–formatted string, or on a text option as a string.
@@ -45,13 +45,17 @@ public record BcOptionConfig: IExtensionData
     public string? DateLatestValue { get; set; }
 
     /// <summary>
-    /// The kind of restriction on the file types that can be uploaded with a file upload option. Values: specific - restricts uploads to particular file types; all - allows all file types.
+    /// The kind of restriction on the file types that can be uploaded with a file upload option. Values: specific - restricts
+    /// uploads to particular file types; all - allows all file types.
     /// </summary>
     [JsonPropertyName("file_types_mode")]
     public BcFileTypesMode? FileTypesMode { get; set; }
 
     /// <summary>
-    /// The type of files allowed to be uploaded if the file_type_option is set to specific. Values: images - Allows upload of image MIME types (bmp, gif, jpg, jpeg, jpe, jif, jfif, jfi, png, wbmp, xbm, tiff). documents - Allows upload of document MIME types (txt, pdf, rtf, doc, docx, xls, xlsx, accdb, mdb, one, pps, ppsx, ppt, pptx, pub, odt, ods, odp, odg, odf). other - Allows file types defined in the file_types_other array.
+    /// The type of files allowed to be uploaded if the file_type_option is set to specific. Values: images - Allows upload of
+    /// image MIME types (bmp, gif, jpg, jpeg, jpe, jif, jfif, jfi, png, wbmp, xbm, tiff). documents - Allows upload of
+    /// document MIME types (txt, pdf, rtf, doc, docx, xls, xlsx, accdb, mdb, one, pps, ppsx, ppt, pptx, pub, odt, ods, odp,
+    /// odg, odf). other - Allows file types defined in the file_types_other array.
     /// </summary>
     /// <example>["images","documents","other"]</example>
     [JsonPropertyName("file_types_supported")]
@@ -143,11 +147,12 @@ public record BcOptionConfig: IExtensionData
     public bool? ProductListAdjustsPricing { get; set; }
 
     /// <summary>
-    /// How to factor the optional product's weight and package dimensions into the shipping quote. Values: none - don't adjust; weight - use shipping weight only; package - use weight and dimensions.
+    /// How to factor the optional product's weight and package dimensions into the shipping quote. Values: none - don't
+    /// adjust; weight - use shipping weight only; package - use weight and dimensions.
     /// </summary>
     [JsonPropertyName("product_list_shipping_calc")]
     public BcProductListShippingCalc? ProductListShippingCalc { get; set; }
 
     /// <inheritdoc />
-    public IDictionary<string, JsonElement>? ExtensionData { get; set; }
+    public IDictionary<string, JsonElement>? ExtensionData { get; init; }
 }

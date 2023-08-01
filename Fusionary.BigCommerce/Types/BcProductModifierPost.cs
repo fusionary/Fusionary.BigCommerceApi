@@ -1,6 +1,6 @@
 namespace Fusionary.BigCommerce.Types;
 
-public record BcProductModifierPost: IExtensionData
+public record BcProductModifierPost : IExtensionData
 {
     public int ProductId { get; set; }
 
@@ -17,5 +17,5 @@ public record BcProductModifierPost: IExtensionData
     public List<BcModifierOptionValue>? OptionValues { get; set; }
 
     /// <inheritdoc />
-    public IDictionary<string, JsonElement>? ExtensionData { get; set; }
+    public IDictionary<string, JsonElement>? ExtensionData { get; init; }
 }

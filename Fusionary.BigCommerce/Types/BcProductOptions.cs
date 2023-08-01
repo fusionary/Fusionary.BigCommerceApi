@@ -1,6 +1,6 @@
 namespace Fusionary.BigCommerce.Types;
 
-public record BcProductOptions: IExtensionData
+public record BcProductOptions : IExtensionData
 {
     [JsonPropertyName("id")]
     public int Id { get; set; }
@@ -28,5 +28,5 @@ public record BcProductOptions: IExtensionData
 
     /// <inheritdoc />
     [JsonExtensionData]
-    public IDictionary<string, JsonElement>? ExtensionData { get; set; }
+    public IDictionary<string, JsonElement>? ExtensionData { get; init; }
 }

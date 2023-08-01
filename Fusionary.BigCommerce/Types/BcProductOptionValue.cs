@@ -1,6 +1,6 @@
 namespace Fusionary.BigCommerce.Types;
 
-public record BcProductOptionValue: IExtensionData
+public record BcProductOptionValue : IExtensionData
 {
     /// <summary>
     /// The unique numerical ID of the option, increments sequentially.
@@ -39,5 +39,5 @@ public record BcProductOptionValue: IExtensionData
     public Dictionary<string, string>? ValueData { get; set; }
 
     /// <inheritdoc />
-    public IDictionary<string, JsonElement>? ExtensionData { get; set; }
+    public IDictionary<string, JsonElement>? ExtensionData { get; init; }
 }
