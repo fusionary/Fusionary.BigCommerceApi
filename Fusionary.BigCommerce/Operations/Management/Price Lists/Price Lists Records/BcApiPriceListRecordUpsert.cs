@@ -5,11 +5,11 @@ public class BcApiPriceListRecordUpsert : BcRequestBuilder, IBcApiOperation
     public BcApiPriceListRecordUpsert(IBcApi api) : base(api)
     { }
 
-    public Task<BcResultData<BcPriceList>> SendAsync(
+    public Task<BcResultData<object>> SendAsync(
         BcId priceListId,
-        BcPriceListRecordUpsert priceListRecord,
+        IEnumerable<BcPriceListRecordUpsert> priceListRecord,
         CancellationToken cancellationToken = default
-    ) => Api.PutDataAsync<BcPriceList>(
+    ) => Api.PutDataAsync<object>(
         BcEndpoint.PriceListRecordsV3(priceListId),
         priceListRecord,
         Filter,
