@@ -9,7 +9,7 @@ public class BcApiPriceListRecordUpsert : BcRequestBuilder, IBcApiOperation
         BcId priceListId,
         BcPriceListRecordUpsert priceListRecord,
         CancellationToken cancellationToken = default
-    ) => Api.PostDataAsync<BcPriceList>(
+    ) => Api.PutDataAsync<BcPriceList>(
         BcEndpoint.PriceListRecordsV3(priceListId),
         priceListRecord,
         Filter,
