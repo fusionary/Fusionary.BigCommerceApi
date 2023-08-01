@@ -18,5 +18,5 @@ public class BcFloatConverter : JsonConverter<BcFloat>
         Utf8JsonWriter writer,
         BcFloat value,
         JsonSerializerOptions options
-    ) => writer.WriteStringValue(value.ToString());
+    ) => writer.WriteNumberValue(value.Value);
 }

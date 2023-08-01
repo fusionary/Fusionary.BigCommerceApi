@@ -11,7 +11,10 @@ public static class ExtensionsForBcResult
             StatusCode = result.StatusCode,
             Success = result.Success,
             RateLimits = result.RateLimits,
-            ResponseText = result.ResponseText
+            ResponseText = result.ResponseText,
+            RequestMethod = result.RequestMethod,
+            RequestUri = result.RequestUri,
+            RequestBody = result.RequestBody
         };
 
     public static BcResultPaged<T> AsPagedResult<T>(this BcResult<List<T>, BcMetadataPagination> result) =>
@@ -23,6 +26,9 @@ public static class ExtensionsForBcResult
             StatusCode = result.StatusCode,
             Success = result.Success,
             RateLimits = result.RateLimits,
-            ResponseText = result.ResponseText
+            ResponseText = result.ResponseText,
+            RequestMethod = result.RequestMethod,
+            RequestUri = result.RequestUri,
+            RequestBody = result.RequestBody
         };
 }

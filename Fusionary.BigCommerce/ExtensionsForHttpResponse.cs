@@ -1,5 +1,6 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Net.Http.Json;
+using System.Text.Json.Nodes;
 
 namespace Fusionary.BigCommerce;
 
@@ -81,18 +82,32 @@ public static class BcHttpResponseExtensions
             Error = error!,
             RateLimits = rateLimits,
             ResponseText = await response.Content.ReadAsStringAsync(cancellationToken),
+            RequestMethod = response.RequestMessage?.Method,
             RequestUri = response.RequestMessage?.RequestUri,
             RequestBody = await ReadRequestBodyAsync(response, cancellationToken)
         };
     }
 
-    private static async Task<string?> ReadRequestBodyAsync(
+    private static async Task<object?> ReadRequestBodyAsync(
         HttpResponseMessage response,
         CancellationToken cancellationToken
-    ) =>
-        response.RequestMessage?.Content is not null
-            ? await response.RequestMessage.Content.ReadAsStringAsync(cancellationToken)
-            : default;
+    )
+    {
+        if (response.RequestMessage?.Content is null)
+        {
+            return default(JsonObject);
+        }
+
+        if (response.RequestMessage.Content.Headers.ContentType?.MediaType?.Contains("json",
+            StringComparison.OrdinalIgnoreCase) != true)
+        {
+            return await response.RequestMessage.Content.ReadAsStringAsync(cancellationToken);
+        }
+
+        return await response.RequestMessage.Content.ReadFromJsonAsync<JsonDocument>(
+            cancellationToken: cancellationToken
+        );
+    }
 
     public static async Task<BcResult<TData, TMeta>> ReadResponseAsync<TData, TMeta>(
         this HttpResponseMessage response,
@@ -119,6 +134,7 @@ public static class BcHttpResponseExtensions
                     ErrorDetails = new Dictionary<string, string> { { "Exception", ex.ToString() } }
                 },
                 ResponseText = await response.Content.ReadAsStringAsync(cancellationToken),
+                RequestMethod = response.RequestMessage?.Method,
                 RequestUri = response.RequestMessage?.RequestUri,
                 RequestBody = await ReadRequestBodyAsync(response, cancellationToken)
             };
@@ -139,6 +155,7 @@ public static class BcHttpResponseExtensions
                 Success = true,
                 StatusCode = response.StatusCode,
                 RateLimits = rateLimits,
+                RequestMethod = response.RequestMessage?.Method,
                 RequestUri = response.RequestMessage?.RequestUri,
                 RequestBody = await ReadRequestBodyAsync(response, cancellationToken)
             };
@@ -164,6 +181,7 @@ public static class BcHttpResponseExtensions
                 StatusCode = response.StatusCode,
                 RateLimits = rateLimits,
                 ResponseText = json.RootElement.GetRawText(),
+                RequestMethod = response.RequestMessage?.Method,
                 RequestUri = response.RequestMessage?.RequestUri,
                 RequestBody = await ReadRequestBodyAsync(response, cancellationToken)
             };
@@ -188,6 +206,7 @@ public static class BcHttpResponseExtensions
             StatusCode = response.StatusCode,
             RateLimits = rateLimits,
             ResponseText = json.RootElement.GetRawText(),
+            RequestMethod = response.RequestMessage?.Method,
             RequestUri = response.RequestMessage?.RequestUri,
             RequestBody = await ReadRequestBodyAsync(response, cancellationToken)
         };

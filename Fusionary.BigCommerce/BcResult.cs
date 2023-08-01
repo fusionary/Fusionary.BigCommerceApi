@@ -50,18 +50,22 @@ public record BcResult
     public BcRateLimitResponseHeaders RateLimits { get; set; } = null!;
 
     /// <summary>
+    /// The requested method
+    /// </summary>
+    [JsonPropertyOrder(997)]
+    public HttpMethod? RequestMethod{ get; init; }
+
+    /// <summary>
     /// The requested URI
     /// </summary>
-    [JsonIgnore]
-    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    [JsonPropertyOrder(998)]
     public Uri? RequestUri { get; init; }
 
     /// <summary>
     /// The body of the request (available only if Success is false)
     /// </summary>
-    [JsonIgnore]
-    [EditorBrowsable(EditorBrowsableState.Advanced)]
-    public string? RequestBody { get; init; }
+    [JsonPropertyOrder(999)]
+    public object? RequestBody { get; init; }
 
 
     public void Deconstruct(out bool success, out BcErrorDetails? error)
