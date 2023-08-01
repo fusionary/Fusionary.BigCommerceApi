@@ -16,7 +16,7 @@ public class BcApiProductChannelAssignmentsCreate : BcRequestBuilder, IBcApiOper
         CancellationToken cancellationToken = default
     )
     {
-        return await Api.PostDataAsync<object?>(
+        return await Api.PutDataAsync<object?>(
           BcEndpoint.ProductChannelAssignmentsV3(),
           channelAssignments,
           Filter,
