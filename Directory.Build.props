@@ -10,6 +10,7 @@
     </PropertyGroup>
 
     <PropertyGroup Label="Versioning">
+        <MinVerTagPrefix>v</MinVerTagPrefix>
         <MinVerDefaultPreReleaseIdentifiers>preview.0</MinVerDefaultPreReleaseIdentifiers>
         <MinVerVerbosity>normal</MinVerVerbosity>
     </PropertyGroup>
