@@ -2,6 +2,7 @@ namespace Fusionary.BigCommerce.Types;
 
 public record BcOrderProduct
 {
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
     public int Id { get; set; }
 
     public int OrderId { get; set; }

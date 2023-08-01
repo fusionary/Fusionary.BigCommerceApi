@@ -3,6 +3,7 @@ namespace Fusionary.BigCommerce.Types;
 public record BcProductPricing : IExtensionData
 {
     public int ProductId { get; init; }
+
     public int VariantId { get; init; }
 
     public BcProductPricingOptions[] Options { get; init; } = null!;

@@ -11,6 +11,7 @@ public record BcProductVideo
     /// <summary>
     /// The unique numeric ID of the product video; increments sequentially.
     /// </summary>
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
     public int Id { get; set; }
 
     /// <summary>

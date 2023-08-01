@@ -5,6 +5,7 @@ namespace Fusionary.BigCommerce.Types;
 [UsedImplicitly]
 public class BcObject : Dictionary<string, object>
 {
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
     public int Id
     {
         get => GetValue<int>("id");

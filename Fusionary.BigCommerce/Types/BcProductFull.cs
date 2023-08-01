@@ -6,6 +6,7 @@ public record BcProductFull : BcProductPost
     /// <summary>
     /// ID of the product. Read Only.
     /// </summary>
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
     public int Id { get; set; }
 
     /// <summary>
