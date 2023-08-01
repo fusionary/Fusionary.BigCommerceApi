@@ -4,6 +4,7 @@ namespace Fusionary.BigCommerce.Types;
 /// A flexible input type for ID values that can be either a string or an integer.
 /// </summary>
 [DebuggerDisplay("{Value}")]
+[JsonConverter(typeof(BcIdConverter))]
 public struct BcId : IFormattable
 {
     public BcId(long value)
