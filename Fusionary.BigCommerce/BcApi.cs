@@ -154,17 +154,16 @@ public class BcApi : IBcApi
 
         if (req.Content != null)
         {
-            using (var ms = new MemoryStream())
-            {
-                await req.Content.CopyToAsync(ms, cancellationToken).ConfigureAwait(false);
-                ms.Position = 0;
-                clone.Content = new StreamContent(ms);
+            using var ms = new MemoryStream();
 
-                // Copy the content headers
-                foreach (var h in req.Content.Headers)
-                {
-                    clone.Content.Headers.Add(h.Key, h.Value);
-                }
+            await req.Content.CopyToAsync(ms, cancellationToken).ConfigureAwait(false);
+            ms.Position = 0;
+
+            clone.Content = new ByteArrayContent(ms.GetBuffer());
+
+            foreach (var h in req.Content.Headers)
+            {
+                clone.Content.Headers.Add(h.Key, h.Value);
             }
         }
 
