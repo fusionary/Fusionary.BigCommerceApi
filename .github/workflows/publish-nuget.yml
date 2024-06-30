@@ -18,6 +18,11 @@ jobs:
         with:
           dotnet-version: '7.x'
 
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
       - name: Create NuGet directory
         run: mkdir -p ~/.nuget/NuGet
 
@@ -31,19 +36,4 @@ jobs:
             <packageSourceCredentials>
               <github>
                 <add key=\"Username\" value=\"${{ secrets.MY_GITHUB_USERNAME }}\" />
-                <add key=\"ClearTextPassword\" value=\"${{ secrets.MY_GITHUB_TOKEN }}\" />
-              </github>
-            </packageSourceCredentials>
-          </configuration>" > ~/.nuget/NuGet/NuGet.Config
-
-      - name: Restore dependencies
-        run: dotnet restore
-
-      - name: Build project
-        run: dotnet build --configuration Release --no-restore
-
-      - name: Pack NuGet package
-        run: dotnet pack Fusionary.BigCommerce.csproj --configuration Release --no-build --output ./nupkg
-
-      - name: Push NuGet package to GitHub Packages
-        run: dotnet nuget push "./nupkg/*.nupkg" --source "github" --api-key "${{ secrets.MY_GITHUB_TOKEN }}"
+                <add key=\"ClearTextPassword
