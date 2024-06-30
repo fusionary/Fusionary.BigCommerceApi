@@ -3,29 +3,27 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fusionary.BigCommerce", "Fusionary.BigCommerce\Fusionary.BigCommerce.csproj", "{04CB026D-DFA2-470C-8612-CE6E46BC6434}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fusionary.BigCommerce", "Fusionary.BigCommerce\Fusionary.BigCommerce.csproj", "{04CB026D-DFA2-470C-8612-CE6E46BC6434}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution", "Solution", "{FED20BBE-C463-43C6-9E51-F370E94A4C7C}"
 	ProjectSection(SolutionItems) = preProject
-		LICENSE = LICENSE
-		README.md = README.md
-		Directory.Build.props = Directory.Build.props
-		global.json = global.json
 		.editorconfig = .editorconfig
-		NuGet.Config = NuGet.Config
-		Fusionary.BigCommerceApi.sln.DotSettings = Fusionary.BigCommerceApi.sln.DotSettings
 		.gitignore = .gitignore
+		Fusionary.BigCommerce.Tests\appsettings.json = Fusionary.BigCommerce.Tests\appsettings.json
+		Directory.Build.props = Directory.Build.props
+		Fusionary.BigCommerceApi.sln.DotSettings = Fusionary.BigCommerceApi.sln.DotSettings
+		global.json = global.json
+		LICENSE = LICENSE
+		NuGet.Config = NuGet.Config
+		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fusionary.BigCommerce.Tests", "Fusionary.BigCommerce.Tests\Fusionary.BigCommerce.Tests.csproj", "{37B5813D-F5D1-4E8B-BAFC-3CA739EA8E3E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fusionary.BigCommerce.Tests", "Fusionary.BigCommerce.Tests\Fusionary.BigCommerce.Tests.csproj", "{37B5813D-F5D1-4E8B-BAFC-3CA739EA8E3E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{04CB026D-DFA2-470C-8612-CE6E46BC6434}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -36,5 +34,11 @@ Global
 		{37B5813D-F5D1-4E8B-BAFC-3CA739EA8E3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{37B5813D-F5D1-4E8B-BAFC-3CA739EA8E3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{37B5813D-F5D1-4E8B-BAFC-3CA739EA8E3E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B0FE2D03-8B49-42F8-9649-9F63A5355758}
 	EndGlobalSection
 EndGlobal

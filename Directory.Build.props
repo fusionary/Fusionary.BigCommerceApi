@@ -1,4 +1,5 @@
 <Project>
+  
 
     <PropertyGroup Label="Build">
         <LangVersion>latest</LangVersion>
@@ -10,7 +11,8 @@
     </PropertyGroup>
 
     <PropertyGroup Label="Versioning">
-        <MinVerTagPrefix>v</MinVerTagPrefix>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <MinVerTagPrefix></MinVerTagPrefix>
         <MinVerDefaultPreReleaseIdentifiers>preview.0</MinVerDefaultPreReleaseIdentifiers>
         <MinVerVerbosity>normal</MinVerVerbosity>
     </PropertyGroup>

@@ -478,3 +478,4 @@ $RECYCLE.BIN/
 
 # Rider/Jetbrains IDE files
 /.idea
+.github/workflows/publish-nuget.yml

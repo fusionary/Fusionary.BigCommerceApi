@@ -3,9 +3,12 @@ using Bogus;
 using Fusionary.BigCommerce.Utils;
 using Fusionary.UnitTesting;
 
-using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Configuration; 
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 namespace Fusionary.BigCommerce.Tests;
+
 
 public abstract class BcTestBase : TestBase
 {
@@ -15,7 +18,7 @@ public abstract class BcTestBase : TestBase
     protected Faker Faker { get; } = new();
 
     protected override IConfigurationBuilder BuildConfiguration(IConfigurationBuilder builder) =>
-        builder.AddUserSecrets<BcTestBase>();
+    builder.AddUserSecrets<BcTestBase>();
 
     protected override void ConfigureServices(IServiceCollection services, IConfiguration configuration) =>
         services.AddBigCommerce(configuration);
