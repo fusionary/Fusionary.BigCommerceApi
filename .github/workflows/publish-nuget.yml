@@ -18,6 +18,9 @@ jobs:
         with:
           dotnet-version: '5.x'
 
+      - name: Create NuGet directory
+        run: mkdir -p ~/.nuget/NuGet
+
       - name: Set up NuGet
         run: |
           echo "<?xml version=\"1.0\" encoding=\"utf-8\"?>
