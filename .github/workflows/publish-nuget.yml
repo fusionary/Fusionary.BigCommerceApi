@@ -1,0 +1,46 @@
+name: Publish NuGet Package
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'  # This triggers the workflow on version tags like v1.0.0
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '5.x'
+
+      - name: Set up NuGet
+        run: |
+          echo "<?xml version=\"1.0\" encoding=\"utf-8\"?>
+          <configuration>
+            <packageSources>
+              <add key=\"github\" value=\"https://nuget.pkg.github.com/${{ secrets.MY_GITHUB_USERNAME }}/index.json\" />
+            </packageSources>
+            <packageSourceCredentials>
+              <github>
+                <add key=\"Username\" value=\"${{ secrets.MY_GITHUB_USERNAME }}\" />
+                <add key=\"ClearTextPassword\" value=\"${{ secrets.MY_GITHUB_TOKEN }}\" />
+              </github>
+            </packageSourceCredentials>
+          </configuration>" > ~/.nuget/NuGet/NuGet.Config
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Build project
+        run: dotnet build --configuration Release --no-restore
+
+      - name: Pack NuGet package
+        run: dotnet pack Fusionary.BigCommerce.csproj --configuration Release --no-build --output ./nupkg
+
+      - name: Push NuGet package to GitHub Packages
+        run: dotnet nuget push "./nupkg/*.nupkg" --source "github" --api-key "${{ secrets.MY_GITHUB_TOKEN }}"
