@@ -9,7 +9,6 @@
     <ItemGroup>
       <Compile Remove="ImportExportTests.cs" />
       <Compile Remove="ProductTests.cs" />
-      <Compile Remove="StorefrontGraphQLTests.cs" />
     </ItemGroup>
 
     <ItemGroup>
