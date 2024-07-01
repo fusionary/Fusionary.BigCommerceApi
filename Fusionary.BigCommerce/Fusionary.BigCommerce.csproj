@@ -6,6 +6,11 @@
         <Description>BigCommerce API client for Products, Brands, Categories, Orders and Storefront GraphQL</Description>
         <PackageTags>dotnet, bigcommerce</PackageTags>
         <UserSecretsId>1b8ee825-bb17-430b-881c-b6e56d684db3</UserSecretsId>
+        <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+        <PackageProjectUrl>https://github.com/richardkeller411/Fusionary.BigCommerceApi</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/richardkeller411/Fusionary.BigCommerceApi</RepositoryUrl>
+        <AssemblyVersion>1.0.0.1</AssemblyVersion>
+        <FileVersion>1.0.0.1</FileVersion>
     </PropertyGroup>
 
     <ItemGroup>
@@ -14,11 +19,11 @@
         <PackageReference Include="GraphQL.Client.Serializer.SystemTextJson" Version="6.0.5" />
         <PackageReference Include="Macross.Json.Extensions" Version="3.0.0" />
         <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
-        <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="9.0.0-preview.3.24172.9" />
-        <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="9.0.0-preview.3.24172.9" />
-        <PackageReference Include="Microsoft.Extensions.Http" Version="9.0.0-preview.3.24172.9" />
-        <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="9.0.0-preview.3.24172.9" />
-        <PackageReference Include="System.Text.Json" Version="9.0.0-preview.3.24172.9" />
+        <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="7.0.0" />
+        <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="7.0.0" />
+        <PackageReference Include="Microsoft.Extensions.Http" Version="7.0.0" />
+        <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="7.0.0" />
+        <PackageReference Include="System.Text.Json" Version="7.0.4" />
     </ItemGroup>
 
     <ItemGroup>
