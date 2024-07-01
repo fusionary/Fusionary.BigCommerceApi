@@ -44,7 +44,15 @@ jobs:
       - name: Validate NuGet Config
         run: cat ~/.nuget/NuGet/NuGet.Config
 
-    
+      - name: Clear NuGet Cache
+        run: dotnet nuget locals all --clear
+
+      - name: List Available Sources
+        run: dotnet nuget list source
+
+      - name: Restore dependencies
+        run: dotnet restore --verbosity detailed
+
       - name: Build project
         run: dotnet build --configuration Release --no-restore
 
