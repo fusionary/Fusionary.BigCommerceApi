@@ -44,9 +44,7 @@ jobs:
       - name: Validate NuGet Config
         run: cat ~/.nuget/NuGet/NuGet.Config
 
-      - name: Restore dependencies
-        run: dotnet restore
-
+    
       - name: Build project
         run: dotnet build --configuration Release --no-restore
 
