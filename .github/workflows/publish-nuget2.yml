@@ -1,0 +1,69 @@
+ name: Publish NuGet Package
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'  # This triggers the workflow on version tags like v1.0.0
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '7.x'
+
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Create NuGet directory
+        run: mkdir -p ~/.nuget/NuGet
+
+      - name: Set up NuGet
+        run: |
+          echo "<?xml version=\"1.0\" encoding=\"utf-8\"?>
+          <configuration>
+            <packageSources>
+              <add key=\"github\" value=\"https://nuget.pkg.github.com/${{ secrets.MY_GITHUB_USERNAME }}/index.json\" />
+            </packageSources>
+            <packageSourceCredentials>
+              <github>
+                <add key=\"Username\" value=\"${{ secrets.MY_GITHUB_USERNAME }}\" />
+                <add key=\"ClearTextPassword\" value=\"${{ secrets.MY_GITHUB_TOKEN }}\" />
+              </github>
+            </packageSourceCredentials>
+          </configuration>" > ~/.nuget/NuGet/NuGet.Config
+
+      - name: Validate NuGet Config
+        run: cat ~/.nuget/NuGet/NuGet.Config
+
+      - name: Clear NuGet Cache
+        run: dotnet nuget locals all --clear
+
+      - name: List Available Sources
+        run: dotnet nuget list source
+
+      - name: Restore dependencies
+        run: dotnet restore --verbosity detailed
+
+      - name: Build project
+        run: dotnet build --configuration Release --no-restore
+
+      - name: Pack NuGet package
+        run: dotnet pack Fusionary.BigCommerce.csproj --configuration Release
+
+      - name: List Packed Files
+        run: ls -la **/*.nupkg
+
+      - name: Push NuGet package to GitHub Packages
+        run: dotnet nuget push "**/*.nupkg" --skip-duplicate --source "github" --api-key "${{ secrets.MY_GITHUB_TOKEN }}"
+
+      - name: Cleanup leftover packages
+        run: rm -rf ./**/*.nupkg
