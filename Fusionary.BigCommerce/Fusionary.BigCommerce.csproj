@@ -9,8 +9,11 @@
         <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
         <PackageProjectUrl>https://github.com/richardkeller411/Fusionary.BigCommerceApi</PackageProjectUrl>
         <RepositoryUrl>https://github.com/richardkeller411/Fusionary.BigCommerceApi</RepositoryUrl>
-        <AssemblyVersion>1.0.0.1</AssemblyVersion>
-        <FileVersion>1.0.0.1</FileVersion>
+        <AssemblyVersion>1.0.1.2</AssemblyVersion>
+        <FileVersion>1.0.1.2</FileVersion>
+        <InformationalVersion>1.0.1</InformationalVersion>
+        <PackageReadmeFile>nuget-readme.md</PackageReadmeFile>
+        <PackageReleaseNotes>Update Product Modifier Options</PackageReleaseNotes>
     </PropertyGroup>
 
     <ItemGroup>
@@ -35,6 +38,13 @@
         <Folder Include="Operations\Management\Inventory\Items\" />
         <Folder Include="Operations\Management\Locations\Locations\" />
         <Folder Include="Operations\Management\Locations\Metafields\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Update="nuget-readme.md">
+        <Pack>True</Pack>
+        <PackagePath>\</PackagePath>
+      </None>
     </ItemGroup>
 
     <ItemGroup>

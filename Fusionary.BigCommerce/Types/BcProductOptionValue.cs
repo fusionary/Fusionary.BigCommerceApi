@@ -36,7 +36,7 @@ public record BcProductOptionValue : IExtensionData
     /// checkbox type option requires a boolean flag, called checked_value, to determine which value is considered to
     /// be the checked state. If no data is available, returns null.
     /// </summary>
-    public Dictionary<string, string>? ValueData { get; set; }
+    public Dictionary<string, object>? ValueData { get; set; }
 
     /// <inheritdoc />
     public IDictionary<string, JsonElement>? ExtensionData { get; init; }
