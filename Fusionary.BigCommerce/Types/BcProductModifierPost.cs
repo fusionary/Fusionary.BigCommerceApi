@@ -6,6 +6,7 @@ public record BcProductModifierPost : IExtensionData
 
     public string Name { get; set; } = null!;
 
+    [JsonPropertyName("display_name")]
     public string DisplayName { get; set; } = null!;
 
     public BcProductModifierType Type { get; set; }
@@ -15,6 +16,10 @@ public record BcProductModifierPost : IExtensionData
     public BcOptionConfig? Config { get; set; }
 
     public List<BcModifierOptionValue>? OptionValues { get; set; }
+
+    [JsonPropertyName("shared_option_id")]
+    public int? SharedOptionId { get; set; }
+
 
     /// <inheritdoc />
     public IDictionary<string, JsonElement>? ExtensionData { get; init; }
