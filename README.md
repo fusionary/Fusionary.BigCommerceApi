@@ -99,7 +99,7 @@ var config = new BigCommerceConfig {
    StoreHash = "12345",
    AccessToken = "1845633E-S3CR3TS-8364B7FBE3A2",
    // Only needed for Storefront GraphQL API
-   ChannelId = 1,
+   StorefrontChannelId = 1,
    StorefrontUrl = "https://mystore.bigcommerce.com"
 });
 
