@@ -17,9 +17,7 @@ public record BcProductModifierPost : IExtensionData
 
     public List<BcModifierOptionValue>? OptionValues { get; set; }
 
-    [JsonPropertyName("shared_option_id")]
-    public int? SharedOptionId { get; set; }
-
+   
 
     /// <inheritdoc />
     public IDictionary<string, JsonElement>? ExtensionData { get; init; }
