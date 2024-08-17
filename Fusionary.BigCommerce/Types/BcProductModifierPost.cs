@@ -13,14 +13,15 @@ public record BcProductModifierPost : IExtensionData
 
     public bool Required { get; set; }
 
+     
     [JsonConverter(typeof(EmptyArrayToObjectConverter<BcOptionConfig>))]
     public BcOptionConfig? Config { get; set; }
 
     public List<BcModifierOptionValue>? OptionValues { get; set; }
 
 
-    public int? SharedOptionId { get; set; }
     [JsonPropertyName("shared_option_id")]
+    public int? SharedOptionId { get; set; }
 
     public class EmptyArrayToObjectConverter<T> : JsonConverter<T?>
     where T : class
