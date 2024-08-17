@@ -37,7 +37,7 @@ public record BcProductVariantOption : IExtensionData
     /// The values for option config can vary based on the Modifier created.
     /// </summary>
     [JsonPropertyName("config")]
-    public BcOptionConfig Config { get; set; } = null!;
+    public BcOptionConfig? Config { get; set; } = null!;
 
     /// <summary>
     /// Order in which the option is displayed on the storefront.

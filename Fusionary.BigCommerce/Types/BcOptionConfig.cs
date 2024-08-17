@@ -1,12 +1,13 @@
 namespace Fusionary.BigCommerce.Types;
-
+using System.Text.Json;
+using System.Text.Json.Serialization;
 public record BcOptionConfig : IExtensionData
 {
     /// <summary>
     /// The default value. Shown on a date option as an ISO-8601–formatted string, or on a text option as a string.
     /// </summary>
-    [JsonPropertyName("default_value")]
-    public string? DefaultValue { get; set; }
+    [JsonPropertyName("default_value")] 
+    public object? DefaultValue { get; set; }
 
     /// <summary>
     /// Flag for setting the checkbox to be checked by default.
@@ -114,7 +115,7 @@ public record BcOptionConfig : IExtensionData
     /// The type of limit on values entered for a number option.
     /// </summary>
     [JsonPropertyName("number_limit_mode")]
-    public BcNumberLimitMode? NumberLimitMode { get; set; }
+    public string? NumberLimitMode { get; set; }
 
     /// <summary>
     /// The lowest allowed value for a number option if number_limited is true.
@@ -155,4 +156,42 @@ public record BcOptionConfig : IExtensionData
 
     /// <inheritdoc />
     public IDictionary<string, JsonElement>? ExtensionData { get; init; }
+
+
+    public class StringOrNumberConverter : JsonConverter<string?>
+    {
+        public override string? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+        {
+            // Check if the JSON token is null
+            if (reader.TokenType == JsonTokenType.Null)
+            {
+                return null; // Return null if the token is null
+            }
+            // Check if the JSON token is a number
+            if (reader.TokenType == JsonTokenType.Number)
+            {
+                // Convert the number to a string
+                return reader.GetInt64().ToString();
+            }
+            // Check if the JSON token is a string
+            else if (reader.TokenType == JsonTokenType.String)
+            {
+                return reader.GetString();
+            }
+
+            throw new JsonException("Expected number, string, or null");
+        }
+
+        public override void Write(Utf8JsonWriter writer, string? value, JsonSerializerOptions options)
+        {
+            if (value == null)
+            {
+                writer.WriteNullValue(); // Write a null value if the string is null
+            }
+            else
+            {
+                writer.WriteStringValue(value); // Otherwise, write the string value
+            }
+        }
+    }
 }

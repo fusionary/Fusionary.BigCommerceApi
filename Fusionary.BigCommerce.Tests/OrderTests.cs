@@ -32,6 +32,30 @@ public class OrderTests : BcTestBase
     }
 
     [Fact]
+    public async Task Can_Get_Product_Modifiers_Async()
+    {
+        var bc = Services.GetRequiredService<IBcApi>();
+
+        var cancellationToken = CancellationToken.None;
+
+        var result = await bc.Catalog().ProductModifiers().GetAll().SendAsync(363681, cancellationToken);
+
+
+        DumpObject(result);
+
+        Assert.NotNull(result);
+        Assert.True(result.Success);
+
+        if (result.HasData)
+        {
+            foreach (var order in result.Data)
+            {
+                DumpObject(order);
+            }
+        }
+    }
+
+    [Fact]
     public async Task Can_Create_Sample_Order_Async()
     {
         var createOrdersApi = Services.GetRequiredService<BcApiOrdersCreate>();

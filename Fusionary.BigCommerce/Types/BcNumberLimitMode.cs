@@ -10,5 +10,8 @@ public enum BcNumberLimitMode
     Highest,
 
     [JsonPropertyName("range")]
-    Range
+    Range,
+
+   [JsonPropertyName("")]
+    None
 }

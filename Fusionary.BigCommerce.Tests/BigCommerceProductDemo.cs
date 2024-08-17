@@ -1,3 +1,5 @@
+using Xunit.Abstractions;
+
 namespace Fusionary.BigCommerce.Tests;
 
 public class BigCommerceProductDemo
@@ -51,4 +53,6 @@ public class BigCommerceProductDemo
             Console.WriteLine($"{id} | {name} | {price}");
         }
     }
+
+     
 }
