@@ -37,7 +37,7 @@ namespace Fusionary.BigCommerce.Operations
                     else
                     {
                         // If items still exist, get the cart response
-                        BcResultData<BcCartResponseFull> cartResponse2 = await Api.GetDataAsync<BcCartResponseFull>(
+                       BcResultData<BcCartResponseFull> cartResponse2 = await Api.GetDataAsync<BcCartResponseFull>(
                        BcEndpoint.CartV3(cartId),
                         Filter,
                         Options,
