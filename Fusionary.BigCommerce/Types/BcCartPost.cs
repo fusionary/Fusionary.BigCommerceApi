@@ -14,7 +14,7 @@ namespace Fusionary.BigCommerce.Types
         public long? CustomerId { get; set; }
 
         [JsonPropertyName("line_items")]
-        public BcCartLineItems? LineItems { get; set; }
+        public List<BcCartLineItem>? LineItems { get; set; }
 
         [JsonPropertyName("channel_id")]
         public long? ChannelId { get; set; }
