@@ -51,6 +51,11 @@ public static class BcEndpoint
     public static string OrderProductsV2(BcId orderId, BcId productId) =>
         $"v2/orders/{orderId}/products/{productId}";
 
+
+    public static string CartV3() => $"v3/carts";
+    public static string CartV3(string cartId) => $"v3/carts/{cartId}";
+    public static string CartLineItemV3(string cartId, string lineItemId) => $"v3/carts/{cartId}/items/{lineItemId}";
+
     public static string OrdersV2(BcId orderId) => $"v2/orders/{orderId}";
 
     public static string OrdersV2() => "v2/orders";

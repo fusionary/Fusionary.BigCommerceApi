@@ -30,8 +30,8 @@
             <PrivateAssets>all</PrivateAssets>
         </PackageReference>
     </ItemGroup>
-
-    <ItemGroup>
+  
+  <ItemGroup>
         <None Remove="appsettings.json" />
         <Content Include="appsettings.json" CopyToOutputDirectory="Always" />
         <None Remove="logo.png" />
@@ -39,8 +39,8 @@
         <None Remove="product_20230727_181830.csv" />
     </ItemGroup>
 
-    <ItemGroup>
-      <ProjectReference Include="\\Mac\Home\Documents\GitHub\AWSCrossReference\Fusionary.BigCommerce\Fusionary.BigCommerce.csproj" />
+    <ItemGroup> 
+      <ProjectReference Include="\\Mac\Home\Documents\GitHub\Fusionary.BigCommerceApi\Fusionary.BigCommerce\Fusionary.BigCommerce.csproj" />
     </ItemGroup>
 
     <ItemGroup>

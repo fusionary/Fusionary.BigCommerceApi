@@ -109,6 +109,48 @@ public class OrderTests : BcTestBase
         Assert.True(result.Success);
     }
 
+
+   
+    [Fact]
+    public async Task Can_Get_Cart_Async()
+    {
+        var bc = Services.GetRequiredService<IBcApi>();
+
+        var cancellationToken = CancellationToken.None;
+
+        var result = await bc
+            .Carts()
+            .Cart().Get().SendAsync("472abc00-7343-4e5a-9c31-d4f0276093d9", cancellationToken);
+             
+             
+
+        DumpObject(result);
+
+        Assert.NotNull(result);
+        Assert.True(result.Success);
+
+       
+    }
+    [Fact]
+    public async Task Can_Delete_Cart_Line_Async()
+    {
+        var bc = Services.GetRequiredService<IBcApi>();
+
+        var cancellationToken = CancellationToken.None;
+
+        var result = await bc
+            .Carts()
+            .Cart().DeleteLineItem().SendAsync("472abc00-7343-4e5a-9c31-d4f0276093d9", "794e2dce-ac8c-4e71-b586-978afe423381",cancellationToken);
+
+
+
+        DumpObject(result);
+         
+        Assert.True(true);
+
+
+    }
+
     [Fact]
     public async Task Can_Get_All_Orders_Async()
     {

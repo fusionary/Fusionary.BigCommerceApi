@@ -7,6 +7,9 @@ public static class ExtensionsForBcApi
     /// </summary>
     /// <remarks>
     /// </remarks>
+    /// 
+    public static BcApiCartsOverview Carts(this IBcApi bc) => new(bc);
+
     public static BcApiCatalog Catalog(this IBcApi bc) => new(bc);
 
     public static BcApiManagement Management(this IBcApi bc) => new(bc);
