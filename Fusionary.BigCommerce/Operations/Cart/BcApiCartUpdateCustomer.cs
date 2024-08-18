@@ -1,8 +1,8 @@
 namespace Fusionary.BigCommerce.Operations;
 
-public class BcApiCartCreate : BcRequestBuilder, IBcApiOperation
+public class BcApiCartUpdateCustomer : BcRequestBuilder, IBcApiOperation
 {
-    public BcApiCartCreate(IBcApi api) : base(api)
+    public BcApiCartUpdateCustomer(IBcApi api) : base(api)
     { 
         this.Add("include", "line_items.physical_items.options,shipping_address,shipping_lines");
     }
