@@ -13,12 +13,10 @@ namespace Fusionary.BigCommerce.Types
     public record BcCartLineItems : IExtensionData
     {
 
-        public partial class BigCommerceLineItems
-        {
-            [JsonPropertyName("line_items")]
-            public List<BcCartLineItem>? LineItems { get; set; }
-        }
-
+       
+        [JsonPropertyName("line_items")]
+        public List<BcCartLineItem>? LineItems { get; set; }
+       
        
         public IDictionary<string, JsonElement>? ExtensionData { get; init; }
 
