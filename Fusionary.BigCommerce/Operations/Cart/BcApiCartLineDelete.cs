@@ -3,7 +3,10 @@ namespace Fusionary.BigCommerce.Operations
     public class BcApiCartDeleteItem : BcRequestBuilder, IBcApiOperation
     {
         public BcApiCartDeleteItem(IBcApi api) : base(api)
-        { }
+        {
+            this.Add("include", "line_items.physical_items.options,shipping_address,shipping_lines");
+
+        }
 
         public async Task<Object> SendAsync(
             string cartId,
