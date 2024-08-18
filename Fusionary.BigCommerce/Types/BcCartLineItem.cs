@@ -33,6 +33,7 @@ namespace Fusionary.BigCommerce.Types
         public long? OptionId { get; set; }
 
         [JsonPropertyName("option_value")]
+        [JsonConverter(typeof(OptionValueConverter))]
         public OptionValue? OptionValue { get; set; }
     }
 
@@ -46,6 +47,38 @@ namespace Fusionary.BigCommerce.Types
     }
 
 
+    public class OptionValueConverter : JsonConverter<OptionValue>
+    {
+        public override OptionValue Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+        {
+            // Check the token type
+            if (reader.TokenType == JsonTokenType.Number)
+            {
+                return new OptionValue { Integer = reader.GetInt64() };
+            }
+            else if (reader.TokenType == JsonTokenType.String)
+            {
+                return new OptionValue { String = reader.GetString() };
+            }
 
-    
+            throw new JsonException("Invalid type for OptionValue.");
+        }
+
+        public override void Write(Utf8JsonWriter writer, OptionValue value, JsonSerializerOptions options)
+        {
+            if (value.Integer.HasValue)
+            {
+                writer.WriteNumberValue(value.Integer.Value);
+            }
+            else if (value.String != null)
+            {
+                writer.WriteStringValue(value.String);
+            }
+            else
+            {
+                writer.WriteNullValue();
+            }
+        }
+    }
+
 }
