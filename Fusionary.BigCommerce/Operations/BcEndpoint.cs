@@ -54,6 +54,7 @@ public static class BcEndpoint
 
     public static string CartV3() => $"v3/carts";
     public static string CartV3(string cartId) => $"v3/carts/{cartId}";
+    public static string CartRedirectsV3(string cartId) => $"v3/carts/{cartId}/redirect_urls";
     public static string CartAddV3(string cartId) => $"v3/carts/{cartId}/items";
     public static string CartLineItemV3(string cartId, string lineItemId) => $"v3/carts/{cartId}/items/{lineItemId}";
 

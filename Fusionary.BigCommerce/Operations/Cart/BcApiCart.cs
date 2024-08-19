@@ -11,6 +11,7 @@ public class BcApiCart : IBcApiOperation
         _api = api;
     }
 
+    public BcApiCartGetCheckoutURLs GetCartRedirects() => new(_api);
     public BcApiCartLineAdd AddLineItem() => new(_api);
     public BcApiCartUpdateLine UpdateLineItem() => new(_api);
     public BcApiCartDeleteItem DeleteLineItem() => new(_api);

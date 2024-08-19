@@ -131,7 +131,30 @@ public class OrderTests : BcTestBase
 
        
     }
+
+
     [Fact]
+    public async Task Can_Get_CartRedirects_Async()
+    {
+        var bc = Services.GetRequiredService<IBcApi>();
+
+        var cancellationToken = CancellationToken.None;
+        var empty = new BcCartRedirectQueryParms();
+        var result = await bc
+            .Carts()
+            .Cart().GetCartRedirects().SendAsync("fe057e11-8e99-4e6b-9b0c-347474af8b20", empty, cancellationToken);
+
+
+
+        DumpObject(result);
+
+        Assert.NotNull(result);
+        Assert.True(result.Success);
+
+    }
+
+
+        [Fact]
     public async Task Can_Delete_Cart_Line_Async()
     {
         var bc = Services.GetRequiredService<IBcApi>();
