@@ -17,7 +17,7 @@ public class BcApiCartLineAdd : BcRequestBuilder, IBcApiOperation
 
     public async Task<BcResultData<T>> SendAsync<T>(string cartId, object cartItems, CancellationToken cancellationToken = default) =>
         await Api.PostDataAsync<T>(
-            BcEndpoint.CartV3(),
+            BcEndpoint.CartAddV3(cartId),
             cartItems,
             Filter,
             Options,
