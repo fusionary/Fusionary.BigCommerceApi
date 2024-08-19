@@ -15,7 +15,7 @@ namespace Fusionary.BigCommerce.Operations.Cart
       public Task<BcResultData<BcCartResponseFull>> SendAsync(
       string cartId,
       string lineId,
-      BcCartLineItem cartItem,
+      object cartItem,
       CancellationToken cancellationToken = default
   ) =>
       SendAsync<BcCartResponseFull>(cartId, lineId, cartItem, cancellationToken);
