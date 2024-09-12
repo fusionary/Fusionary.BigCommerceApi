@@ -140,6 +140,45 @@ public class BcApi : IBcApi
 
         await Task.Delay(retryAfterMs, cancellationToken);
 
-        return await SendRequestAsync<TResult, TMeta>(requestMessage, cancellationToken);
+        var clonedRequest = await CloneHttpRequestMessageAsync(requestMessage, cancellationToken);
+
+        return await SendRequestAsync<TResult, TMeta>(clonedRequest, cancellationToken);
+    }
+
+    private static async Task<HttpRequestMessage> CloneHttpRequestMessageAsync(
+        HttpRequestMessage req,
+        CancellationToken cancellationToken
+    )
+    {
+        var clone = new HttpRequestMessage(req.Method, req.RequestUri);
+
+        if (req.Content != null)
+        {
+            using var ms = new MemoryStream();
+
+            await req.Content.CopyToAsync(ms, cancellationToken).ConfigureAwait(false);
+            ms.Position = 0;
+
+            clone.Content = new ByteArrayContent(ms.GetBuffer());
+
+            foreach (var h in req.Content.Headers)
+            {
+                clone.Content.Headers.Add(h.Key, h.Value);
+            }
+        }
+
+        clone.Version = req.Version;
+
+        foreach (var option in req.Options)
+        {
+            clone.Options.Set(new HttpRequestOptionsKey<object?>(option.Key), option.Value);
+        }
+
+        foreach (var header in req.Headers)
+        {
+            clone.Headers.TryAddWithoutValidation(header.Key, header.Value);
+        }
+
+        return clone;
     }
 }
