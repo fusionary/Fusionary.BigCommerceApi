@@ -2,10 +2,8 @@ namespace Fusionary.BigCommerce.Tests;
 
 public class ImageTests : BcTestBase
 {
-    public ImageTests(ITestOutputHelper outputHelper) : base(outputHelper)
-    { }
 
-    [Fact]
+    [Test]
     public async Task Can_Get_Product_Images_By_Id_Async()
     {
         var productImagesApi = Services.GetRequiredService<BcApiProductImages>();
@@ -26,7 +24,7 @@ public class ImageTests : BcTestBase
         }
     }
 
-    [Fact]
+    [Test]
     public async Task Can_Upload_Image_Async()
     {
         var productImagesApi = Services.GetRequiredService<BcApiProductImages>();

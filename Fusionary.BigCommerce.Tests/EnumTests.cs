@@ -15,49 +15,52 @@ public class EnumTests
         CustomerIdDesc
     }
 
-    [Fact]
+    [Test]
     public void Can_Deserialize_Enum_Members()
     {
         var obj = BcJsonUtil.Deserialize<BcTestObject>("{\"type\":\"digital\",\"order_sort\":\"customer_id:desc\"}");
-        Assert.NotNull(obj);
+
+        obj.Should().NotBeNull();
+
         if (obj is not null)
         {
-            Assert.Equal(BcProductType.Digital, obj.Type);
-            Assert.Equal(BcTestEnum.CustomerIdDesc, obj.OrderSort);
+            obj.Type.Should().Be(BcProductType.Digital);
+            obj.OrderSort.Should().Be(BcTestEnum.CustomerIdDesc);
         }
     }
 
-    [Fact]
+    [Test]
     public void Can_Deserialize_Enum_Value()
     {
         var value = "customer_id:desc".FromValue<BcTestEnum>();
-        Assert.Equal(BcTestEnum.CustomerIdDesc, value);
+
+        value.Should().Be(BcTestEnum.CustomerIdDesc);
     }
 
-    [Fact]
+    [Test]
     public void Can_Serialize_Enum_Members()
     {
         var json = BcJsonUtil.Serialize(
             new BcTestObject { Type = BcProductType.Digital, OrderSort = BcTestEnum.CustomerIdDesc }
         );
-        Assert.Equal("{\"type\":\"digital\",\"order_sort\":\"customer_id:desc\"}", json);
+
+        json.Should().Be("{\"type\":\"digital\",\"order_sort\":\"customer_id:desc\"}");
     }
 
-    [Fact]
+    [Test]
     public void Can_Serialize_Enum_Value()
     {
         var value = BcTestEnum.CustomerIdDesc.ToValue();
-        Assert.Equal("customer_id:desc", value);
+        value.Should().Be("customer_id:desc");
     }
 
-    [Theory]
-    [InlineData("ExampleOne", "example_one")]
-    [InlineData("XML-test", "xml_test")]
-    [InlineData("Example1", "example1")]
+    [TestCase("ExampleOne", "example_one")]
+    [TestCase("XML-test", "xml_test")]
+    [TestCase("Example1", "example1")]
     public void Can_Snake_Case(string input, string expected)
     {
         var snaked = input.ToSnakeCase();
-        Assert.Equal(expected, snaked);
+        snaked.Should().Be(expected);
     }
 
     public class BcTestObject

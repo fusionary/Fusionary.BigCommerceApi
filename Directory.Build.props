@@ -29,9 +29,9 @@
     </ItemGroup>
 
     <ItemGroup Label="Package References">
-        <PackageReference Include="Microsoft.VisualStudio.Threading.Analyzers" PrivateAssets="all" Version="17.6.40"/>
-        <PackageReference Include="JetBrains.Annotations" PrivateAssets="all" Version="2023.2.0"/>
-        <PackageReference Include="MinVer" PrivateAssets="all" Version="4.3.0"/>
+        <PackageReference Include="Microsoft.VisualStudio.Threading.Analyzers" PrivateAssets="all" Version="17.11.20"/>
+        <PackageReference Include="JetBrains.Annotations" PrivateAssets="all" Version="2024.2.0"/>
+        <PackageReference Include="MinVer" PrivateAssets="all" Version="6.0.0"/>
     </ItemGroup>
 
 </Project>

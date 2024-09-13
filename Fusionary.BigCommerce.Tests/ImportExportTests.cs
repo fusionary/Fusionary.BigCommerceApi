@@ -4,11 +4,7 @@ namespace Fusionary.BigCommerce.Tests;
 
 public class ImportExportTests: BcTestBase
 {
-    public ImportExportTests(ITestOutputHelper outputHelper) : base(outputHelper)
-    {
-    }
-
-    [Fact]
+    [Test]
     public async Task Can_Read_Export_File_Async()
     {
         const string fileName = "v3-product-import-template.csv";

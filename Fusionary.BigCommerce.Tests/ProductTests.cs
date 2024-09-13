@@ -1,45 +1,57 @@
+using FluentAssertions.Common;
+
+using Microsoft.Extensions.Logging;
+
+using NUnit.Framework;
+
 namespace Fusionary.BigCommerce.Tests;
 
 public class ProductTests : BcTestBase
 {
-    public ProductTests(ITestOutputHelper outputHelper) : base(outputHelper)
-    { }
-
-    [Fact]
+    [Test]
     public async Task Can_Get_All_Products_Async()
     {
         var productApi = Services.GetRequiredService<BcApiProduct>();
 
-        var cancellationToken = CancellationToken.None;
+        var cancellationToken = Cts.Token;
 
         var response = await productApi
             .Search()
+            .ChannelId(1404663)
             .Availability(BcAvailability.Available)
             .Include(BcProductInclude.Variants, BcProductInclude.Images, BcProductInclude.CustomFields)
             .Limit(25)
             .Sort(BcProductSort.Name)
             .SendAsync(cancellationToken);
 
-        if (response)
+        if (!response)
         {
-            var (data, pagination) = response;
-
-            LogMessage($"Total from first page: {pagination.Total}");
-
-            if (response.HasNextPage)
-            {
-                var remainingItems = await GetRemainingDataAsync(productApi, pagination, cancellationToken);
-
-                data.AddRange(remainingItems);
-            }
-
-            LogMessage($"Total Items: {data.Count}");
-
-            Assert.Equal(pagination.Total, data.Count);
+            DumpObject(response.Error);
+            Assert.Fail();
+            return;
         }
+
+        var (data, pagination) = response;
+
+        LogMessage($"Total from first page: {pagination.Total}");
+
+        if (response.HasNextPage)
+        {
+            var remainingItems = await GetRemainingDataAsync(productApi, pagination, cancellationToken);
+
+            data.AddRange(remainingItems);
+        }
+
+        LogMessage($"Total Items: {data.Count}");
+
+        data.Count.Should().Be(pagination.Total);
+
+        DumpObject(data);
+
+        Assert.Pass();
     }
 
-    [Fact]
+    [Test]
     public async Task Can_Get_Product_By_Id_Async()
     {
         var bcProductApi = Services.GetRequiredService<BcApiProduct>();
@@ -55,7 +67,7 @@ public class ProductTests : BcTestBase
 
         DumpObject(response);
 
-        Assert.NotNull(product);
+        product.Should().NotBeNull();
 
         var id           = product.Id;
         var name         = product.Name;
@@ -67,6 +79,8 @@ public class ProductTests : BcTestBase
             : default;
 
         LogMessage($"{id} | {name} | {price} | {customValues}");
+
+        Assert.Pass();
     }
 
     private static async Task<List<BcProductFull>> GetRemainingDataAsync(
@@ -92,7 +106,7 @@ public class ProductTests : BcTestBase
             {
                 remainingItems.AddRange(nextPage.Data);
             }
-        } while (nextPage?.HasNextPage == true);
+        } while (nextPage is { HasNextPage: true});
 
         return remainingItems;
     }

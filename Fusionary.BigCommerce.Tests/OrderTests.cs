@@ -1,13 +1,8 @@
-using Fusionary.BigCommerce.Utils;
-
 namespace Fusionary.BigCommerce.Tests;
 
 public class OrderTests : BcTestBase
 {
-    public OrderTests(ITestOutputHelper outputHelper) : base(outputHelper)
-    { }
-
-    [Fact]
+    [Test]
     public async Task Can_Create_Order_Metafields_Async()
     {
         var orderMetafieldsApi = Services.GetRequiredService<BcApiOrderMetafields>();
@@ -20,18 +15,19 @@ public class OrderTests : BcTestBase
                 100,
                 BcPermissionSet.Read,
                 Faker.Hacker.Noun(),
-                new[]
-                {
+                [
                     new BcMetafieldItem { Key = Faker.Hacker.Noun(), Value = Faker.Hacker.Phrase() },
                     new BcMetafieldItem { Key = Faker.Hacker.Noun(), Value = Faker.Hacker.Phrase() }
-                },
+                ],
                 cancellationToken
             );
 
         DumpObject(result);
+
+        Assert.Pass();
     }
 
-    [Fact]
+    [Test]
     public async Task Can_Create_Sample_Order_Async()
     {
         var createOrdersApi = Services.GetRequiredService<BcApiOrdersCreate>();
@@ -61,31 +57,10 @@ public class OrderTests : BcTestBase
 
         var result = await createOrdersApi.SendAsync(newOrder, cancellationToken);
 
-        Assert.NotNull(result);
-        Assert.True(result.Success);
+        result.Success.Should().BeTrue();
     }
 
-    [Fact]
-    public async Task Can_Update_Sample_Order_Async()
-    {
-        var updateOrdersApi = Services.GetRequiredService<BcApiOrdersUpdate>();
-
-        var cancellationToken = CancellationToken.None;
-
-        var orderToUpdate = new BcOrderPut
-        {
-            StatusId = BcOrderStatus.Completed
-        };
-
-        var result = await updateOrdersApi.SendAsync<BcOrderResponseFull>(150, orderToUpdate, cancellationToken);
-
-        DumpObject(result);
-
-        Assert.NotNull(result);
-        Assert.True(result.Success);
-    }
-
-    [Fact]
+    [Test]
     public async Task Can_Get_All_Orders_Async()
     {
         var bc = Services.GetRequiredService<IBcApi>();
@@ -103,8 +78,7 @@ public class OrderTests : BcTestBase
 
         DumpObject(result);
 
-        Assert.NotNull(result);
-        Assert.True(result.Success);
+        result.Success.Should().BeTrue();
 
         if (result.HasData)
         {
@@ -113,9 +87,11 @@ public class OrderTests : BcTestBase
                 DumpObject(order);
             }
         }
+
+        Assert.Pass();
     }
 
-    [Fact]
+    [Test]
     public async Task Can_Get_Order_Metafields_Async()
     {
         var bc = Services.GetRequiredService<IBcApi>();
@@ -138,9 +114,11 @@ public class OrderTests : BcTestBase
                 await bc.Orders().OrderMetafields().Delete().SendAsync(100, metafield.Id, cancellationToken);
             }
         }
+
+        Assert.Pass();
     }
 
-    [Fact]
+    [Test]
     public void Can_SerializeOrder()
     {
         var order = new BcOrderPost
@@ -159,8 +137,24 @@ public class OrderTests : BcTestBase
             }
         };
 
-        var json = BcJsonUtil.Serialize(order, true);
+        DumpObject(order);
 
-        Logger.WriteLine(json);
+        Assert.Pass();
+    }
+
+    [Test]
+    public async Task Can_Update_Sample_Order_Async()
+    {
+        var updateOrdersApi = Services.GetRequiredService<BcApiOrdersUpdate>();
+
+        var cancellationToken = CancellationToken.None;
+
+        var orderToUpdate = new BcOrderPut { StatusId = BcOrderStatus.Completed };
+
+        var result = await updateOrdersApi.SendAsync<BcOrderResponseFull>(150, orderToUpdate, cancellationToken);
+
+        DumpObject(result);
+
+        result.Success.Should().BeTrue();
     }
 }

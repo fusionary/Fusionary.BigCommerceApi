@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net7.0</TargetFramework>
+        <TargetFramework>net8.0</TargetFramework>
         <Title>Fusionary.BigCommerce</Title>
         <Description>BigCommerce API client for Products, Brands, Categories, Orders and Storefront GraphQL</Description>
         <PackageTags>dotnet, bigcommerce</PackageTags>
