@@ -12,4 +12,8 @@ public class BcApiCustomerGroup : IBcApiOperation
     public BcApiCustomerGroupGet Get() => new(_api);
 
     public BcApiCustomerGroupCreate Create() => new(_api);
+    
+    public BcApiCustomerGroupUpdate Update() => new(_api);
+    
+    public BcApiCustomerGroupDelete Delete() => new(_api);
 }
