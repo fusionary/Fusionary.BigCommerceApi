@@ -18,14 +18,13 @@
         <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="7.0.0" />
         <PackageReference Include="Microsoft.Extensions.Http" Version="7.0.0" />
         <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="7.0.0" />
-        <PackageReference Include="System.Text.Json" Version="8.0.4" />
+        <PackageReference Include="System.Text.Json" Version="8.0.5" />
     </ItemGroup>
 
     <ItemGroup>
         <Folder Include="Operations\Catalog\Product Reviews" />
         <Folder Include="Operations\Management\Abandoned Carts\" />
         <Folder Include="Operations\Management\Channels\" />
-        <Folder Include="Operations\Management\Customers\" />
         <Folder Include="Operations\Management\Inventory\Adjustments\" />
         <Folder Include="Operations\Management\Inventory\Items\" />
         <Folder Include="Operations\Management\Locations\Locations\" />
