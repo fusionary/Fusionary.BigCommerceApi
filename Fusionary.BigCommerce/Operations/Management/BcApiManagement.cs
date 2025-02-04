@@ -1,3 +1,5 @@
+using Fusionary.BigCommerce.Operations.Customers.CustomerGroups;
+
 namespace Fusionary.BigCommerce.Operations;
 
 /// <summary>
@@ -25,4 +27,9 @@ public class BcApiManagement : IBcApiOperation
     /// Get product pricing
     /// </summary>
     public BcApiManagementPricing Pricing() => new(_api);
+    
+    /// <summary>
+    /// Manage Customer Groups
+    /// </summary>
+    public BcApiCustomerGroup CustomerGroup() => new(_api);
 }
