@@ -13,7 +13,10 @@ public class CustomerGroupsTests : BcTestBase
 
         DumpObject(result);
 
-        Assert.Pass();
+        if (result.Success)
+        {
+            Assert.Pass();   
+        }
     }
     
     [Test]
@@ -23,7 +26,7 @@ public class CustomerGroupsTests : BcTestBase
 
         var customerGroup = new BcCustomerGroupPost
         {
-            Name = "Test Customer Group",
+            Name = "Test Customer Group 5",
             CategoryAccess = new CategoryAccess()
             {
                 Type = CategoryTypes.All
@@ -41,7 +44,10 @@ public class CustomerGroupsTests : BcTestBase
 
         DumpObject(result);
 
-        Assert.Pass();
+        if (result.Success)
+        {
+            Assert.Pass();   
+        }
     }
     
     [Test]
@@ -56,16 +62,19 @@ public class CustomerGroupsTests : BcTestBase
             {
                 Type = DiscountTypes.Product,
                 Method = DiscountRulesMethods.Percentage,
-                Amount = 15,
+                Amount = 20,
                 ProductId = 1083
             }]
         };
 
-        var result = await api.UpdateAsync(7, customerGroup);
+        var result = await api.UpdateAsync(8, customerGroup);
 
         DumpObject(result);
 
-        Assert.Pass();
+        if (result.Success)
+        {
+            Assert.Pass();   
+        }
     }
     
     [Test]
@@ -73,10 +82,13 @@ public class CustomerGroupsTests : BcTestBase
     {
         var api = Services.GetRequiredService<BcApiCustomerGroupDelete>();
 
-        var result = await api.DeleteAsync(6);
+        var result = await api.DeleteAsync(8);
 
         DumpObject(result);
 
-        Assert.Pass();
+        if (result.Success)
+        {
+            Assert.Pass();   
+        }
     }
 }
