@@ -9,6 +9,7 @@ public class BcApiCustomerGroup : IBcApiOperation
         _api = api;
     }
 
-    public BcApiPriceListsGet Get() => new(_api);
+    public BcApiCustomerGroupGet Get() => new(_api);
 
+    public BcApiCustomerGroupCreate Create() => new(_api);
 }
