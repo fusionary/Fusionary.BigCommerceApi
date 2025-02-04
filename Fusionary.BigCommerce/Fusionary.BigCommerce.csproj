@@ -25,7 +25,6 @@
         <Folder Include="Operations\Catalog\Product Reviews" />
         <Folder Include="Operations\Management\Abandoned Carts\" />
         <Folder Include="Operations\Management\Channels\" />
-        <Folder Include="Operations\Management\Customers\" />
         <Folder Include="Operations\Management\Inventory\Adjustments\" />
         <Folder Include="Operations\Management\Inventory\Items\" />
         <Folder Include="Operations\Management\Locations\Locations\" />

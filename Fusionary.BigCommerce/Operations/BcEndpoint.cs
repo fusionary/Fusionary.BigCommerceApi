@@ -40,6 +40,10 @@ public static class BcEndpoint
     public static string CustomersV3() => "v3/customers";
 
     public static string CustomersV3(BcId customerId) => $"v3/catalog/customers/{customerId}";
+    
+    public static string CustomersGroupsV2() => "v2/customer_groups";
+    
+    public static string CustomersGroupsV2(BcId groupId) => $"v2/customer_groups/{groupId}";
 
     public static string OrderMetafieldsV3(BcId orderId) => $"v3/orders/{orderId}/metafields";
 
