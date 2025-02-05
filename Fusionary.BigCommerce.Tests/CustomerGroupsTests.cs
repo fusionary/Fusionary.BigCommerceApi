@@ -20,6 +20,23 @@ public class CustomerGroupsTests : BcTestBase
     }
     
     [Test]
+    public async Task Can_Get_Customer_Group_Async()
+    {
+        var api = Services.GetRequiredService<BcApiCustomerGroupGet>();
+        
+        var id = 9;
+
+        var result = await api.GetAsync(id);
+
+        DumpObject(result);
+
+        if (result.Id == id)
+        {
+            Assert.Pass();   
+        }
+    }
+    
+    [Test]
     public async Task Can_Create_Customer_Group_Async()
     {
         var api = Services.GetRequiredService<BcApiCustomerGroupCreate>();
