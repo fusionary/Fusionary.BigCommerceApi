@@ -21,11 +21,11 @@ jobs:
           dotnet-version: 8.0.x
       - name: Restore dependencies
         run: dotnet restore
-      - name: Build and Pack
-        run: dotnet build Fusionary.BigCommerceApi.sln --configuration Release
       - name: Tag
         uses: EndBug/latest-tag@latest
         with:
           ref: v${{ github.event.inputs.version }}
+      - name: Build
+        run: dotnet build Fusionary.BigCommerceApi.sln --configuration Release
       - name: Publish
         run: dotnet nuget push "**/*.nupkg" --skip-duplicate
