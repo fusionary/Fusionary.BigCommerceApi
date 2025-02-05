@@ -23,11 +23,11 @@ jobs:
         run: dotnet restore
       - name: Build
         run: dotnet build --no-restore
+      - name: Pack
+        run: dotnet pack Fusionary.BigCommerceApi/Fusionary.BigCommerce.csproj --configuration Release
       - name: Tag
         uses: EndBug/latest-tag@latest
         with:
           ref: v${{ github.event.inputs.version }}
-      - name: Pack
-        run: dotnet pack Fusionary.BigCommerce.csproj --configuration Release
       - name: Publish
         run: dotnet nuget push "**/*.nupkg" --skip-duplicate
