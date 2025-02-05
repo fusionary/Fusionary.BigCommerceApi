@@ -7,7 +7,7 @@ public class CustomerGroupsTests : BcTestBase
     [Test]
     public async Task Can_Get_Customer_Groups_Async()
     {
-        var api = Services.GetRequiredService<BcApiCustomerGroupGet>();
+        var api = Services.GetRequiredService<BcApiCustomerGroupGetAll>();
 
         var result = await api.GetAllAsync();
 

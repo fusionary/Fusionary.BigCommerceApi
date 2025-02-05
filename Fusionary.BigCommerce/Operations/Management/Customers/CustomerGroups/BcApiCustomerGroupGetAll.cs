@@ -1,13 +1,13 @@
 namespace Fusionary.BigCommerce.Operations.Customers.CustomerGroups;
 
-public class BcApiCustomerGroupGet : BcRequestBuilder,
+public class BcApiCustomerGroupGetAll : BcRequestBuilder,
     IBcApiOperation,
     IBcPageableFilter,
     IBcNameFilter,
     IBcDateCreatedFilter,
     IBcDateModifiedFilter
 {
-    public BcApiCustomerGroupGet(IBcApi api) : base(api)
+    public BcApiCustomerGroupGetAll(IBcApi api) : base(api)
     {
     }
 
