@@ -26,7 +26,7 @@ public class CustomerGroupsTests : BcTestBase
 
         var customerGroup = new BcCustomerGroupPost
         {
-            Name = "Test Customer Group 5",
+            Name = "Test Customer Group 10",
             CategoryAccess = new CategoryAccess()
             {
                 Type = CategoryTypes.All
@@ -44,7 +44,7 @@ public class CustomerGroupsTests : BcTestBase
 
         DumpObject(result);
 
-        if (result.Success)
+        if (result.Name == customerGroup.Name)
         {
             Assert.Pass();   
         }
@@ -67,11 +67,11 @@ public class CustomerGroupsTests : BcTestBase
             }]
         };
 
-        var result = await api.UpdateAsync(8, customerGroup);
+        var result = await api.UpdateAsync(10, customerGroup);
 
         DumpObject(result);
 
-        if (result.Success)
+        if (result.Name == customerGroup.Name)
         {
             Assert.Pass();   
         }
@@ -82,7 +82,7 @@ public class CustomerGroupsTests : BcTestBase
     {
         var api = Services.GetRequiredService<BcApiCustomerGroupDelete>();
 
-        var result = await api.DeleteAsync(8);
+        var result = await api.DeleteAsync(10);
 
         DumpObject(result);
 
