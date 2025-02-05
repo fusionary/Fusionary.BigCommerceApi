@@ -7,7 +7,7 @@ public class CustomerGroupsTests : BcTestBase
     [Test]
     public async Task Can_Get_Customer_Groups_Async()
     {
-        var api = Services.GetRequiredService<BcApiCustomerGroupGet>();
+        var api = Services.GetRequiredService<BcApiCustomerGroupGetAll>();
 
         var result = await api.GetAllAsync();
 
@@ -20,13 +20,30 @@ public class CustomerGroupsTests : BcTestBase
     }
     
     [Test]
+    public async Task Can_Get_Customer_Group_Async()
+    {
+        var api = Services.GetRequiredService<BcApiCustomerGroupGet>();
+        
+        var id = 9;
+
+        var result = await api.GetAsync(id);
+
+        DumpObject(result);
+
+        if (result.Id == id)
+        {
+            Assert.Pass();   
+        }
+    }
+    
+    [Test]
     public async Task Can_Create_Customer_Group_Async()
     {
         var api = Services.GetRequiredService<BcApiCustomerGroupCreate>();
 
         var customerGroup = new BcCustomerGroupPost
         {
-            Name = "Test Customer Group 5",
+            Name = "Test Customer Group 10",
             CategoryAccess = new CategoryAccess()
             {
                 Type = CategoryTypes.All
@@ -44,7 +61,7 @@ public class CustomerGroupsTests : BcTestBase
 
         DumpObject(result);
 
-        if (result.Success)
+        if (result.Name == customerGroup.Name)
         {
             Assert.Pass();   
         }
@@ -67,11 +84,11 @@ public class CustomerGroupsTests : BcTestBase
             }]
         };
 
-        var result = await api.UpdateAsync(8, customerGroup);
+        var result = await api.UpdateAsync(10, customerGroup);
 
         DumpObject(result);
 
-        if (result.Success)
+        if (result.Name == customerGroup.Name)
         {
             Assert.Pass();   
         }
@@ -82,7 +99,7 @@ public class CustomerGroupsTests : BcTestBase
     {
         var api = Services.GetRequiredService<BcApiCustomerGroupDelete>();
 
-        var result = await api.DeleteAsync(8);
+        var result = await api.DeleteAsync(10);
 
         DumpObject(result);
 
