@@ -28,4 +28,4 @@ jobs:
       - name: Build
         run: dotnet build Fusionary.BigCommerceApi.sln --configuration Release
       - name: Publish
-        run: dotnet nuget push "**/*.nupkg" --skip-duplicate
+        run: dotnet nuget push "**/*.nupkg" --skip-duplicate --api-key ${{ secrets.NUGET_API_KEY }}
