@@ -6,6 +6,7 @@
         <Description>BigCommerce API client for Products, Brands, Categories, Orders and Storefront GraphQL</Description>
         <PackageTags>dotnet, bigcommerce</PackageTags>
         <UserSecretsId>1b8ee825-bb17-430b-881c-b6e56d684db3</UserSecretsId>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     </PropertyGroup>
 
     <ItemGroup>
