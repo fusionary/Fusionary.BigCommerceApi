@@ -24,7 +24,7 @@ jobs:
       - name: Build
         run: dotnet build --no-restore
       - name: Pack
-        run: dotnet pack Fusionary.BigCommerceApi/Fusionary.BigCommerce.csproj --configuration Release
+        run: dotnet pack Fusionary.BigCommerceApi/Fusionary.BigCommerceApi/Fusionary.BigCommerce.csproj --configuration Release
       - name: Tag
         uses: EndBug/latest-tag@latest
         with:
