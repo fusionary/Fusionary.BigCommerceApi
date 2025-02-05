@@ -157,3 +157,9 @@ query paginateProducts {
         Console.WriteLine(JsonSerializer.Serialize(response.Data));
 
 ```
+
+
+## Publishing new version of the NuGet package
+
+1. Find the last tag used in the repository
+2. Run the Publish Nuget Package GitHub Action to create a new release and increment the version number
