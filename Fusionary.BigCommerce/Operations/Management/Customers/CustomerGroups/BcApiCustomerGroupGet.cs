@@ -6,10 +6,15 @@ public class BcApiCustomerGroupGet : BcRequestBuilder, IBcApiOperation
     {
     }
     
-    public async Task<BcCustomerGroup> GetAsync(
+    public Task<BcResultData<BcCustomerGroup>> SendAsync(
         int id,
         CancellationToken cancellationToken = default
-    ) => await Api.GetDataAsync<BcCustomerGroup>(
+    ) => SendAsync<BcCustomerGroup>(id, cancellationToken);
+    
+    public async Task<BcResultData<T>> SendAsync<T>(
+        int id,
+        CancellationToken cancellationToken = default
+    ) => await Api.GetDataAsync<T>(
         BcEndpoint.CustomersGroupsV2(id),
         Filter,
         Options,

@@ -10,10 +10,14 @@ public class BcApiCustomerGroupGetAll : BcRequestBuilder,
     public BcApiCustomerGroupGetAll(IBcApi api) : base(api)
     {
     }
-
-    public async Task<BcResultPaged<BcCustomerGroup>> GetAllAsync(
+    
+    public async Task<BcResultPaged<BcCustomerGroup>> SendAsync(
         CancellationToken cancellationToken = default
-    ) => await Api.GetPagedAsync<BcCustomerGroup>(
+    ) => await SendAsync<BcCustomerGroup>(cancellationToken);
+
+    public async Task<BcResultPaged<T>> SendAsync<T>(
+        CancellationToken cancellationToken = default
+    ) => await Api.GetPagedAsync<T>(
         BcEndpoint.CustomersGroupsV2(),
         Filter,
         Options,

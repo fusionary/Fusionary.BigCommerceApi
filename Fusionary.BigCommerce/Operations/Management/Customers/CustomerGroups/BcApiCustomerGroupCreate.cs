@@ -5,11 +5,16 @@ public class BcApiCustomerGroupCreate : BcRequestBuilder, IBcApiOperation
     public BcApiCustomerGroupCreate(IBcApi api) : base(api)
     {
     }
-    
-    public async Task<BcCustomerGroup> CreateAsync(
+
+    public async Task<BcResultData<BcCustomerGroup>> SendAsync(
         BcCustomerGroupPost customerGroup,
         CancellationToken cancellationToken = default
-    ) => await Api.PostDataAsync<BcCustomerGroup>(
+    ) => await SendAsync<BcCustomerGroup>(customerGroup, cancellationToken);
+    
+    public async Task<BcResultData<T>> SendAsync<T>(
+        BcCustomerGroupPost customerGroup,
+        CancellationToken cancellationToken = default
+    ) => await Api.PostDataAsync<T>(
         BcEndpoint.CustomersGroupsV2(),
         customerGroup,
         Filter,

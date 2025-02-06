@@ -9,7 +9,7 @@ public class CustomerGroupsTests : BcTestBase
     {
         var api = Services.GetRequiredService<BcApiCustomerGroupGetAll>();
 
-        var result = await api.GetAllAsync();
+        var result = await api.SendAsync();
 
         DumpObject(result);
 
@@ -17,6 +17,7 @@ public class CustomerGroupsTests : BcTestBase
         {
             Assert.Pass();   
         }
+        Assert.Fail();
     }
     
     [Test]
@@ -24,16 +25,17 @@ public class CustomerGroupsTests : BcTestBase
     {
         var api = Services.GetRequiredService<BcApiCustomerGroupGet>();
         
-        var id = 9;
+        const int id = 24;
 
-        var result = await api.GetAsync(id);
+        var result = await api.SendAsync(id);
 
         DumpObject(result);
 
-        if (result.Id == id)
+        if (result.Success)
         {
             Assert.Pass();   
         }
+        Assert.Fail();
     }
     
     [Test]
@@ -43,7 +45,7 @@ public class CustomerGroupsTests : BcTestBase
 
         var customerGroup = new BcCustomerGroupPost
         {
-            Name = "Test Customer Group 10",
+            Name = "Test Customer Group 13",
             CategoryAccess = new CategoryAccess()
             {
                 Type = CategoryTypes.All
@@ -57,20 +59,23 @@ public class CustomerGroupsTests : BcTestBase
             }]
         };
 
-        var result = await api.CreateAsync(customerGroup);
+        var result = await api.SendAsync(customerGroup);
 
         DumpObject(result);
 
-        if (result.Name == customerGroup.Name)
+        if (result.Success)
         {
             Assert.Pass();   
         }
+        Assert.Fail();
     }
     
     [Test]
     public async Task Can_Update_Customer_Group_Async()
     {
         var api = Services.GetRequiredService<BcApiCustomerGroupUpdate>();
+        
+        const int id = 24;
 
         var customerGroup = new BcCustomerGroupPost
         {
@@ -84,22 +89,7 @@ public class CustomerGroupsTests : BcTestBase
             }]
         };
 
-        var result = await api.UpdateAsync(10, customerGroup);
-
-        DumpObject(result);
-
-        if (result.Name == customerGroup.Name)
-        {
-            Assert.Pass();   
-        }
-    }
-    
-    [Test]
-    public async Task Can_Delete_Customer_Group_Async()
-    {
-        var api = Services.GetRequiredService<BcApiCustomerGroupDelete>();
-
-        var result = await api.DeleteAsync(10);
+        var result = await api.SendAsync(id, customerGroup);
 
         DumpObject(result);
 
@@ -107,5 +97,24 @@ public class CustomerGroupsTests : BcTestBase
         {
             Assert.Pass();   
         }
+        Assert.Fail();
+    }
+    
+    [Test]
+    public async Task Can_Delete_Customer_Group_Async()
+    {
+        var api = Services.GetRequiredService<BcApiCustomerGroupDelete>();
+        
+        const int id = 24;
+
+        var result = await api.DeleteAsync(id);
+
+        DumpObject(result);
+
+        if (result.Success)
+        {
+            Assert.Pass();   
+        }
+        Assert.Fail();
     }
 }
