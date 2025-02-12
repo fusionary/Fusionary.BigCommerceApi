@@ -52,6 +52,15 @@ public class BcCustomer
 
     [JsonPropertyName("store_credit_amounts")]
     public List<StoreCreditAmounts>? StoreCreditAmounts { get; set; }
+
+    [JsonPropertyName("accepts_product_review_abandoned_cart_emails")]
+    public bool? AcceptsProductReviewAbandonedCartEmails { get; set; }
+
+    [JsonPropertyName("origin_channel_id")]
+    public int? OriginChannelId { get; set; }
+
+    [JsonPropertyName("channel_ids")]
+    public List<int>? ChannelIds { get; set; }
 }
 
 public class Authentication
