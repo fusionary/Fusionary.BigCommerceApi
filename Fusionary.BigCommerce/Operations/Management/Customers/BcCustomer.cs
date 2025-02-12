@@ -49,6 +49,9 @@ public class BcCustomer
 
     [JsonPropertyName("attributes")]
     public List<CustomerAttribute>? Attributes { get; set; }
+
+    [JsonPropertyName("store_credit_amounts")]
+    public List<StoreCreditAmounts>? StoreCreditAmounts { get; set; }
 }
 
 public class Authentication
@@ -121,5 +124,11 @@ public class CustomerAttribute
     
     [JsonPropertyName("date_modified")]
     public BcDateTime DateModified { get; set; }
+}
+
+public class StoreCreditAmounts
+{
+    [JsonPropertyName("amount")]
+    public BcFloat Amount { get; set; }
 }
 
