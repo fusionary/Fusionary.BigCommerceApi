@@ -6,19 +6,19 @@ public class BcApiCustomerGet : BcRequestBuilder, IBcApiOperation
     {
     }
     
-    public Task<BcResultData<BcCustomer>> SendAsync(
+    public Task<BcResultPaged<BcCustomer>> SendAsync(
         int id,
         CancellationToken cancellationToken = default
     ) => SendAsync<BcCustomer>(id, cancellationToken);
     
-    public async Task<BcResultData<T>> SendAsync<T>(
+    public async Task<BcResultPaged<T>> SendAsync<T>(
         int id,
         CancellationToken cancellationToken = default
     )
     {
         Filter.Add("id:in", id);
         
-        return await Api.GetDataAsync<T>(
+        return await Api.GetPagedAsync<T>(
             BcEndpoint.CustomersV3(),
             Filter,
             Options,

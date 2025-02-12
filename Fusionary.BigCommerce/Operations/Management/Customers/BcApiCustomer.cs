@@ -8,4 +8,6 @@ public class BcApiCustomer : IBcApiOperation
     {
         _api = api;
     }
+
+    public BcApiCustomerGet Get() => new(_api);
 }
