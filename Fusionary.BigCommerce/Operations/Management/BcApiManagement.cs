@@ -1,3 +1,4 @@
+using Fusionary.BigCommerce.Operations.Customers;
 using Fusionary.BigCommerce.Operations.Customers.CustomerGroups;
 
 namespace Fusionary.BigCommerce.Operations;
@@ -32,4 +33,9 @@ public class BcApiManagement : IBcApiOperation
     /// Manage Customer Groups
     /// </summary>
     public BcApiCustomerGroup CustomerGroup() => new(_api);
+
+    /// <summary>
+    /// Manage Customers
+    /// </summary>
+    public BcApiCustomer Customer() => new(_api);
 }
