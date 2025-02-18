@@ -1,6 +1,6 @@
-namespace Fusionary.BigCommerce.Operations.Order_Shipping;
+namespace Fusionary.BigCommerce.Operations;
 
-public class BcOrderShipping
+public record BcOrderShipping
 {
     public int Id { get; set; }
     public int OrderId { get; set; }

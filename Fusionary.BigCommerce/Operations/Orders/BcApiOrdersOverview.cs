@@ -1,5 +1,3 @@
-using Fusionary.BigCommerce.Operations.Order_Shipping;
-
 namespace Fusionary.BigCommerce.Operations;
 
 public class BcApiOrdersOverview : IBcApiOperation
