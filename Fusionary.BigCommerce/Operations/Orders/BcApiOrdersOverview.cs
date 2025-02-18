@@ -1,3 +1,5 @@
+using Fusionary.BigCommerce.Operations.Order_Shipping;
+
 namespace Fusionary.BigCommerce.Operations;
 
 public class BcApiOrdersOverview : IBcApiOperation
@@ -14,4 +16,6 @@ public class BcApiOrdersOverview : IBcApiOperation
     public BcApiOrderMetafields OrderMetafields() => new(_api);
 
     public BcApiOrderProducts OrderProducts() => new(_api);
+    
+    public BcApiOrderShipping OrderShipping() => new(_api);
 }
