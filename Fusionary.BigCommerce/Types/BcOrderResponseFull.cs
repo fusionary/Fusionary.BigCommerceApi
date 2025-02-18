@@ -6,6 +6,7 @@ public record BcOrderResponseFull : IExtensionData
     private BcResource? _coupons;
     private BcResource? _products;
     private BcResource? _shippingAddresses;
+    private BcOrderConsignments? _consignments;
 
     [JsonPropertyName("id")]
     public int Id { get; set; }
@@ -235,6 +236,13 @@ public record BcOrderResponseFull : IExtensionData
 
     [JsonPropertyName("external_order_id")]
     public string? ExternalOrderId { get; set; }
+
+    [JsonPropertyName("consignments")]
+    public BcOrderConsignments? Consignments
+    {
+        get => LazyInitializer.EnsureInitialized(ref _consignments);
+        set => _consignments = value;
+    }
 
     /// <inheritdoc />
     public IDictionary<string, JsonElement>? ExtensionData { get; init; }
