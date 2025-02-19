@@ -157,4 +157,44 @@ public class OrderTests : BcTestBase
 
         result.Success.Should().BeTrue();
     }
+    
+    [Test]
+    public async Task Can_Get_Order_Shipping_Async()
+    {
+        var bc = Services.GetRequiredService<IBcApi>();
+
+        var cancellationToken = CancellationToken.None;
+
+        var result = await bc
+            .Orders()
+            .OrderShipping()
+            .Get()
+            .SendAsync(106, cancellationToken);
+
+        DumpObject(result);
+
+        result.Success.Should().BeTrue();
+
+        Assert.Pass();
+    }
+    
+    [Test]
+    public async Task Can_Get_Order_With_Consignments_Async()
+    {
+        var bc = Services.GetRequiredService<IBcApi>();
+
+        var cancellationToken = CancellationToken.None;
+
+        var result = await bc
+            .Orders()
+            .Order()
+            .GetWithConsignments()
+            .SendAsync(106, cancellationToken);
+
+        DumpObject(result);
+
+        result.Success.Should().BeTrue();
+
+        Assert.Pass();
+    }
 }
