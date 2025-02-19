@@ -10,6 +10,4 @@ public class BcApiOrderShipping : IBcApiOperation
     }
     
     public BcApiOrderShippingGet Get() => new(_api);
-    
-    public BcApiOrderShippingCreate Create() => new(_api);
 }

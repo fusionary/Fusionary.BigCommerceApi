@@ -207,16 +207,16 @@ public class OrderTests : BcTestBase
 
         var result = await bc
             .Orders()
-            .OrderShipping()
+            .OrderShipments()
             .Create()
             .SendAsync(
                 108,
-                new BcOrderShippingPost
+                new BcOrderShipmentsPost
                 {
                     TrackingNumber = Faker.Random.AlphaNumeric(10),
                     ShippingProvider = "shipperhq",
                     OrderAddressId = 9,
-                    Items = new List<BcOrderShippingItem>
+                    Items = new List<BcOrderShipmentsItem>
                     {
                         new() { OrderProductId = 9, Quantity = 1 }
                     }

@@ -1,6 +1,6 @@
 namespace Fusionary.BigCommerce.Operations;
 
-public record BcOrderShippingPost
+public record BcOrderShipmentsPost
 {
     [JsonPropertyName("shipping_provider")]
     public string? ShippingProvider { get; init; }
@@ -12,5 +12,5 @@ public record BcOrderShippingPost
     public int? OrderAddressId { get; init; }
     
     [JsonPropertyName("items")]
-    public List<BcOrderShippingItem>? Items { get; init; }
+    public List<BcOrderShipmentsItem>? Items { get; init; }
 }

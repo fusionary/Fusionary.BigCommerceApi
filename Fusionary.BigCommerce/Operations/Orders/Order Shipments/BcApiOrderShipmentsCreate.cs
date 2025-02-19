@@ -1,24 +1,24 @@
 namespace Fusionary.BigCommerce.Operations;
 
-public class BcApiOrderShippingCreate : BcRequestBuilder, IBcApiOperation
+public class BcApiOrderShipmentsCreate : BcRequestBuilder, IBcApiOperation
 {
-    public BcApiOrderShippingCreate(IBcApi api) : base(api)
+    public BcApiOrderShipmentsCreate(IBcApi api) : base(api)
     {
     }
     
     public async Task<BcResultData<BcOrderShipping>> SendAsync(
         int orderId,
-        BcOrderShippingPost orderShipping,
+        BcOrderShipmentsPost orderShipments,
         CancellationToken cancellationToken = default
-    ) => await SendAsync<BcOrderShipping>(orderId, orderShipping, cancellationToken);
+    ) => await SendAsync<BcOrderShipping>(orderId, orderShipments, cancellationToken);
     
     public async Task<BcResultData<T>> SendAsync<T>(
         int orderId,
-        BcOrderShippingPost orderShipping,
+        BcOrderShipmentsPost orderShipments,
         CancellationToken cancellationToken = default
     ) => await Api.PostDataAsync<T>(
         BcEndpoint.OrderShipmentsV2(orderId),
-        orderShipping,
+        orderShipments,
         Filter,
         Options,
         cancellationToken
