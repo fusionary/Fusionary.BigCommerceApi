@@ -197,4 +197,37 @@ public class OrderTests : BcTestBase
 
         Assert.Pass();
     }
+    
+    [Test]
+    public async Task Can_Create_Order_Shipment_Async()
+    {
+        var bc = Services.GetRequiredService<IBcApi>();
+
+        var cancellationToken = CancellationToken.None;
+
+        var result = await bc
+            .Orders()
+            .OrderShipments()
+            .Create()
+            .SendAsync(
+                108,
+                new BcOrderShipmentsPost
+                {
+                    TrackingNumber = Faker.Random.AlphaNumeric(10),
+                    ShippingProvider = "shipperhq",
+                    OrderAddressId = 9,
+                    Items = new List<BcOrderShipmentsItem>
+                    {
+                        new() { OrderProductId = 9, Quantity = 1 }
+                    }
+                },
+                cancellationToken
+            );
+
+        DumpObject(result);
+
+        result.Success.Should().BeTrue();
+
+        Assert.Pass();
+    }
 }

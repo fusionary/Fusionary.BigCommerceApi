@@ -16,4 +16,6 @@ public class BcApiOrdersOverview : IBcApiOperation
     public BcApiOrderProducts OrderProducts() => new(_api);
     
     public BcApiOrderShipping OrderShipping() => new(_api);
+    
+    public BcApiOrderShipments OrderShipments() => new(_api);
 }
