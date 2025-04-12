@@ -1,23 +1,16 @@
 namespace Fusionary.BigCommerce.Operations;
 
-public class BcApiPriceList : IBcApiOperation
+public class BcApiPriceList(IBcApi api) : IBcApiOperation
 {
-    private readonly IBcApi _api;
+    public BcApiPriceListAssignments Assignments() => new(api);
 
-    public BcApiPriceList(IBcApi api)
-    {
-        _api = api;
-    }
+    public BcApiPriceListsCreate Create() => new(api);
 
-    public BcApiPriceListAssignments Assignments() => new(_api);
+    public BcApiPriceListsDelete Delete() => new(api);
 
-    public BcApiPriceListsCreate Create() => new(_api);
+    public BcApiPriceListsDeleteAll DeleteAll() => new(api);
 
-    public BcApiPriceListsDelete Delete() => new(_api);
-
-    public BcApiPriceListsDeleteAll DeleteAll() => new(_api);
-
-    public BcApiPriceListsGet Get() => new(_api);
+    public BcApiPriceListsGet Get() => new(api);
 
     /// <summary>
     /// Returns a list of Price Lists. Optional parameters can be passed in.
@@ -25,9 +18,9 @@ public class BcApiPriceList : IBcApiOperation
     /// <remarks>
     /// See https://developer.bigcommerce.com/docs/rest-management/price-lists#get-all-price-lists
     /// </remarks>
-    public BcApiPriceListsGetAll GetAll() => new(_api);
+    public BcApiPriceListsGetAll GetAll() => new(api);
 
-    public BcApiPriceListRecords Records() => new(_api);
+    public BcApiPriceListRecords Records() => new(api);
 
-    public BcApiPriceListsUpdate Update() => new(_api);
+    public BcApiPriceListsUpdate Update() => new(api);
 }

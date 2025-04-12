@@ -1,6 +1,6 @@
 namespace Fusionary.BigCommerce.Types;
 
-public record BcOrderResponseFull : IExtensionData
+public record BcOrderResponseFull : BcExtensionData
 {
     private BcBillingAddressBase? _billingAddress;
     private BcOrderConsignments? _consignments;
@@ -126,10 +126,10 @@ public record BcOrderResponseFull : IExtensionData
     public string? IpAddressV6 { get; set; }
 
     [JsonPropertyName("geoip_country")]
-    public string? GeoipCountry { get; set; }
+    public string? GeoIpCountry { get; set; }
 
     [JsonPropertyName("geoip_country_iso2")]
-    public string? GeoipCountryIso2 { get; set; }
+    public string? GeoIpCountryIso2 { get; set; }
 
     [JsonPropertyName("currency_id")]
     public int CurrencyId { get; set; }
@@ -243,7 +243,4 @@ public record BcOrderResponseFull : IExtensionData
         get => LazyInitializer.EnsureInitialized(ref _consignments);
         set => _consignments = value;
     }
-
-    /// <inheritdoc />
-    public IDictionary<string, JsonElement>? ExtensionData { get; init; }
 }

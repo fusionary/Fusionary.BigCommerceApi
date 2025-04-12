@@ -5,7 +5,7 @@ namespace Fusionary.BigCommerce.Types;
 /// </summary>
 /// <see href="https://developer.bigcommerce.com/docs/rest-catalog/product-variant-options" />
 [DebuggerDisplay("{DisplayName}")]
-public record BcProductVariantOption : IExtensionData
+public record BcProductVariantOption : BcExtensionData
 {
     /// <summary>
     /// The unique numerical ID of the option, increments sequentially.
@@ -60,8 +60,4 @@ public record BcProductVariantOption : IExtensionData
     /// <example>Add-a-$5-Donation1535042499-187</example>
     [JsonPropertyName("name")]
     public string? Name { get; set; }
-
-    /// <inheritdoc />
-    [JsonExtensionData]
-    public IDictionary<string, JsonElement>? ExtensionData { get; init; }
 }

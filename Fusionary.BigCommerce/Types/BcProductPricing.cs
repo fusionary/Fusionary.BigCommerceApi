@@ -1,6 +1,6 @@
 namespace Fusionary.BigCommerce.Types;
 
-public record BcProductPricing : IExtensionData
+public record BcProductPricing : BcExtensionData
 {
     public int ProductId { get; init; }
 
@@ -23,6 +23,4 @@ public record BcProductPricing : IExtensionData
     public BcProductPricingRetailPriceRange RetailPriceRange { get; init; } = null!;
 
     public BcProductPricingBulkPricingItem[] BulkPricing { get; init; } = null!;
-
-    public IDictionary<string, JsonElement>? ExtensionData { get; init; }
 }

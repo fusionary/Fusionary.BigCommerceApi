@@ -1,13 +1,6 @@
-namespace Fusionary.BigCommerce.Operations.Customers;
+namespace Fusionary.BigCommerce.Operations;
 
-public class BcApiCustomer : IBcApiOperation
+public class BcApiCustomer(IBcApi api) : IBcApiOperation
 {
-    private readonly IBcApi _api;
-
-    public BcApiCustomer(IBcApi api)
-    {
-        _api = api;
-    }
-
-    public BcApiCustomerGet Get() => new(_api);
+    public BcApiCustomerGet Get() => new(api);
 }

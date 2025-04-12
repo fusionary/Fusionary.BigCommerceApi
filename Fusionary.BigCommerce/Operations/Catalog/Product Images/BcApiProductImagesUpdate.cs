@@ -1,10 +1,7 @@
 namespace Fusionary.BigCommerce.Operations;
 
-public class BcApiProductImagesUpdate : BcRequestBuilder, IBcApiOperation
+public class BcApiProductImagesUpdate(IBcApi api) : BcRequestBuilder(api), IBcApiOperation
 {
-    public BcApiProductImagesUpdate(IBcApi api) : base(api)
-    { }
-
     public Task<BcResultData<BcProductImage>> SendAsync(
         BcProductImagePut productImage,
         CancellationToken cancellationToken = default

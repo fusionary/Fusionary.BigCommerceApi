@@ -1,11 +1,8 @@
 namespace Fusionary.BigCommerce.Operations;
 
-public class BcApiProductMetafieldsGetAll : BcMetafieldsGetAllBase, IBcApiOperation
+public class BcApiProductMetafieldsGetAll(IBcApi api) : BcMetafieldsGetAllBase(api), IBcApiOperation
 
 {
-    public BcApiProductMetafieldsGetAll(IBcApi api) : base(api)
-    { }
-
     protected override string MetafieldResourceEndpoint(BcId resourceId) =>
         BcEndpoint.ProductMetafieldsV3(resourceId);
 }

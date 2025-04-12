@@ -9,7 +9,7 @@ public static class BcStreamExtensions
     {
         if (stream is MemoryStream contentStream)
         {
-            return contentStream.GetBuffer();
+            return contentStream.ToArray();
         }
 
         var memoryStream = new MemoryStream();
@@ -21,6 +21,6 @@ public static class BcStreamExtensions
 
         await stream.CopyToAsync(memoryStream, cancellationToken);
 
-        return memoryStream.GetBuffer();
+        return memoryStream.ToArray();
     }
 }

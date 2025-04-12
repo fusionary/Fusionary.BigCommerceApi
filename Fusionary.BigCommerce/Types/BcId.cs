@@ -5,7 +5,7 @@ namespace Fusionary.BigCommerce.Types;
 /// </summary>
 [DebuggerDisplay("{Value}")]
 [JsonConverter(typeof(BcIdConverter))]
-public struct BcId : IFormattable
+public readonly struct BcId : IFormattable
 {
     public BcId(long value)
     {
@@ -35,7 +35,7 @@ public struct BcId : IFormattable
         }
     }
 
-    public int Value { get; set; }
+    public int Value { get; init; }
 
     public static implicit operator int(BcId id) => id.Value;
 
@@ -49,5 +49,6 @@ public struct BcId : IFormattable
 
     public static implicit operator BcId(string? id) => new(id);
 
-    public string ToString(string? format, IFormatProvider? formatProvider) => Value.ToString(format, formatProvider);
+    public readonly string ToString(string? format, IFormatProvider? formatProvider) =>
+        Value.ToString(format, formatProvider);
 }

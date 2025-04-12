@@ -27,5 +27,7 @@ public class ImportExportTests : BcTestBase
                 DumpObject(customFields);
             }
         }
+
+        Assert.Pass();
     }
 }

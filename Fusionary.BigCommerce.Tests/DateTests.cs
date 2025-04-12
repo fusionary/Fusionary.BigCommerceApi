@@ -1,3 +1,5 @@
+using System.Globalization;
+
 namespace Fusionary.BigCommerce.Tests;
 
 public class DateTests : BcTestBase
@@ -5,7 +7,7 @@ public class DateTests : BcTestBase
     [Test]
     public void Can_Parse_Rfc2822_Date()
     {
-        var dt = DateTimeOffset.Parse("Wed, 10 Jan 2018 21:05:30 +0000");
+        var dt = DateTimeOffset.Parse("Wed, 10 Jan 2018 21:05:30 +0000", CultureInfo.CurrentCulture);
 
         dt.Year.Should().Be(2018);
         dt.Month.Should().Be(1);
@@ -21,7 +23,7 @@ public class DateTests : BcTestBase
     {
         const string input = "Wed, 10 Jan 2018 21:05:30 +0000";
 
-        var dt = DateTimeOffset.Parse(input);
+        var dt = DateTimeOffset.Parse(input, CultureInfo.CurrentCulture);
 
         input.Should().BeEquivalentTo(dt.ToString("ddd, dd MMM yyyy HH:mm:ss zzzz").Remove(29, 1));
     }

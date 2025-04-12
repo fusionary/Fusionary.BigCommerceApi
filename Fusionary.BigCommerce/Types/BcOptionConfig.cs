@@ -1,6 +1,6 @@
 namespace Fusionary.BigCommerce.Types;
 
-public record BcOptionConfig : IExtensionData
+public record BcOptionConfig : BcExtensionData
 {
     /// <summary>
     /// The default value. Shown on a date option as an ISO-8601–formatted string, or on a text option as a string.
@@ -152,7 +152,4 @@ public record BcOptionConfig : IExtensionData
     /// </summary>
     [JsonPropertyName("product_list_shipping_calc")]
     public BcProductListShippingCalc? ProductListShippingCalc { get; set; }
-
-    /// <inheritdoc />
-    public IDictionary<string, JsonElement>? ExtensionData { get; init; }
 }

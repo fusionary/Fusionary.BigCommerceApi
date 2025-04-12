@@ -2,26 +2,17 @@ using Microsoft.Extensions.Caching.Memory;
 
 namespace Fusionary.BigCommerce;
 
-public class BcTokenCache : IBcTokenCache
+public class BcTokenCache(IMemoryCache cache, IBcApi bc) : IBcTokenCache
 {
-    private readonly IBcApi _bc;
-    private readonly IMemoryCache _cache;
-
-    public BcTokenCache(IMemoryCache cache, IBcApi bc)
-    {
-        _cache = cache;
-        _bc = bc;
-    }
-
     public async Task<string> GetOrCreateTokenAsync(
         BcTokenRequest tokenRequest,
-        BcRequestOverride? requestOverride = default,
+        BcRequestOverride? requestOverride = null,
         CancellationToken cancellationToken = default
     )
     {
         var cacheKey = GenerateCacheKey(tokenRequest, requestOverride);
 
-        var token = await _cache.GetOrCreateAsync(
+        var token = await cache.GetOrCreateAsync(
             cacheKey,
             async entry =>
             {
@@ -37,11 +28,11 @@ public class BcTokenCache : IBcTokenCache
 
     public async Task<string> CreateTokenAsync(
         BcTokenRequest tokenRequest,
-        BcRequestOverride? requestOverride = default,
+        BcRequestOverride? requestOverride = null,
         CancellationToken cancellationToken = default
     )
     {
-        var result = await _bc
+        var result = await bc
             .Storefront()
             .GetToken()
             .WithOverrides(requestOverride)

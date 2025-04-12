@@ -1,19 +1,12 @@
 namespace Fusionary.BigCommerce.Operations;
 
-public class BcApiProductImages : IBcApiOperation
+public class BcApiProductImages(IBcApi api) : IBcApiOperation
 {
-    private readonly IBcApi _api;
+    public BcApiProductImagesCreate Create() => new(api);
 
-    public BcApiProductImages(IBcApi api)
-    {
-        _api = api;
-    }
+    public BcApiProductImagesDelete Delete() => new(api);
 
-    public BcApiProductImagesCreate Create() => new(_api);
+    public BcApiProductImagesGet Get() => new(api);
 
-    public BcApiProductImagesDelete Delete() => new(_api);
-
-    public BcApiProductImagesGet Get() => new(_api);
-
-    public BcApiProductImagesUpdate Update() => new(_api);
+    public BcApiProductImagesUpdate Update() => new(api);
 }

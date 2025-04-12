@@ -43,5 +43,7 @@ public class StorefrontGraphQLTests : BcTestBase
             .SendQueryAsync<dynamic>(request, cancellationToken);
 
         DumpObject(response.Data);
+
+        Assert.That(response.Data.Count, Is.GreaterThan(0));
     }
 }

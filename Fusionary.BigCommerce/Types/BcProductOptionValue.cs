@@ -1,6 +1,6 @@
 namespace Fusionary.BigCommerce.Types;
 
-public record BcProductOptionValue : IExtensionData
+public record BcProductOptionValue : BcExtensionData
 {
     /// <summary>
     /// The unique numerical ID of the option, increments sequentially.
@@ -37,7 +37,4 @@ public record BcProductOptionValue : IExtensionData
     /// be the checked state. If no data is available, returns null.
     /// </summary>
     public Dictionary<string, string>? ValueData { get; set; }
-
-    /// <inheritdoc />
-    public IDictionary<string, JsonElement>? ExtensionData { get; init; }
 }

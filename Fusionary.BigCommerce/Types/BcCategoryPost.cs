@@ -1,7 +1,7 @@
 namespace Fusionary.BigCommerce.Types;
 
 [DebuggerDisplay("Category {Name}")]
-public record BcCategoryPost : IExtensionData
+public record BcCategoryPost : IBcExtensionData
 {
     /// <summary>
     /// The unique numeric ID of the category's parent. This field controls where the category sits in the tree of categories

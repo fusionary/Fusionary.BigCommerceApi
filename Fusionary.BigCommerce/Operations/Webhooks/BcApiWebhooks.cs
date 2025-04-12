@@ -4,12 +4,15 @@ namespace Fusionary.BigCommerce.Operations;
 /// Webhook Management API
 /// </summary>
 /// <see href="https://developer.bigcommerce.com/docs/webhooks/overview" />
-public class BcApiWebhooks : IBcApiOperation
+public class BcApiWebhooks(IBcApi api) : IBcApiOperation
 {
-    private readonly IBcApi _api;
+    public BcApiWebhooksCreate Create() => new(api);
 
-    public BcApiWebhooks(IBcApi api)
-    {
-        _api = api;
-    }
+    public BcApiWebhooksDelete Delete() => new(api);
+
+    public BcApiWebhooksGet Get() => new(api);
+
+    public BcApiWebhooksGetAll Search() => new(api);
+
+    public BcApiWebhooksUpdate Update() => new(api);
 }

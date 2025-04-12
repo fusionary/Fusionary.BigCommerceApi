@@ -1,10 +1,7 @@
 namespace Fusionary.BigCommerce.Operations;
 
-public class BcApiProductModifiersUpdate : BcRequestBuilder, IBcApiOperation
+public class BcApiProductModifiersUpdate(IBcApi api) : BcRequestBuilder(api), IBcApiOperation
 {
-    public BcApiProductModifiersUpdate(IBcApi api) : base(api)
-    { }
-
     public Task<BcResultData<BcModifier>> SendAsync(
         BcProductModifier modifier,
         CancellationToken cancellationToken = default

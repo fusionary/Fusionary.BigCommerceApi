@@ -17,7 +17,7 @@ public class BcImportPipeDelimitedList : List<BcImportPipeDelimitedField>
     {
         if (string.IsNullOrWhiteSpace(customFieldValue))
         {
-            return new BcImportPipeDelimitedList();
+            return [];
         }
 
         var parts = customFieldValue.Split('|', StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);

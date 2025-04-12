@@ -1,13 +1,10 @@
 namespace Fusionary.BigCommerce.Operations;
 
-public class BcApiCategoryGet : BcRequestBuilder,
+public class BcApiCategoryGet(IBcApi api) : BcRequestBuilder(api),
     IBcApiOperation,
     IBcIncludeFieldsFilter,
     IBcExcludeFieldsFilter
 {
-    public BcApiCategoryGet(IBcApi api) : base(api)
-    { }
-
     public Task<BcResultData<BcCategory>> SendAsync(BcId categoryId, CancellationToken cancellationToken = default) =>
         SendAsync<BcCategory>(categoryId, cancellationToken);
 

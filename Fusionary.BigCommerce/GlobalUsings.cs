@@ -12,4 +12,6 @@ global using Fusionary.BigCommerce.Types;
 global using Fusionary.BigCommerce.Operations;
 global using Fusionary.BigCommerce.Utils;
 
+global using JetBrains.Annotations;
+
 global using Microsoft.AspNetCore.Http;

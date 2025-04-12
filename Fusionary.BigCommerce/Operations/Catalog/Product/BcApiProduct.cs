@@ -1,21 +1,14 @@
 namespace Fusionary.BigCommerce.Operations;
 
-public class BcApiProduct : IBcApiOperation
+public class BcApiProduct(IBcApi api) : IBcApiOperation
 {
-    private readonly IBcApi _api;
+    public BcApiProductCreate Create() => new(api);
 
-    public BcApiProduct(IBcApi api)
-    {
-        _api = api;
-    }
+    public BcApiProductsDelete Delete() => new(api);
 
-    public BcApiProductCreate Create() => new(_api);
+    public BcApiProductsDeleteBulk DeleteBulk() => new(api);
 
-    public BcApiProductsDelete Delete() => new(_api);
-
-    public BcApiProductsDeleteBulk DeleteBulk() => new(_api);
-
-    public BcApiProductGet Get() => new(_api);
+    public BcApiProductGet Get() => new(api);
 
     /// <summary>
     /// Search/Get all products
@@ -23,7 +16,7 @@ public class BcApiProduct : IBcApiOperation
     /// <remarks>
     /// See https://developer.bigcommerce.com/api-reference/4101d472a814d-get-all-products
     /// </remarks>
-    public BcApiProductsSearch Search() => new(_api);
+    public BcApiProductsSearch Search() => new(api);
 
-    public BcApiProductsUpdate Update() => new(_api);
+    public BcApiProductsUpdate Update() => new(api);
 }

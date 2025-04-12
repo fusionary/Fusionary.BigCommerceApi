@@ -1,14 +1,11 @@
 namespace Fusionary.BigCommerce.Operations;
 
-public class BcApiProductImagesGet : BcRequestBuilder,
+public class BcApiProductImagesGet(IBcApi api) : BcRequestBuilder(api),
     IBcApiOperation,
     IBcPageableFilter,
     IBcExcludeFieldsFilter,
     IBcIncludeFieldsFilter
 {
-    public BcApiProductImagesGet(IBcApi api) : base(api)
-    { }
-
     public Task<BcResultData<BcProductImage>> SendAsync(
         BcId productId,
         BcId imageId,

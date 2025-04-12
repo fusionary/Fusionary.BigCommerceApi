@@ -1,10 +1,7 @@
 namespace Fusionary.BigCommerce.Operations;
 
-public abstract class BcMetafieldsUpdateBase : BcRequestBuilder
+public abstract class BcMetafieldsUpdateBase(IBcApi api) : BcRequestBuilder(api)
 {
-    protected BcMetafieldsUpdateBase(IBcApi api) : base(api)
-    { }
-
     /// <summary>
     /// Gets the resource path for the request.
     /// </summary>
@@ -44,7 +41,7 @@ public abstract class BcMetafieldsUpdateBase : BcRequestBuilder
     {
         var data = new List<BcMetafield>();
 
-        BcRateLimitResponseHeaders rateLimits = default!;
+        BcRateLimitResponseHeaders rateLimits = null!;
 
         foreach (var metafield in metafields)
         {
@@ -83,7 +80,7 @@ public abstract class BcMetafieldsUpdateBase : BcRequestBuilder
 
         if (result.Success)
         {
-            return (true, result, default!);
+            return (true, result, null!);
         }
 
         var errorResult = new BcResultData<List<T>>
@@ -95,6 +92,6 @@ public abstract class BcMetafieldsUpdateBase : BcRequestBuilder
             ResponseText = result.ResponseText
         };
 
-        return (false, default!, errorResult);
+        return (false, null!, errorResult);
     }
 }

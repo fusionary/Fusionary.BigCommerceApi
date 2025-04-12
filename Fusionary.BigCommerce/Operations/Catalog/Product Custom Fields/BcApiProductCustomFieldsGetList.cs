@@ -3,15 +3,12 @@ namespace Fusionary.BigCommerce.Operations;
 /// <summary>
 /// Returns a list of product Custom Fields
 /// </summary>
-public class BcApiProductCustomFieldsGetList : BcRequestBuilder,
+public class BcApiProductCustomFieldsGetList(IBcApi api) : BcRequestBuilder(api),
     IBcApiOperation,
     IBcIncludeFieldsFilter,
     IBcExcludeFieldsFilter,
     IBcPageableFilter
 {
-    public BcApiProductCustomFieldsGetList(IBcApi api) : base(api)
-    { }
-
     public Task<BcResultPaged<BcCustomField>> SendAsync(
         BcId productId,
         CancellationToken cancellationToken = default

@@ -2,9 +2,9 @@ namespace Fusionary.BigCommerce.Import;
 
 public record BcImportPipeDelimitedField
 {
-    public required string Key { get; set; }
+    public required string Key { get; init; }
 
-    public required string Value { get; set; }
+    public required string Value { get; init; }
 
     public static BcImportPipeDelimitedField Parse(string optionsValue)
     {

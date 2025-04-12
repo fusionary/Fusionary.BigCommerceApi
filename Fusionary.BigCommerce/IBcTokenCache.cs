@@ -7,7 +7,7 @@ public interface IBcTokenCache
     /// </summary>
     Task<string> CreateTokenAsync(
         BcTokenRequest tokenRequest,
-        BcRequestOverride? requestOverride = default,
+        BcRequestOverride? requestOverride = null,
         CancellationToken cancellationToken = default
     );
 
@@ -16,7 +16,7 @@ public interface IBcTokenCache
     /// </summary>
     Task<string> GetOrCreateTokenAsync(
         BcTokenRequest tokenRequest,
-        BcRequestOverride? requestOverride = default,
+        BcRequestOverride? requestOverride = null,
         CancellationToken cancellationToken = default
     );
 }

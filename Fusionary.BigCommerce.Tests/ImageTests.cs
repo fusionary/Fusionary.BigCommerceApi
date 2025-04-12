@@ -21,6 +21,8 @@ public class ImageTests : BcTestBase
 
             LogMessage($"{id} | {url} | {alt}");
         }
+
+        Assert.That(response.Data, Is.Not.Empty);
     }
 
     [Test]
@@ -55,5 +57,7 @@ public class ImageTests : BcTestBase
             .SendAsync(createdImage.ProductId, createdImage.Id);
 
         DumpObject(deletedResponse);
+
+        Assert.That(response.Data, Is.Not.Null);
     }
 }

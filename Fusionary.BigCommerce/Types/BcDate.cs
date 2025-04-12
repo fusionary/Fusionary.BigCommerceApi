@@ -1,3 +1,5 @@
+using System.Globalization;
+
 namespace Fusionary.BigCommerce.Types;
 
 /// <summary>
@@ -24,7 +26,8 @@ public struct BcDate : IFormattable
 
     public BcDate(string? value)
     {
-        Value = !string.IsNullOrWhiteSpace(value) && DateOnly.TryParse(value, out var result)
+        Value = !string.IsNullOrWhiteSpace(value) &&
+                DateOnly.TryParse(value, CultureInfo.CurrentCulture, out var result)
             ? result
             : default;
     }
@@ -45,10 +48,18 @@ public struct BcDate : IFormattable
         0,
         0,
         0,
-        default
+        TimeSpan.Zero
     );
 
-    public static implicit operator DateTime(BcDate value) => new(value.Value.Year, value.Value.Month, value.Value.Day);
+    public static implicit operator DateTime(BcDate value) => new(
+        value.Value.Year,
+        value.Value.Month,
+        value.Value.Day,
+        0,
+        0,
+        0,
+        DateTimeKind.Utc
+    );
 
     public static implicit operator DateOnly(BcDate value) => value.Value;
 

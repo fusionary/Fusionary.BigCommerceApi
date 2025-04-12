@@ -50,7 +50,7 @@ public class BcApi : IBcApi
         string path,
         MultipartFormDataContent content,
         QueryString queryString = default,
-        BcRequestOptions? options = default,
+        BcRequestOptions? options = null,
         CancellationToken cancellationToken = default
     )
     {
@@ -66,7 +66,7 @@ public class BcApi : IBcApi
         string path,
         object? payload,
         QueryString queryString = default,
-        BcRequestOptions? options = default,
+        BcRequestOptions? options = null,
         CancellationToken cancellationToken = default
     )
     {
@@ -135,11 +135,11 @@ public class BcApi : IBcApi
             await req.Content.CopyToAsync(ms, cancellationToken).ConfigureAwait(false);
             ms.Position = 0;
 
-            clone.Content = new ByteArrayContent(ms.GetBuffer());
+            clone.Content = new ByteArrayContent(ms.ToArray());
 
             foreach (var h in req.Content.Headers)
             {
-                clone.Content.Headers.Add(h.Key, h.Value);
+                clone.Content.Headers.TryAddWithoutValidation(h.Key, h.Value);
             }
         }
 

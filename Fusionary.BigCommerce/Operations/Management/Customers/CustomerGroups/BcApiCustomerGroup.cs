@@ -1,21 +1,14 @@
-namespace Fusionary.BigCommerce.Operations.Customers.CustomerGroups;
+namespace Fusionary.BigCommerce.Operations;
 
-public class BcApiCustomerGroup : IBcApiOperation
+public class BcApiCustomerGroup(IBcApi api) : IBcApiOperation
 {
-    private readonly IBcApi _api;
+    public BcApiCustomerGroupCreate Create() => new(api);
 
-    public BcApiCustomerGroup(IBcApi api)
-    {
-        _api = api;
-    }
+    public BcApiCustomerGroupDelete Delete() => new(api);
 
-    public BcApiCustomerGroupCreate Create() => new(_api);
+    public BcApiCustomerGroupGet Get() => new(api);
 
-    public BcApiCustomerGroupDelete Delete() => new(_api);
+    public BcApiCustomerGroupGetAll GetAll() => new(api);
 
-    public BcApiCustomerGroupGet Get() => new(_api);
-
-    public BcApiCustomerGroupGetAll GetAll() => new(_api);
-
-    public BcApiCustomerGroupUpdate Update() => new(_api);
+    public BcApiCustomerGroupUpdate Update() => new(api);
 }

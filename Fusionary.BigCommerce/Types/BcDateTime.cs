@@ -1,3 +1,5 @@
+using System.Globalization;
+
 namespace Fusionary.BigCommerce.Types;
 
 /// <summary>
@@ -19,12 +21,13 @@ public struct BcDateTime : IFormattable
 
     public BcDateTime(DateOnly value)
     {
-        Value = new DateTimeOffset(new DateTime(value.Year, value.Month, value.Day));
+        Value = new DateTimeOffset(new DateTime(value.Year, value.Month, value.Day, 0, 0, 0, DateTimeKind.Utc));
     }
 
     public BcDateTime(string? value)
     {
-        Value = !string.IsNullOrWhiteSpace(value) && DateTimeOffset.TryParse(value, out var result)
+        Value = !string.IsNullOrWhiteSpace(value) &&
+                DateTimeOffset.TryParse(value, CultureInfo.CurrentCulture, out var result)
             ? result
             : default;
     }

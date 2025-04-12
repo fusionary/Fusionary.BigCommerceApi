@@ -1,10 +1,7 @@
 namespace Fusionary.BigCommerce.Operations;
 
-public class BcApiPriceListAssignmentsCreate : BcRequestBuilder, IBcApiOperation
+public class BcApiPriceListAssignmentsCreate(IBcApi api) : BcRequestBuilder(api), IBcApiOperation
 {
-    public BcApiPriceListAssignmentsCreate(IBcApi api) : base(api)
-    { }
-
     public async Task<BcResult> SendAsync(
         BcPriceListAssignmentPost priceListAssignment,
         CancellationToken cancellationToken = default

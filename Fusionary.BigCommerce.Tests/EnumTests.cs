@@ -6,6 +6,7 @@ namespace Fusionary.BigCommerce.Tests;
 
 public class EnumTests
 {
+    [SuppressMessage("Minor Code Smell", "S2344:Enumeration type names should not have \"Flags\" or \"Enum\" suffixes")]
     public enum BcTestEnum
     {
         [JsonPropertyName("customer_id")]

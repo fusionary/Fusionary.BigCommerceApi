@@ -1,10 +1,7 @@
 namespace Fusionary.BigCommerce.Operations;
 
-public class BcApiProductCustomFieldsUpdate : BcRequestBuilder, IBcApiOperation
+public class BcApiProductCustomFieldsUpdate(IBcApi api) : BcRequestBuilder(api), IBcApiOperation
 {
-    public BcApiProductCustomFieldsUpdate(IBcApi api) : base(api)
-    { }
-
     public Task<BcResultData<BcCustomField>> SendAsync(
         BcId productId,
         BcCustomField customField,

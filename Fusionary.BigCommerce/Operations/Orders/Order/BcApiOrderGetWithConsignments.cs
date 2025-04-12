@@ -1,10 +1,7 @@
 namespace Fusionary.BigCommerce.Operations;
 
-public class BcApiOrderGetWithConsignments : BcRequestBuilder, IBcApiOperation
+public class BcApiOrderGetWithConsignments(IBcApi api) : BcRequestBuilder(api), IBcApiOperation
 {
-    public BcApiOrderGetWithConsignments(IBcApi api) : base(api)
-    { }
-
     public Task<BcResultData<BcOrderResponseFull>> SendAsync(
         BcId orderId,
         CancellationToken cancellationToken = default

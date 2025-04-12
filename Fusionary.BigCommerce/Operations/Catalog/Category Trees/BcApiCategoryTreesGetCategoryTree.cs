@@ -1,11 +1,8 @@
 namespace Fusionary.BigCommerce.Operations;
 
-public class BcApiCategoryTreesGetCategoryTree : BcRequestBuilder,
+public class BcApiCategoryTreesGetCategoryTree(IBcApi api) : BcRequestBuilder(api),
     IBcApiOperation
 {
-    public BcApiCategoryTreesGetCategoryTree(IBcApi api) : base(api)
-    { }
-
     public Task<BcResultData<BcCategoryTreePathItem[]>> SendAsync(
         BcId treeId,
         CancellationToken cancellationToken = default

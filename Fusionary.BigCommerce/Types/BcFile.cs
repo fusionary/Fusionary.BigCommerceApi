@@ -3,9 +3,9 @@ namespace Fusionary.BigCommerce.Types;
 [DebuggerDisplay("{FileName}")]
 public record BcFile
 {
-    public byte[] Contents { get; init; } = null!;
+    public required byte[] Contents { get; init; }
 
-    public string FileName { get; init; } = null!;
+    public required string FileName { get; init; }
 
     public static async Task<BcFile> ReadFromFileAsync(string filePath, CancellationToken cancellationToken = default)
     {

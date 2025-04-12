@@ -1,12 +1,8 @@
 namespace Fusionary.BigCommerce.Operations;
 
-public class BcApiCategoryTreesUpsert : BcRequestBuilder,
-    IBcApiOperation
+public class BcApiCategoryTreesUpsert(IBcApi api) : BcRequestBuilder(api), IBcApiOperation
 {
-    public BcApiCategoryTreesUpsert(IBcApi api) : base(api)
-    { }
-
-    public async Task<BcResultData<BcCategoryTree[]>> SendAsync<T>(
+    public async Task<BcResultData<BcCategoryTree[]>> SendAsync(
         IEnumerable<BcCategoryTreeUpsert> input,
         CancellationToken cancellationToken = default
     ) =>

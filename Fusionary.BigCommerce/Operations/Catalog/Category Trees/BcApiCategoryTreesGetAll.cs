@@ -1,13 +1,10 @@
 namespace Fusionary.BigCommerce.Operations;
 
-public class BcApiCategoryTreesGetAll : BcRequestBuilder,
+public class BcApiCategoryTreesGetAll(IBcApi api) : BcRequestBuilder(api),
     IBcApiOperation,
     IBcIdFilter,
     IBcChannelFilter
 {
-    public BcApiCategoryTreesGetAll(IBcApi api) : base(api)
-    { }
-
     public async Task<BcResultData<BcCategoryTree[]>> SendAsync(CancellationToken cancellationToken = default) =>
         await Api.GetDataAsync<BcCategoryTree[]>(
             BcEndpoint.CategoryTreesV3(),

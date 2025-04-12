@@ -1,6 +1,6 @@
 namespace Fusionary.BigCommerce.Types;
 
-public record BcAdjusters : IExtensionData
+public record BcAdjusters : BcExtensionData
 {
     /// <summary>
     /// Gets or Sets Price
@@ -21,7 +21,4 @@ public record BcAdjusters : IExtensionData
     /// Gets or Sets PurchasingDisabled
     /// </summary>
     public BcAdjusterPurchasingDisabled? PurchasingDisabled { get; init; }
-
-    /// <inheritdoc />
-    public IDictionary<string, JsonElement>? ExtensionData { get; init; }
 }

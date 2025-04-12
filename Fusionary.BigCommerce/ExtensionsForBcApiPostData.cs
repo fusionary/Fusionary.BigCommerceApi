@@ -7,7 +7,7 @@ public static class ExtensionsForBcApiPostData
         string path,
         object? payload,
         QueryString queryString = default,
-        BcRequestOptions? options = default,
+        BcRequestOptions? options = null,
         CancellationToken cancellationToken = default
     )
     {

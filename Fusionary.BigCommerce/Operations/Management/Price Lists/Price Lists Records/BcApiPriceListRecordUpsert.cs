@@ -1,10 +1,7 @@
 namespace Fusionary.BigCommerce.Operations;
 
-public class BcApiPriceListRecordUpsert : BcRequestBuilder, IBcApiOperation
+public class BcApiPriceListRecordUpsert(IBcApi api) : BcRequestBuilder(api), IBcApiOperation
 {
-    public BcApiPriceListRecordUpsert(IBcApi api) : base(api)
-    { }
-
     public Task<BcResultData<object>> SendAsync(
         BcId priceListId,
         IEnumerable<BcPriceListRecordUpsert> priceListRecord,

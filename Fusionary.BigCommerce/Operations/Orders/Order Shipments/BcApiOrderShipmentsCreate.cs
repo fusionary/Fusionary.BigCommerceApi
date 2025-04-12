@@ -1,10 +1,7 @@
 namespace Fusionary.BigCommerce.Operations;
 
-public class BcApiOrderShipmentsCreate : BcRequestBuilder, IBcApiOperation
+public class BcApiOrderShipmentsCreate(IBcApi api) : BcRequestBuilder(api), IBcApiOperation
 {
-    public BcApiOrderShipmentsCreate(IBcApi api) : base(api)
-    { }
-
     public async Task<BcResultData<BcOrderShipping>> SendAsync(
         int orderId,
         BcOrderShipmentsPost orderShipments,

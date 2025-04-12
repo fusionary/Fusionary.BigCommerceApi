@@ -1,10 +1,7 @@
 namespace Fusionary.BigCommerce.Operations;
 
-public class BcApiProductImagesCreate : BcRequestBuilder, IBcApiOperation
+public class BcApiProductImagesCreate(IBcApi api) : BcRequestBuilder(api), IBcApiOperation
 {
-    public BcApiProductImagesCreate(IBcApi api) : base(api)
-    { }
-
     /// <summary>
     /// Uploads an image to a product.
     /// </summary>

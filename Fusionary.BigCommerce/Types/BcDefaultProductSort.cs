@@ -1,5 +1,6 @@
 namespace Fusionary.BigCommerce.Types;
 
+[JsonConverter(typeof(JsonStringEnumConverter))]
 public enum BcDefaultProductSort
 {
     [JsonPropertyName("use_store_settings")]

@@ -1,17 +1,10 @@
 namespace Fusionary.BigCommerce.Operations;
 
-public class BcApiProductCategoryAssignments : IBcApiOperation
+public class BcApiProductCategoryAssignments(IBcApi api) : IBcApiOperation
 {
-    private readonly IBcApi _api;
+    public BcApiProductCategoryAssignmentsCreate Create() => new(api);
 
-    public BcApiProductCategoryAssignments(IBcApi api)
-    {
-        _api = api;
-    }
+    public BcApiProductCategoryAssignmentsDelete Delete() => new(api);
 
-    public BcApiProductCategoryAssignmentsCreate Create() => new(_api);
-
-    public BcApiProductCategoryAssignmentsDelete Delete() => new(_api);
-
-    public BcApiProductCategoryAssignmentsGetList Get() => new(_api);
+    public BcApiProductCategoryAssignmentsGetList Get() => new(api);
 }

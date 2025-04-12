@@ -1,10 +1,7 @@
 namespace Fusionary.BigCommerce.Operations;
 
-public class BcApiProductCustomFieldsDelete : BcRequestBuilder, IBcApiOperation
+public class BcApiProductCustomFieldsDelete(IBcApi api) : BcRequestBuilder(api), IBcApiOperation
 {
-    public BcApiProductCustomFieldsDelete(IBcApi api) : base(api)
-    { }
-
     public Task<BcResult> SendAsync(
         BcId productId,
         BcId customFieldId,

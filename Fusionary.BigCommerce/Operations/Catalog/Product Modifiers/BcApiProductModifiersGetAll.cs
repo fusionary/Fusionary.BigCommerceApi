@@ -3,15 +3,12 @@ namespace Fusionary.BigCommerce.Operations;
 /// <summary>
 /// Returns a list of product modifiers
 /// </summary>
-public class BcApiProductModifiersGetAll : BcRequestBuilder,
+public class BcApiProductModifiersGetAll(IBcApi api) : BcRequestBuilder(api),
     IBcApiOperation,
     IBcIncludeFieldsFilter,
     IBcExcludeFieldsFilter,
     IBcPageableFilter
 {
-    public BcApiProductModifiersGetAll(IBcApi api) : base(api)
-    { }
-
     public Task<BcResultPaged<BcProductModifier>> SendAsync(
         BcId productId,
         CancellationToken cancellationToken = default

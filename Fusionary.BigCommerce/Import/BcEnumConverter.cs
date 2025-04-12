@@ -8,8 +8,8 @@ namespace Fusionary.BigCommerce.Import;
 
 public class BcEnumConverter : DefaultTypeConverter
 {
-    private readonly Dictionary<object, string> _attributeNamesByEnumValues = new();
-    private readonly Dictionary<string, string> _enumNamesByAttributeNames = new();
+    private readonly Dictionary<object, string> _attributeNamesByEnumValues = [];
+    private readonly Dictionary<string, string> _enumNamesByAttributeNames = [];
 
     private readonly Dictionary<string, string> _enumNamesByAttributeNamesIgnoreCase =
         new(StringComparer.OrdinalIgnoreCase);

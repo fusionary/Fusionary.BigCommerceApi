@@ -1,10 +1,7 @@
 namespace Fusionary.BigCommerce.Operations;
 
-public class BcApiOrdersSearch : BcRequestBuilder, IBcApiOperation, IBcPageableFilter
+public class BcApiOrdersSearch(IBcApi api) : BcRequestBuilder(api), IBcApiOperation, IBcPageableFilter
 {
-    public BcApiOrdersSearch(IBcApi api) : base(api)
-    { }
-
     public Task<BcResultData<List<BcOrderResponseFull>>> SendAsync(CancellationToken cancellationToken = default) =>
         SendAsync<BcOrderResponseFull>(cancellationToken);
 

@@ -6,7 +6,7 @@ public static class ExtensionsForBcApiGet
         this IBcApi api,
         string path,
         QueryString queryString = default,
-        BcRequestOptions? options = default,
+        BcRequestOptions? options = null,
         CancellationToken cancellationToken = default
     ) => api.SendRequestAsync<TResult, TMeta>(HttpMethod.Get, path, null, queryString, options, cancellationToken);
 }

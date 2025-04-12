@@ -1,10 +1,11 @@
+using System.Diagnostics.CodeAnalysis;
+
 namespace Fusionary.BigCommerce.Operations;
 
+[SuppressMessage("Minor Code Smell", "S3400:Methods should not return constants")]
 public static class BcEndpoint
 {
-    public static string BrandImagesV3(BcId brandId) => $"v3/catalog/brands/{brandId}/images";
-
-    public static string BrandImagesV3(BcId brandId, BcId imageId) => $"v3/catalog/brands/{brandId}/images/{imageId}";
+    public static string BrandImageV3(BcId brandId) => $"v3/catalog/brands/{brandId}/images";
 
     public static string BrandMetafieldsV3(BcId brandId) => $"v3/catalog/brands/{brandId}/metafields";
 
@@ -15,12 +16,14 @@ public static class BcEndpoint
 
     public static string BrandsV3(BcId brandId) => $"v3/catalog/brands/{brandId}";
 
+    public static string CategoryImagesV3(BcId categoryId) => $"v3/catalog/categories/{categoryId}/image";
+
     public static string CategoryMetafieldsV3(BcId categoryId) => $"v3/catalog/categories/{categoryId}/metafields";
 
     public static string CategoryMetafieldsV3(BcId categoryId, BcId metafieldId) =>
         $"v3/catalog/categories/{categoryId}/metafields/{metafieldId}";
 
-    public static string CategoryProductSortOrderV3(BcId categoryId) =>
+    public static string CategorySortOrderV3(BcId categoryId) =>
         $"v3/catalog/categories/{categoryId}/products/sort-order";
 
     public static string CategoryTreeCategoriesV3() => "v3/catalog/trees/categories";
@@ -65,7 +68,7 @@ public static class BcEndpoint
 
     public static string PriceListAssignmentsV3() => "v3/pricelists/assignments";
 
-    public static string PriceListAssignmentsV3(BcId priceListId) => "v3/pricelists/{priceListId}/assignments";
+    public static string PriceListAssignmentsV3(BcId priceListId) => $"v3/pricelists/{priceListId}/assignments";
 
     public static string PriceListRecordsV3(BcId priceListId) => $"v3/pricelists/{priceListId}/records";
 
@@ -155,4 +158,8 @@ public static class BcEndpoint
     public static string StorefrontTokensV3() => "v3/storefront/api-token";
 
     public static string SummaryV3() => "v3/catalog/summary";
+
+    public static string WebhooksV3() => "v3/hooks";
+
+    public static string WebhooksV3(BcId webhookId) => $"v3/hooks/{webhookId}";
 }

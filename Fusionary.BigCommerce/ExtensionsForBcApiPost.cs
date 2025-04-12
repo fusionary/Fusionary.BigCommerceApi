@@ -7,7 +7,7 @@ public static class ExtensionsForBcApiPost
         string path,
         object? payload,
         QueryString queryString = default,
-        BcRequestOptions? options = default,
+        BcRequestOptions? options = null,
         CancellationToken cancellationToken = default
     ) => api.SendRequestAsync<TResult, TMeta>(HttpMethod.Post, path, payload, queryString, options, cancellationToken);
 }

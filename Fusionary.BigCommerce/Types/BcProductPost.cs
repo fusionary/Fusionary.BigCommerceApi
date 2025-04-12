@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 namespace Fusionary.BigCommerce.Types;
 
 [DebuggerDisplay("Product: {Name} - {Sku}")]
-public record BcProductPost : IExtensionData
+public record BcProductPost : BcExtensionData
 {
     private List<int>? _categories;
 
@@ -446,8 +446,4 @@ public record BcProductPost : IExtensionData
     /// Variants
     /// </summary>
     public List<BcProductVariant>? Variants { get; set; }
-
-    /// <inheritdoc />
-    [JsonExtensionData]
-    public IDictionary<string, JsonElement>? ExtensionData { get; init; }
 }

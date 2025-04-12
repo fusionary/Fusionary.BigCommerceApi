@@ -1,6 +1,6 @@
 namespace Fusionary.BigCommerce.Operations;
 
-public class BcApiPriceListAssignmentsGet : BcRequestBuilder,
+public class BcApiPriceListAssignmentsGet(IBcApi api) : BcRequestBuilder(api),
     IBcApiOperation,
     IBcIdFilter,
     IBcIdRangeFilter,
@@ -8,13 +8,14 @@ public class BcApiPriceListAssignmentsGet : BcRequestBuilder,
     IBcChannelFilter,
     IBcPriceListFilter
 {
-    public BcApiPriceListAssignmentsGet(IBcApi api) : base(api)
-    { }
+    public async Task<BcResultPaged<BcPriceListAssignment>> SendAsync(
+        CancellationToken cancellationToken = default
+    ) => await SendAsync<BcPriceListAssignment>(cancellationToken);
 
-    public async Task<BcResultPaged<BcPriceListAssignment>> SendAsync<T>(
+    public async Task<BcResultPaged<T>> SendAsync<T>(
         CancellationToken cancellationToken = default
     ) =>
-        await Api.GetPagedAsync<BcPriceListAssignment>(
+        await Api.GetPagedAsync<T>(
             BcEndpoint.PriceListAssignmentsV3(),
             Filter,
             Options,

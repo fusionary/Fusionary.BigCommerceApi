@@ -1,10 +1,7 @@
-namespace Fusionary.BigCommerce.Operations.Customers.CustomerGroups;
+namespace Fusionary.BigCommerce.Operations;
 
-public class BcApiCustomerGroupDelete : BcRequestBuilder, IBcApiOperation
+public class BcApiCustomerGroupDelete(IBcApi api) : BcRequestBuilder(api), IBcApiOperation
 {
-    public BcApiCustomerGroupDelete(IBcApi api) : base(api)
-    { }
-
     public async Task<BcResult> DeleteAsync(
         int id,
         CancellationToken cancellationToken = default

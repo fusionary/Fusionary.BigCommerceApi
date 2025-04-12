@@ -1,5 +1,3 @@
-using Fusionary.BigCommerce.Operations.Customers.CustomerGroups;
-
 namespace Fusionary.BigCommerce.Tests;
 
 public class CustomerGroupsTests : BcTestBase
@@ -12,13 +10,13 @@ public class CustomerGroupsTests : BcTestBase
         var customerGroup = new BcCustomerGroupPost
         {
             Name = "Test Customer Group 13",
-            CategoryAccess = new CategoryAccess { Type = CategoryTypes.All },
+            CategoryAccess = new BcCategoryAccess { Type = BcCategoryTypes.All },
             DiscountRules =
             [
-                new DiscountRules
+                new BcDiscountRules
                 {
-                    Type = DiscountTypes.Product,
-                    Method = DiscountRulesMethods.Percentage,
+                    Type = BcDiscountTypes.Product,
+                    Method = BcDiscountRulesMethods.Percentage,
                     Amount = 10,
                     ProductId = 1083
                 }
@@ -104,10 +102,10 @@ public class CustomerGroupsTests : BcTestBase
             Name = "Update Customer Group",
             DiscountRules =
             [
-                new DiscountRules
+                new BcDiscountRules
                 {
-                    Type = DiscountTypes.Product,
-                    Method = DiscountRulesMethods.Percentage,
+                    Type = BcDiscountTypes.Product,
+                    Method = BcDiscountRulesMethods.Percentage,
                     Amount = 20,
                     ProductId = 1083
                 }

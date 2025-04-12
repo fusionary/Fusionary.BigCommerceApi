@@ -7,7 +7,7 @@ public static class ExtensionsForBcApiPostForm
         string path,
         MultipartFormDataContent content,
         QueryString queryString = default,
-        BcRequestOptions? options = default,
+        BcRequestOptions? options = null,
         CancellationToken cancellationToken = default
     ) => api.SendMultipartFormRequestAsync<TResult, TMeta>(
         HttpMethod.Post,

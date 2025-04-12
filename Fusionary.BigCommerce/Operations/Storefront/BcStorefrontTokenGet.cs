@@ -1,10 +1,7 @@
 namespace Fusionary.BigCommerce.Operations;
 
-public class BcStorefrontTokenGet : BcRequestBuilder, IBcApiOperation
+public class BcStorefrontTokenGet(IBcApi api) : BcRequestBuilder(api), IBcApiOperation
 {
-    public BcStorefrontTokenGet(IBcApi api) : base(api)
-    { }
-
     public async Task<BcResultData<BcTokenResponse>> SendAsync(
         BcTokenRequest request,
         CancellationToken cancellationToken = default

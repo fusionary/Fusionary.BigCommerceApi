@@ -1,5 +1,6 @@
 namespace Fusionary.BigCommerce.Types;
 
+[DebuggerDisplay("{Message,nq}")]
 public class BcException : Exception
 {
     /// <inheritdoc />

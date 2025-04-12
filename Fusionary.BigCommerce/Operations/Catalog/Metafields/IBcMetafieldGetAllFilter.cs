@@ -1,4 +1,4 @@
 namespace Fusionary.BigCommerce.Operations;
 
-public interface IBcMetafieldGetAllFilter
+public interface IBcMetafieldGetAllFilter : IBcRequestBuilder
 { }

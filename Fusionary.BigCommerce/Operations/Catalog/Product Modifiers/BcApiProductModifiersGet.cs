@@ -1,13 +1,10 @@
 namespace Fusionary.BigCommerce.Operations;
 
-public class BcApiProductModifiersGet : BcRequestBuilder,
+public class BcApiProductModifiersGet(IBcApi api) : BcRequestBuilder(api),
     IBcApiOperation,
     IBcIncludeFieldsFilter,
     IBcExcludeFieldsFilter
 {
-    public BcApiProductModifiersGet(IBcApi api) : base(api)
-    { }
-
     public Task<BcResultData<BcProductModifier>> SendAsync(
         BcId productId,
         BcId modifierId,

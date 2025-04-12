@@ -1,6 +1,6 @@
 namespace Fusionary.BigCommerce.Operations;
 
-public class BcApiPriceListsGetAll : BcRequestBuilder,
+public class BcApiPriceListsGetAll(IBcApi api) : BcRequestBuilder(api),
     IBcApiOperation,
     IBcIdFilter,
     IBcIdRangeFilter,
@@ -9,9 +9,6 @@ public class BcApiPriceListsGetAll : BcRequestBuilder,
     IBcDateCreatedFilter,
     IBcDateModifiedFilter
 {
-    public BcApiPriceListsGetAll(IBcApi api) : base(api)
-    { }
-
     public Task<BcResultPaged<BcPriceList>> SendAsync(CancellationToken cancellationToken = default) =>
         SendAsync<BcPriceList>(cancellationToken);
 

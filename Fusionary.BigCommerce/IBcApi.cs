@@ -15,14 +15,14 @@ public interface IBcApi
         MultipartFormDataContent content,
         CancellationToken cancellationToken = default
     ) =>
-        SendMultipartFormRequestAsync<TResult, TMeta>(method, path, content, default, default, cancellationToken);
+        SendMultipartFormRequestAsync<TResult, TMeta>(method, path, content, default, null, cancellationToken);
 
     Task<BcResult<TResult, TMeta>> SendMultipartFormRequestAsync<TResult, TMeta>(
         HttpMethod method,
         string path,
         MultipartFormDataContent content,
         QueryString queryString = default,
-        BcRequestOptions? options = default,
+        BcRequestOptions? options = null,
         CancellationToken cancellationToken = default
     );
 
@@ -46,14 +46,14 @@ public interface IBcApi
         QueryString queryString = default,
         CancellationToken cancellationToken = default
     ) =>
-        SendRequestAsync<TResult, TMeta>(method, path, payload, queryString, default, cancellationToken);
+        SendRequestAsync<TResult, TMeta>(method, path, payload, queryString, null, cancellationToken);
 
     Task<BcResult<TResult, TMeta>> SendRequestAsync<TResult, TMeta>(
         HttpMethod method,
         string path,
         object? payload,
         QueryString queryString = default,
-        BcRequestOptions? options = default,
+        BcRequestOptions? options = null,
         CancellationToken cancellationToken = default
     );
 }

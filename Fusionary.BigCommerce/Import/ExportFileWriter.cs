@@ -4,8 +4,6 @@ using System.Text;
 using CsvHelper;
 using CsvHelper.Configuration;
 
-using JetBrains.Annotations;
-
 namespace Fusionary.BigCommerce.Import;
 
 public static class ExportFileWriter

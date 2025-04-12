@@ -8,8 +8,8 @@ public record BcTokenRequest
     public BcTokenRequest(TimeSpan expiresIn, string? corsOrigin, int? channelId)
     {
         AllowedCorsOrigins = string.IsNullOrWhiteSpace(corsOrigin)
-            ? Array.Empty<string>()
-            : new[] { corsOrigin };
+            ? []
+            : [corsOrigin];
         ChannelId = channelId.GetValueOrDefault(1);
         ExpiresAt = DateTimeOffset.UtcNow.Add(expiresIn).ToUnixTimeSeconds();
     }

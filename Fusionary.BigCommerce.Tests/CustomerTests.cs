@@ -1,5 +1,3 @@
-using Fusionary.BigCommerce.Operations.Customers;
-
 namespace Fusionary.BigCommerce.Tests;
 
 public class CustomerTests : BcTestBase

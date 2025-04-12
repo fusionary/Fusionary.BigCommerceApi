@@ -1,10 +1,7 @@
 namespace Fusionary.BigCommerce.Operations;
 
-public abstract class BcMetafieldDeleteBase : BcRequestBuilder
+public abstract class BcMetafieldDeleteBase(IBcApi api) : BcRequestBuilder(api)
 {
-    protected BcMetafieldDeleteBase(IBcApi api) : base(api)
-    { }
-
     /// <summary>
     /// Gets the resource path for the request.
     /// </summary>

@@ -1,10 +1,7 @@
 namespace Fusionary.BigCommerce.Operations;
 
-public class BcApiOrdersCreate : BcRequestBuilder, IBcApiOperation
+public class BcApiOrdersCreate(IBcApi api) : BcRequestBuilder(api), IBcApiOperation
 {
-    public BcApiOrdersCreate(IBcApi api) : base(api)
-    { }
-
     public Task<BcResultData<BcOrderResponseFull>> SendAsync(
         BcOrderPost order,
         CancellationToken cancellationToken = default

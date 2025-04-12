@@ -6,7 +6,7 @@ public static class BcRequestMessageBuilder
         HttpMethod method,
         string path,
         QueryString queryString = default,
-        BcRequestOptions? options = default
+        BcRequestOptions? options = null
     )
     {
         var requestPath = !string.IsNullOrWhiteSpace(options?.RequestOverrides?.StoreHash)

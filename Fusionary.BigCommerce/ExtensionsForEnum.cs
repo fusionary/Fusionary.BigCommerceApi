@@ -7,14 +7,13 @@ public static class ExtensionsForEnum
     public static T FromValue<T>(this string? value) where T : struct
     {
         var type = typeof(T);
+
         foreach (var field in type.GetFields())
         {
-            if (field.GetCustomAttribute<JsonPropertyNameAttribute>() is { } attr)
+            if (field.GetCustomAttribute<JsonPropertyNameAttribute>() is { } attr &&
+                TryGetEnumValue(value, attr.Name, field, out T enumValue))
             {
-                if (TryGetEnumValue(value, attr.Name, field, out T enumValue))
-                {
-                    return enumValue;
-                }
+                return enumValue;
             }
         }
 

@@ -1,30 +1,20 @@
-using Fusionary.BigCommerce.Operations.Customers;
-using Fusionary.BigCommerce.Operations.Customers.CustomerGroups;
-
 namespace Fusionary.BigCommerce.Operations;
 
 /// <summary>
 /// BigCommerce Management API
 /// </summary>
 /// <see href="https://developer.bigcommerce.com/docs/rest-management" />
-public class BcApiManagement : IBcApiOperation
+public class BcApiManagement(IBcApi api) : IBcApiOperation
 {
-    private readonly IBcApi _api;
-
-    public BcApiManagement(IBcApi api)
-    {
-        _api = api;
-    }
-
     /// <summary>
     /// Manage Customers
     /// </summary>
-    public BcApiCustomer Customer() => new(_api);
+    public BcApiCustomer Customer() => new(api);
 
     /// <summary>
     /// Manage Customer Groups
     /// </summary>
-    public BcApiCustomerGroup CustomerGroup() => new(_api);
+    public BcApiCustomerGroup CustomerGroup() => new(api);
 
     /// <summary>
     /// Manage Price Lists
@@ -32,10 +22,10 @@ public class BcApiManagement : IBcApiOperation
     /// <remarks>
     /// https://developer.bigcommerce.com/api-docs/store-management/price-list-overview
     /// </remarks>
-    public BcApiPriceList PriceList() => new(_api);
+    public BcApiPriceList PriceList() => new(api);
 
     /// <summary>
     /// Get product pricing
     /// </summary>
-    public BcApiManagementPricing Pricing() => new(_api);
+    public BcApiManagementPricing Pricing() => new(api);
 }

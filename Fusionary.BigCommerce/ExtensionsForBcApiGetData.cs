@@ -6,7 +6,7 @@ public static class ExtensionsForBcApiGetData
         this IBcApi api,
         string path,
         QueryString queryString = default,
-        BcRequestOptions? options = default,
+        BcRequestOptions? options = null,
         CancellationToken cancellationToken = default
     )
     {

@@ -1,7 +1,7 @@
 namespace Fusionary.BigCommerce.Types;
 
 [DebuggerDisplay("Brand {Name}")]
-public record BcBrandPost : IExtensionData
+public record BcBrandPost : IBcExtensionData
 {
     /// <summary>
     /// The name of the brand. Must be unique

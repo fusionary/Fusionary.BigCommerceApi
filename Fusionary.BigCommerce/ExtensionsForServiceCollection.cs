@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 
 using Microsoft.Extensions.Caching.Memory;
@@ -49,8 +50,12 @@ public static class ExtensionsForServiceCollection
         this IServiceCollection services,
         ServiceLifetime lifetime = ServiceLifetime.Transient
     ) =>
-        RegisterAllTypes<T>(services, new[] { typeof(T).Assembly }, lifetime);
+        RegisterAllTypes<T>(services, [typeof(T).Assembly], lifetime);
 
+    [SuppressMessage(
+        "Major Code Smell",
+        "S3928:Parameter names used into ArgumentException constructors should match an existing one "
+    )]
     public static void RegisterAllTypes<T>(
         this IServiceCollection services,
         IEnumerable<Assembly> assemblies,

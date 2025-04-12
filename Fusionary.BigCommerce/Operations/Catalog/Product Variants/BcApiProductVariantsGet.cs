@@ -1,27 +1,24 @@
 namespace Fusionary.BigCommerce.Operations;
 
-public class BcApiProductVariantsGet : BcRequestBuilder,
+public class BcApiProductVariantsGet(IBcApi api) : BcRequestBuilder(api),
     IBcApiOperation,
     IBcIncludeFieldsFilter,
     IBcExcludeFieldsFilter
 {
-    public BcApiProductVariantsGet(IBcApi api) : base(api)
-    { }
-
     public Task<BcResultData<BcProductVariant>> SendAsync(
         BcId productId,
-        BcId VariantId,
+        BcId variantId,
         CancellationToken cancellationToken = default
     ) =>
-        SendAsync<BcProductVariant>(productId, VariantId, cancellationToken);
+        SendAsync<BcProductVariant>(productId, variantId, cancellationToken);
 
     public async Task<BcResultData<T>> SendAsync<T>(
         BcId productId,
-        BcId VariantId,
+        BcId variantId,
         CancellationToken cancellationToken = default
     ) =>
         await Api.GetDataAsync<T>(
-            BcEndpoint.ProductVariantsV3(productId, VariantId),
+            BcEndpoint.ProductVariantsV3(productId, variantId),
             Filter,
             Options,
             cancellationToken

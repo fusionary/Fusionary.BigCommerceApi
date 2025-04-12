@@ -8,24 +8,16 @@ using Microsoft.Extensions.Options;
 
 namespace Fusionary.BigCommerce;
 
-public class BcStorefrontGraphQL : IBcStorefrontGraphQL
+public class BcStorefrontGraphQL(IOptions<BigCommerceConfig> options, IBcTokenCache tokenCache)
+    : IBcStorefrontGraphQL
 {
-    private readonly IOptions<BigCommerceConfig> _options;
-    private readonly IBcTokenCache _tokenCache;
-
-    public BcStorefrontGraphQL(IOptions<BigCommerceConfig> options, IBcTokenCache tokenCache)
-    {
-        _options = options;
-        _tokenCache = tokenCache;
-    }
-
     public async Task<GraphQLResponse<TResponse>> SendQueryAsync<TResponse>(
         GraphQLRequest request,
-        BcGraphqlRequestOverride? requestOverride = default,
+        BcGraphqlRequestOverride? requestOverride = null,
         CancellationToken cancellationToken = default
     )
     {
-        var config = _options.Value;
+        var config = options.Value;
 
         var client = await GetGraphQLHttpClientAsync(config, requestOverride, cancellationToken);
 
@@ -45,7 +37,7 @@ public class BcStorefrontGraphQL : IBcStorefrontGraphQL
             channelId
         );
 
-        var token = await _tokenCache.GetOrCreateTokenAsync(tokenRequest, requestOverride, cancellationToken);
+        var token = await tokenCache.GetOrCreateTokenAsync(tokenRequest, requestOverride, cancellationToken);
 
         return token;
     }
@@ -61,13 +53,13 @@ public class BcStorefrontGraphQL : IBcStorefrontGraphQL
         CancellationToken cancellationToken = default
     )
     {
-        var options = GetRequestOptions(config, requestOverride);
+        var requestOptions = GetRequestOptions(config, requestOverride);
 
-        var storefrontUrl = GetStorefrontUrl(config, options);
+        var storefrontUrl = GetStorefrontUrl(config, requestOptions);
 
-        var channelId = GetChannelId(config, options);
+        var channelId = GetChannelId(config, requestOptions);
 
-        var token = await GetAuthTokenAsync(storefrontUrl, channelId, options, cancellationToken);
+        var token = await GetAuthTokenAsync(storefrontUrl, channelId, requestOptions, cancellationToken);
 
         var graphQLEndpoint = GetGraphQlEndpoint(storefrontUrl);
 
@@ -96,10 +88,7 @@ public class BcStorefrontGraphQL : IBcStorefrontGraphQL
 
         var overrideOptions = requestOverride ?? new BcGraphqlRequestOverride();
 
-        if (!overrideOptions.Headers.ContainsKey(BcHeaderName.XAuthToken))
-        {
-            overrideOptions.Headers[BcHeaderName.XAuthToken] = storefrontAccessToken;
-        }
+        overrideOptions.Headers.TryAdd(BcHeaderName.XAuthToken, storefrontAccessToken);
 
         return overrideOptions;
     }

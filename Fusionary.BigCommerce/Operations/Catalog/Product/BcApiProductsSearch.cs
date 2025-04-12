@@ -1,20 +1,18 @@
 namespace Fusionary.BigCommerce.Operations;
 
-public class BcApiProductsSearch : BcRequestBuilder,
+public class BcApiProductsSearch(IBcApi api) : BcRequestBuilder(api),
     IBcApiOperation,
-    IBcPageableFilter,
-    IBcExcludeFieldsFilter,
-    IBcIncludeFieldsFilter,
-    IBcIdFilter,
-    IBcIdRangeFilter,
-    IBcProductIncludeFilter,
+    IBcChannelFilter,
     IBcDateLastImportedFilter,
     IBcDateModifiedFilter,
+    IBcExcludeFieldsFilter,
+    IBcIdFilter,
+    IBcIdRangeFilter,
+    IBcIncludeFieldsFilter,
+    IBcPageableFilter,
+    IBcProductIncludeFilter,
     IBcProductSearchFilter
 {
-    public BcApiProductsSearch(IBcApi api) : base(api)
-    { }
-
     public Task<BcResultPaged<BcProductFull>> SendAsync(CancellationToken cancellationToken = default) =>
         SendAsync<BcProductFull>(cancellationToken);
 

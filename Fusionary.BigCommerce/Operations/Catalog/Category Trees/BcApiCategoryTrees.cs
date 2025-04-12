@@ -1,27 +1,20 @@
 namespace Fusionary.BigCommerce.Operations;
 
-public class BcApiCategoryTrees : IBcApiOperation
+public class BcApiCategoryTrees(IBcApi api) : IBcApiOperation
 {
-    private readonly IBcApi _api;
+    public BcApiCategoryTressCreateCategories CreateCategories() => new(api);
 
-    public BcApiCategoryTrees(IBcApi api)
-    {
-        _api = api;
-    }
+    public BcApiCategoryTreesDeleteCategories DeleteCategories() => new(api);
 
-    public BcApiCategoryTressCreateCategories CreateCategories() => new(_api);
+    public BcApiCategoryTreesDelete DeleteTrees() => new(api);
 
-    public BcApiCategoryTreesDeleteCategories DeleteCategories() => new(_api);
+    public BcApiCategoryTreesGetAllCategories GetAllCategories() => new(api);
 
-    public BcApiCategoryTreesDelete DeleteTrees() => new(_api);
+    public BcApiCategoryTreesGetAll GetAllTrees() => new(api);
 
-    public BcApiCategoryTreesGetAllCategories GetAllCategories() => new(_api);
+    public BcApiCategoryTreesGetCategoryTree GetCategoryTree() => new(api);
 
-    public BcApiCategoryTreesGetAll GetAllTrees() => new(_api);
+    public BcApiCategoryTressUpdateCategories UpdateCategories() => new(api);
 
-    public BcApiCategoryTreesGetCategoryTree GetCategoryTree() => new(_api);
-
-    public BcApiCategoryTressUpdateCategories UpdateCategories() => new(_api);
-
-    public BcApiCategoryTreesUpsert UpsertTrees() => new(_api);
+    public BcApiCategoryTreesUpsert UpsertTrees() => new(api);
 }

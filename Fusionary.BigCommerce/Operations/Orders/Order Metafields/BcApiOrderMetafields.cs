@@ -1,21 +1,14 @@
 namespace Fusionary.BigCommerce.Operations;
 
-public class BcApiOrderMetafields : IBcApiOperation
+public class BcApiOrderMetafields(IBcApi api) : IBcApiOperation
 {
-    private readonly IBcApi _api;
+    public BcApiOrderMetafieldsCreate Create() => new(api);
 
-    public BcApiOrderMetafields(IBcApi api)
-    {
-        _api = api;
-    }
+    public BcApiOrderMetafieldsDelete Delete() => new(api);
 
-    public BcApiOrderMetafieldsCreate Create() => new(_api);
+    public BcApiOrderMetafieldsGet Get() => new(api);
 
-    public BcApiOrderMetafieldsDelete Delete() => new(_api);
+    public BcApiOrderMetafieldsGetAll GetAll() => new(api);
 
-    public BcApiOrderMetafieldsGet Get() => new(_api);
-
-    public BcApiOrderMetafieldsGetAll GetAll() => new(_api);
-
-    public BcApiOrderMetafieldsUpdate Update() => new(_api);
+    public BcApiOrderMetafieldsUpdate Update() => new(api);
 }

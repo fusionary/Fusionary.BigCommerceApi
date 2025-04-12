@@ -1,37 +1,66 @@
 <Project>
 
-    <PropertyGroup Label="Build">
-        <LangVersion>latest</LangVersion>
-        <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
-        <AnalysisLevel>latest</AnalysisLevel>
-        <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
-        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    </PropertyGroup>
+  <PropertyGroup Label="Nuget">
+    <Authors>Fusionary</Authors>
+    <PackageProjectUrl>https://github.com/fusionary/Fusionary.BigCommerceApi</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/fusionary/Fusionary.BigCommerceApi</RepositoryUrl>
+    <PackageIconUrl>https://raw.githubusercontent.com/fusionary/Fusionary.BigCommerceApi/main/icon.png</PackageIconUrl>
+    <PackageIcon>icon.png</PackageIcon>
+    <PackageTags>dotnet</PackageTags>
+  </PropertyGroup>
 
-    <PropertyGroup Label="Versioning">
-        <MinVerTagPrefix>v</MinVerTagPrefix>
-        <MinVerDefaultPreReleaseIdentifiers>preview.0</MinVerDefaultPreReleaseIdentifiers>
-        <MinVerVerbosity>normal</MinVerVerbosity>
-    </PropertyGroup>
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)\icon.png" Pack="true" PackagePath="icon.png" Visible="false" />
+  </ItemGroup>
 
-    <PropertyGroup>
-        <Authors>Fusionary</Authors>
-        <PackageProjectUrl>https://github.com/fusionary/Fusionary.BigCommerceApi</PackageProjectUrl>
-        <RepositoryUrl>https://github.com/fusionary/Fusionary.BigCommerceApi</RepositoryUrl>
-        <PackageIconUrl>https://raw.githubusercontent.com/fusionary/Fusionary.BigCommerceApi/main/icon.png</PackageIconUrl>
-        <PackageIcon>icon.png</PackageIcon>
-        <PackageTags>dotnet</PackageTags>
-    </PropertyGroup>
+  <PropertyGroup Label="Build">
+    <TargetFramework>net8.0</TargetFramework>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <Configurations>Debug;Release</Configurations>
+  </PropertyGroup>
 
-    <ItemGroup>
-        <None Include="$(MSBuildThisFileDirectory)\icon.png" Pack="true" PackagePath="icon.png" Visible="false"/>
-    </ItemGroup>
+  <ItemGroup Label="Package References">
+    <PackageReference Include="MinVer" PrivateAssets="all" Version="6.0.0" />
+  </ItemGroup>
 
-    <ItemGroup Label="Package References">
-        <PackageReference Include="Microsoft.VisualStudio.Threading.Analyzers" PrivateAssets="all" Version="17.11.20"/>
-        <PackageReference Include="JetBrains.Annotations" PrivateAssets="all" Version="2024.2.0"/>
-        <PackageReference Include="MinVer" PrivateAssets="all" Version="6.0.0"/>
-    </ItemGroup>
+  <ItemGroup Label="Global Annotations">
+    <PackageReference Include="JetBrains.Annotations" PrivateAssets="all" Version="2024.3.0" />
+  </ItemGroup>
+  <ItemGroup Label="Global Analyzers">
+    <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="9.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Threading.Analyzers" Version="17.13.61">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="SonarAnalyzer.CSharp" Version="10.8.0.113526">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <PropertyGroup Label="Code Quality">
+    <!--
+        # Microsoft.CodeAnalysis.NetAnalyzers
+        1591: Missing XML comment for publicly visible type or member
+    -->
+    <NoWarn>$(NoWarn);1591</NoWarn>
+    <EditorConfig>true</EditorConfig>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <EnableNETAnalyzers>true</EnableNETAnalyzers>
+    <AnalysisLevel>latest</AnalysisLevel>
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+  </PropertyGroup>
+
+
+  <PropertyGroup Label="Versioning">
+    <MinVerTagPrefix>v</MinVerTagPrefix>
+    <MinVerDefaultPreReleaseIdentifiers>preview.0</MinVerDefaultPreReleaseIdentifiers>
+    <MinVerVerbosity>normal</MinVerVerbosity>
+  </PropertyGroup>
 
 </Project>

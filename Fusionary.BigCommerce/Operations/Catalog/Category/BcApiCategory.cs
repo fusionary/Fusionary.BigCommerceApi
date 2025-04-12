@@ -1,17 +1,10 @@
 namespace Fusionary.BigCommerce.Operations;
 
-public class BcApiCategory : IBcApiOperation
+public class BcApiCategory(IBcApi api) : IBcApiOperation
 {
-    private readonly IBcApi _api;
+    public BcApiCategoryCreate Create() => new(api);
 
-    public BcApiCategory(IBcApi api)
-    {
-        _api = api;
-    }
-
-    public BcApiCategoryCreate Create() => new(_api);
-
-    public BcApiCategoryDelete Delete() => new(_api);
+    public BcApiCategoryDelete Delete() => new(api);
 
     /// <summary>
     /// Deletes Category objects. At least one filter parameter is required to perform the DELETE operation.
@@ -19,9 +12,9 @@ public class BcApiCategory : IBcApiOperation
     /// <remarks>
     /// See https://developer.bigcommerce.com/api-reference/d4e96c2f5d289-delete-categories
     /// </remarks>
-    public BcApiCategoryDeleteBulk DeleteBulk() => new(_api);
+    public BcApiCategoryDeleteBulk DeleteBulk() => new(api);
 
-    public BcApiCategoryGet Get() => new(_api);
+    public BcApiCategoryGet Get() => new(api);
 
     /// <summary>
     /// Search/Get all categories
@@ -29,7 +22,11 @@ public class BcApiCategory : IBcApiOperation
     /// <remarks>
     /// See https://developer.bigcommerce.com/api-reference/9cc3a53863922-get-all-categories
     /// </remarks>
-    public BcApiCategoryGetAll GetAll() => new(_api);
+    public BcApiCategoryGetAll GetAll() => new(api);
 
-    public BcApiCategoryUpdate Update() => new(_api);
+    public BcApiCategoryImage Image() => new(api);
+
+    public BcApiCategoryMetafields Metafields() => new(api);
+
+    public BcApiCategoryUpdate Update() => new(api);
 }

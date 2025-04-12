@@ -7,7 +7,7 @@ namespace Fusionary.BigCommerce.Types;
 /// </summary>
 [DebuggerDisplay("{Value}")]
 [JsonConverter(typeof(BcFloatConverter))]
-public struct BcFloat : IFormattable, IComparable<BcFloat>
+public readonly struct BcFloat : IFormattable, IComparable<BcFloat>
 {
     private sealed class ValueEqualityComparer : IEqualityComparer<BcFloat>
     {
@@ -62,14 +62,25 @@ public struct BcFloat : IFormattable, IComparable<BcFloat>
 
     public static implicit operator BcFloat(string value) => new(value);
 
-    public string ToString(string format) => Value.ToString(format);
-
     public string ToMoney(int decimalDigits = 2, string currencySymbol = "$") => Value.ToString(
         "c",
         new NumberFormatInfo { CurrencySymbol = currencySymbol, CurrencyDecimalDigits = decimalDigits }
     );
 
+    public string ToString(string format) => Value.ToString(format);
+
     public override string ToString() => $"{Value:f}";
 
     public string ToString(string? format, IFormatProvider? formatProvider) => Value.ToString(format, formatProvider);
+
+    public static bool operator ==(BcFloat left, BcFloat right) => left.Value == right.Value;
+    public static bool operator !=(BcFloat left, BcFloat right) => left.Value != right.Value;
+    public static bool operator <(BcFloat left, BcFloat right) => left.Value < right.Value;
+    public static bool operator >(BcFloat left, BcFloat right) => left.Value > right.Value;
+    public static bool operator <=(BcFloat left, BcFloat right) => left.Value <= right.Value;
+    public static bool operator >=(BcFloat left, BcFloat right) => left.Value >= right.Value;
+
+    public override bool Equals(object? obj) => obj is BcFloat other && Value == other.Value;
+
+    public override int GetHashCode() => Value.GetHashCode();
 }

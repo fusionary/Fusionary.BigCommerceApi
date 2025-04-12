@@ -1,23 +1,16 @@
 namespace Fusionary.BigCommerce.Operations;
 
-public class BcApiOrders : IBcApiOperation
+public class BcApiOrders(IBcApi api) : IBcApiOperation
 {
-    private readonly IBcApi _api;
+    public BcApiOrderArchive Archive() => new(api);
 
-    public BcApiOrders(IBcApi api)
-    {
-        _api = api;
-    }
+    public BcApiOrdersCreate Create() => new(api);
 
-    public BcApiOrderArchive Archive() => new(_api);
+    public BcApiOrdersGet Get() => new(api);
 
-    public BcApiOrdersCreate Create() => new(_api);
+    public BcApiOrderGetWithConsignments GetWithConsignments() => new(api);
 
-    public BcApiOrdersGet Get() => new(_api);
+    public BcApiOrdersSearch Search() => new(api);
 
-    public BcApiOrderGetWithConsignments GetWithConsignments() => new(_api);
-
-    public BcApiOrdersSearch Search() => new(_api);
-
-    public BcApiOrdersUpdate Update() => new(_api);
+    public BcApiOrdersUpdate Update() => new(api);
 }

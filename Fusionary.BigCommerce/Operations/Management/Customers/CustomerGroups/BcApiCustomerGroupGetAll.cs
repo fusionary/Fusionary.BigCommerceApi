@@ -1,4 +1,4 @@
-namespace Fusionary.BigCommerce.Operations.Customers.CustomerGroups;
+namespace Fusionary.BigCommerce.Operations;
 
 public class BcApiCustomerGroupGetAll : BcRequestBuilder,
     IBcApiOperation,

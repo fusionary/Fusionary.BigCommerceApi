@@ -1,15 +1,12 @@
 namespace Fusionary.BigCommerce.Operations;
 
-public abstract class BcMetafieldsGetAllBase : BcRequestBuilder,
+public abstract class BcMetafieldsGetAllBase(IBcApi api) : BcRequestBuilder(api),
     IBcIncludeFieldsFilter,
     IBcExcludeFieldsFilter,
     IBcPageableFilter,
     IBcDirectionFilter,
     IBcMetafieldGetAllFilter
 {
-    protected BcMetafieldsGetAllBase(IBcApi api) : base(api)
-    { }
-
     /// <summary>
     /// Gets the resource path for the request.
     /// </summary>

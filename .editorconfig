@@ -5,8 +5,10 @@ root = true
 indent_style = space
 
 # Xml files
-[*.xml]
+[*.{xml,csproj,props}]
 indent_size = 2
+ij_xml_space_inside_empty_tag = true
+insert_final_newline = true
 
 # C# files
 [*.cs]
@@ -117,6 +119,7 @@ csharp_style_inlined_variable_declaration = true:suggestion
 csharp_style_pattern_local_over_anonymous_function = true:suggestion
 csharp_style_prefer_index_operator = true:suggestion
 csharp_style_prefer_range_operator = true:suggestion
+csharp_style_prefer_primary_constructors = true:suggestion
 csharp_style_throw_expression = true:suggestion
 csharp_style_unused_value_assignment_preference = discard_variable:suggestion
 csharp_style_unused_value_expression_statement_preference = discard_variable:silent

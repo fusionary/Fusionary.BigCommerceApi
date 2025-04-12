@@ -8,7 +8,7 @@ public class BcImportCustomFieldList : List<BcImportCustomField>
     public BcImportCustomFieldList(IEnumerable<BcImportCustomField> fields) : base(fields)
     { }
 
-    public void Add(string key, string value, int? id = default) =>
+    public void Add(string key, string value, int? id = null) =>
         base.Add(new BcImportCustomField { Key = key, Value = value, Id = id });
 
     public static implicit operator string(BcImportCustomFieldList list) => list.ToString();

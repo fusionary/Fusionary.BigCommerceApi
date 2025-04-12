@@ -1,10 +1,7 @@
 namespace Fusionary.BigCommerce.Operations;
 
-public class BcApiProductChannelAssignmentsCreate : BcRequestBuilder, IBcApiOperation
+public class BcApiProductChannelAssignmentsCreate(IBcApi api) : BcRequestBuilder(api), IBcApiOperation
 {
-    public BcApiProductChannelAssignmentsCreate(IBcApi api) : base(api)
-    { }
-
     public Task<BcResult> SendAsync(
         BcProductChannelAssignment channelAssignment,
         CancellationToken cancellationToken = default

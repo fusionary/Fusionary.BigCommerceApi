@@ -3,15 +3,12 @@ namespace Fusionary.BigCommerce.Operations;
 /// <summary>
 /// Returns a list of product Variants
 /// </summary>
-public class BcApiProductVariantsGetAll : BcRequestBuilder,
+public class BcApiProductVariantsGetAll(IBcApi api) : BcRequestBuilder(api),
     IBcApiOperation,
     IBcIncludeFieldsFilter,
     IBcExcludeFieldsFilter,
     IBcPageableFilter
 {
-    public BcApiProductVariantsGetAll(IBcApi api) : base(api)
-    { }
-
     public Task<BcResultPaged<BcProductVariant>> SendAsync(
         BcId productId,
         CancellationToken cancellationToken = default

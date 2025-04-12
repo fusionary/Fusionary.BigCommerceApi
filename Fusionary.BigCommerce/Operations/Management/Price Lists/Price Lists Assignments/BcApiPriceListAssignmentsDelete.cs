@@ -1,15 +1,12 @@
 namespace Fusionary.BigCommerce.Operations;
 
-public class BcApiPriceListAssignmentsDelete : BcRequestBuilder, IBcApiOperation,
+public class BcApiPriceListAssignmentsDelete(IBcApi api) : BcRequestBuilder(api), IBcApiOperation,
     IBcPriceListFilter,
     IBcChannelFilter,
     IBcCustomerGroupFilter,
     IBcIdFilter
 {
-    public BcApiPriceListAssignmentsDelete(IBcApi api) : base(api)
-    { }
-
-    public async Task<BcResult> SendAsync<TProduct>(CancellationToken cancellationToken = default) =>
+    public async Task<BcResult> SendAsync(CancellationToken cancellationToken = default) =>
         await Api.DeleteAsync(
             BcEndpoint.PriceListAssignmentsV3(),
             Filter,

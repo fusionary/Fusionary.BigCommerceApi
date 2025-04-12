@@ -2,11 +2,11 @@ namespace Fusionary.BigCommerce.Import;
 
 public record BcImportCustomField
 {
-    public int? Id { get; set; }
+    public int? Id { get; init; }
 
-    public required string Key { get; set; }
+    public required string Key { get; init; }
 
-    public required string Value { get; set; }
+    public required string Value { get; init; }
 
     private static bool IsIdPart(string partValue) => partValue.StartsWith("id=", StringComparison.OrdinalIgnoreCase);
 

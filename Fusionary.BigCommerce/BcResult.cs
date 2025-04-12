@@ -1,3 +1,5 @@
+using System.Diagnostics.CodeAnalysis;
+
 namespace Fusionary.BigCommerce;
 
 [DebuggerDisplay("{StatusCode}")]
@@ -16,12 +18,13 @@ public record BcResult
     /// Not <see langword="null" /> if <see cref="HasError" /> is <see langword="true" />.
     /// </remarks>
     [JsonPropertyOrder(99)]
-    public BcErrorDetails Error { get; init; } = default!;
+    public BcErrorDetails Error { get; init; } = null!;
 
     /// <summary>
     /// <see langword="true" /> if the request has error information.
     /// </summary>
     [JsonIgnore]
+    [SuppressMessage("ReSharper", "ConditionalAccessQualifierIsNonNullableAccordingToAPIContract")]
     public bool HasError => !string.IsNullOrWhiteSpace(Error?.Title);
 
     /// <summary>
@@ -45,7 +48,7 @@ public record BcResult
     /// subsequent requests are rejected until the quota is refreshed.
     /// </summary>
     [JsonPropertyOrder(3)]
-    public BcRateLimitResponseHeaders RateLimits { get; set; } = null!;
+    public BcRateLimitResponseHeaders RateLimits { get; init; } = null!;
 
     /// <summary>
     /// The requested method
@@ -112,7 +115,7 @@ public record BcResult<TData, TMeta> : BcResult
     /// <see langword="true" /> if the request has metadata.
     /// </summary>
     [JsonIgnore]
-    public bool HasMeta => Meta is not null;
+    public bool HasMeta => Meta is not null && Meta is not BcMetadataEmpty;
 
     public void Deconstruct(out bool success, out TData data, out BcErrorDetails? error)
     {

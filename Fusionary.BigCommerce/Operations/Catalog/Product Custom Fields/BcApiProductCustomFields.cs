@@ -1,21 +1,14 @@
 namespace Fusionary.BigCommerce.Operations;
 
-public class BcApiProductCustomFields : IBcApiOperation
+public class BcApiProductCustomFields(IBcApi api) : IBcApiOperation
 {
-    private readonly IBcApi _api;
+    public BcApiProductCustomsFieldCreate Create() => new(api);
 
-    public BcApiProductCustomFields(IBcApi api)
-    {
-        _api = api;
-    }
+    public BcApiProductCustomFieldsDelete Delete() => new(api);
 
-    public BcApiProductCustomsFieldCreate Create() => new(_api);
+    public BcApiProductCustomFieldsGet Get() => new(api);
 
-    public BcApiProductCustomFieldsDelete Delete() => new(_api);
+    public BcApiProductCustomFieldsGetList GetAll() => new(api);
 
-    public BcApiProductCustomFieldsGet Get() => new(_api);
-
-    public BcApiProductCustomFieldsGetList GetAll() => new(_api);
-
-    public BcApiProductCustomFieldsUpdate Update() => new(_api);
+    public BcApiProductCustomFieldsUpdate Update() => new(api);
 }
