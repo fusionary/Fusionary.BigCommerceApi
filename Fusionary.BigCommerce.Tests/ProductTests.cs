@@ -1,9 +1,3 @@
-using FluentAssertions.Common;
-
-using Microsoft.Extensions.Logging;
-
-using NUnit.Framework;
-
 namespace Fusionary.BigCommerce.Tests;
 
 public class ProductTests : BcTestBase
@@ -106,7 +100,7 @@ public class ProductTests : BcTestBase
             {
                 remainingItems.AddRange(nextPage.Data);
             }
-        } while (nextPage is { HasNextPage: true});
+        } while (nextPage is { HasNextPage: true });
 
         return remainingItems;
     }

@@ -23,11 +23,11 @@ public class BcApiCatalog : IBcApiOperation
 
     public BcApiCategory Category() => new(_api);
 
-    public BcApiCategoryTrees CategoryTrees() => new(_api);
-
     public BcApiCategoryImages CategoryImages() => new(_api);
 
     public BcApiCategoryMetafields CategoryMetafields() => new(_api);
+
+    public BcApiCategoryTrees CategoryTrees() => new(_api);
 
     /// <summary>
     /// Products are the primary catalog entity, and the primary function of the ecommerce platform is to sell products
@@ -38,11 +38,11 @@ public class BcApiCatalog : IBcApiOperation
     /// </remarks>
     public BcApiProduct Product() => new(_api);
 
-    public BcApiProductCustomFields ProductCustomFields() => new(_api);
-
     public BcApiProductCategoryAssignments ProductCategoryAssignments() => new(_api);
 
     public BcApiProductChannelAssignments ProductChannelAssignments() => new(_api);
+
+    public BcApiProductCustomFields ProductCustomFields() => new(_api);
 
     public BcApiProductImages ProductImages() => new(_api);
 

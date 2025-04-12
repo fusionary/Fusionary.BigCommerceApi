@@ -15,5 +15,6 @@ public class BcApiProductChannelAssignmentsDelete : BcRequestBuilder, IBcApiOper
                 .Add("product_id", channelAssignment.ProductId.Value)
                 .Add("channel_id", channelAssignment.ChannelId.Value),
             Options,
-            cancellationToken);
+            cancellationToken
+        );
 }

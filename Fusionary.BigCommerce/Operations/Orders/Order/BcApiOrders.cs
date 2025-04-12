@@ -14,7 +14,7 @@ public class BcApiOrders : IBcApiOperation
     public BcApiOrdersCreate Create() => new(_api);
 
     public BcApiOrdersGet Get() => new(_api);
-    
+
     public BcApiOrderGetWithConsignments GetWithConsignments() => new(_api);
 
     public BcApiOrdersSearch Search() => new(_api);

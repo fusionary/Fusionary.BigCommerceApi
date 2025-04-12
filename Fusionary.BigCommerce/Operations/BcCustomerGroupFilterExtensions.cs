@@ -8,7 +8,7 @@ public static class BcCustomerGroupFilterExtensions
     public static T CustomerGroup<T>(this T builder, BcId customerGroupId)
         where T : IBcCustomerGroupFilter =>
         builder.Add("customer_group_id", customerGroupId.Value);
-    
+
     /// <summary>
     /// Filter items by customer_group_id.
     /// </summary>

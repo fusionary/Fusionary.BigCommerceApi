@@ -23,27 +23,27 @@ public static class BcEndpoint
     public static string CategoryProductSortOrderV3(BcId categoryId) =>
         $"v3/catalog/categories/{categoryId}/products/sort-order";
 
-    public static string CategoryV3() => "v3/catalog/categories";
-
-    public static string CategoryV3(BcId categoryId) => $"v3/catalog/categories/{categoryId}";
-
-    public static string CategoryTreesV3() => "v3/catalog/trees";
-
     public static string CategoryTreeCategoriesV3() => "v3/catalog/trees/categories";
 
     public static string CategoryTreeCategoriesV3(BcId treeId) => $"v3/catalog/trees/{treeId}/categories";
+
+    public static string CategoryTreesV3() => "v3/catalog/trees";
+
+    public static string CategoryV3() => "v3/catalog/categories";
+
+    public static string CategoryV3(BcId categoryId) => $"v3/catalog/categories/{categoryId}";
 
     public static string ChannelsV3() => "v3/channels";
 
     public static string ChannelsV3(BcId channelId) => $"v3/channels/{channelId}";
 
+    public static string CustomersGroupsV2() => "v2/customer_groups";
+
+    public static string CustomersGroupsV2(BcId groupId) => $"v2/customer_groups/{groupId}";
+
     public static string CustomersV3() => "v3/customers";
 
     public static string CustomersV3(BcId customerId) => $"v3/catalog/customers/{customerId}";
-    
-    public static string CustomersGroupsV2() => "v2/customer_groups";
-    
-    public static string CustomersGroupsV2(BcId groupId) => $"v2/customer_groups/{groupId}";
 
     public static string OrderMetafieldsV3(BcId orderId) => $"v3/orders/{orderId}/metafields";
 
@@ -54,29 +54,29 @@ public static class BcEndpoint
 
     public static string OrderProductsV2(BcId orderId, BcId productId) =>
         $"v2/orders/{orderId}/products/{productId}";
-    
-    public static string OrderShippingV2(BcId orderId) => $"v2/orders/{orderId}/shipping_addresses";
-    
+
     public static string OrderShipmentsV2(BcId orderId) => $"v2/orders/{orderId}/shipments";
+
+    public static string OrderShippingV2(BcId orderId) => $"v2/orders/{orderId}/shipping_addresses";
 
     public static string OrdersV2(BcId orderId) => $"v2/orders/{orderId}";
 
     public static string OrdersV2() => "v2/orders";
+
+    public static string PriceListAssignmentsV3() => "v3/pricelists/assignments";
+
+    public static string PriceListAssignmentsV3(BcId priceListId) => "v3/pricelists/{priceListId}/assignments";
 
     public static string PriceListRecordsV3(BcId priceListId) => $"v3/pricelists/{priceListId}/records";
 
     public static string PriceListRecordsV3(BcId priceListId, BcId recordId) =>
         $"v3/pricelists/{priceListId}/records/{recordId}";
 
-    public static string PricingProductsV3() => "v3/pricing/products";
-
-    public static string PriceListAssignmentsV3() => "v3/pricelists/assignments";
-
-    public static string PriceListAssignmentsV3(BcId priceListId) => "v3/pricelists/{priceListId}/assignments";
-
     public static string PriceListsV3() => "v3/pricelists";
 
     public static string PriceListsV3(BcId priceListId) => $"v3/pricelists/{priceListId}";
+
+    public static string PricingProductsV3() => "v3/pricing/products";
 
     public static string ProductBulkPricingRulesV3(BcId productId) =>
         $"v3/catalog/products/{productId}/bulk-pricing-rules";

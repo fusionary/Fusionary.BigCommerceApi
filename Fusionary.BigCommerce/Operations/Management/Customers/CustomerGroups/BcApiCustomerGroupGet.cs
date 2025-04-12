@@ -3,14 +3,13 @@ namespace Fusionary.BigCommerce.Operations.Customers.CustomerGroups;
 public class BcApiCustomerGroupGet : BcRequestBuilder, IBcApiOperation
 {
     public BcApiCustomerGroupGet(IBcApi api) : base(api)
-    {
-    }
-    
+    { }
+
     public Task<BcResultData<BcCustomerGroup>> SendAsync(
         int id,
         CancellationToken cancellationToken = default
     ) => SendAsync<BcCustomerGroup>(id, cancellationToken);
-    
+
     public async Task<BcResultData<T>> SendAsync<T>(
         int id,
         CancellationToken cancellationToken = default

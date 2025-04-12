@@ -54,8 +54,8 @@ public static class BcHttpResponseExtensions
             {
                 Title = root.ToString(), Type = "Unknown", Status = response.StatusCode
             },
-            JsonValueKind.Object when root.TryGetProperty("status", out var _) &&
-                                      root.TryGetProperty("title", out var _) =>
+            JsonValueKind.Object when root.TryGetProperty("status", out _) &&
+                                      root.TryGetProperty("title", out _) =>
                 root.Deserialize<BcErrorDetails>(BcJsonUtil.JsonOptions),
             _ => new BcErrorDetails { Status = response.StatusCode }
         };
@@ -98,14 +98,16 @@ public static class BcHttpResponseExtensions
             return default(JsonObject);
         }
 
-        if (response.RequestMessage.Content.Headers.ContentType?.MediaType?.Contains("json",
-            StringComparison.OrdinalIgnoreCase) != true)
+        if (response.RequestMessage.Content.Headers.ContentType?.MediaType?.Contains(
+                "json",
+                StringComparison.OrdinalIgnoreCase
+            ) != true)
         {
             return await response.RequestMessage.Content.ReadAsStringAsync(cancellationToken);
         }
 
         return await response.RequestMessage.Content.ReadFromJsonAsync<JsonDocument>(
-            cancellationToken: cancellationToken
+            cancellationToken
         );
     }
 

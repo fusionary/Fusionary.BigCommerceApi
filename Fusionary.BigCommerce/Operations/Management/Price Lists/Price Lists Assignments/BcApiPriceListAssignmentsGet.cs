@@ -11,7 +11,9 @@ public class BcApiPriceListAssignmentsGet : BcRequestBuilder,
     public BcApiPriceListAssignmentsGet(IBcApi api) : base(api)
     { }
 
-    public async Task<BcResultPaged<BcPriceListAssignment>> SendAsync<T>(CancellationToken cancellationToken = default) =>
+    public async Task<BcResultPaged<BcPriceListAssignment>> SendAsync<T>(
+        CancellationToken cancellationToken = default
+    ) =>
         await Api.GetPagedAsync<BcPriceListAssignment>(
             BcEndpoint.PriceListAssignmentsV3(),
             Filter,

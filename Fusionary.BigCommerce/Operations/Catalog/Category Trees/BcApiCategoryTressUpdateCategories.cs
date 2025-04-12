@@ -11,7 +11,10 @@ public class BcApiCategoryTressUpdateCategories : BcRequestBuilder, IBcApiOperat
     ) =>
         SendAsync<BcCategoryTreeCategory[]>(categories, cancellationToken);
 
-    public async Task<BcResultData<T>> SendAsync<T>(IEnumerable<object> categories, CancellationToken cancellationToken = default) =>
+    public async Task<BcResultData<T>> SendAsync<T>(
+        IEnumerable<object> categories,
+        CancellationToken cancellationToken = default
+    ) =>
         await Api.PutDataAsync<T>(
             BcEndpoint.CategoryTreeCategoriesV3(),
             categories,

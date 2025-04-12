@@ -3,10 +3,10 @@ namespace Fusionary.BigCommerce.Types;
 public record BcOrderResponseFull : IExtensionData
 {
     private BcBillingAddressBase? _billingAddress;
+    private BcOrderConsignments? _consignments;
     private BcResource? _coupons;
     private BcResource? _products;
     private BcResource? _shippingAddresses;
-    private BcOrderConsignments? _consignments;
 
     [JsonPropertyName("id")]
     public int Id { get; set; }

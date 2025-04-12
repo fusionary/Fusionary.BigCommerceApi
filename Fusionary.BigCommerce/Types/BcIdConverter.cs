@@ -18,8 +18,6 @@ public class BcIdConverter : JsonConverter<BcId>
         Utf8JsonWriter writer,
         BcId value,
         JsonSerializerOptions options
-    )
-    {
+    ) =>
         writer.WriteNumberValue(value.Value);
-    }
 }

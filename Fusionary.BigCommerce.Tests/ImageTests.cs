@@ -2,7 +2,6 @@ namespace Fusionary.BigCommerce.Tests;
 
 public class ImageTests : BcTestBase
 {
-
     [Test]
     public async Task Can_Get_Product_Images_By_Id_Async()
     {

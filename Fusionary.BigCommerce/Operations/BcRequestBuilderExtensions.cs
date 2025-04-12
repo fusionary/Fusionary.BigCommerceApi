@@ -121,6 +121,23 @@ public static class BcRequestBuilderExtensions
     }
 
     /// <summary>
+    /// Sets the header value for the specified key for this request.
+    /// </summary>
+    public static T StrictMode<T>(this T builder, bool enabled = true) where T : IBcRequestBuilder
+    {
+        if (enabled)
+        {
+            builder.Options.RequestOverrides.Headers[BcHeaderName.XStrictMode] = "true";
+        }
+        else
+        {
+            builder.Options.RequestOverrides.Headers.Remove(BcHeaderName.XStrictMode);
+        }
+
+        return builder;
+    }
+
+    /// <summary>
     /// Conditionally add a request builder step to this request.
     /// </summary>
     public static T When<T>(this T builder, bool condition, Func<T, T> conditionalBuilder)
@@ -139,22 +156,6 @@ public static class BcRequestBuilderExtensions
     public static T WithHeader<T>(this T builder, string key, string value) where T : IBcRequestBuilder
     {
         builder.Options.RequestOverrides.Headers[key] = value;
-        return builder;
-    }
-
-    /// <summary>
-    /// Sets the header value for the specified key for this request.
-    /// </summary>
-    public static T StrictMode<T>(this T builder, bool enabled = true) where T : IBcRequestBuilder
-    {
-        if (enabled)
-        {
-            builder.Options.RequestOverrides.Headers[BcHeaderName.XStrictMode] = "true";
-        }
-        else
-        {
-            builder.Options.RequestOverrides.Headers.Remove(BcHeaderName.XStrictMode);
-        }
         return builder;
     }
 

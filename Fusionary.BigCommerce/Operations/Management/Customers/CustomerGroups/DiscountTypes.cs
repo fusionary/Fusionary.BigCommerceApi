@@ -4,10 +4,13 @@ public enum DiscountTypes
 {
     [JsonPropertyName("price_list")]
     PriceList,
+
     [JsonPropertyName("category")]
     Category,
+
     [JsonPropertyName("product")]
     Product,
+
     [JsonPropertyName("all")]
-    SiteWide,
+    SiteWide
 }

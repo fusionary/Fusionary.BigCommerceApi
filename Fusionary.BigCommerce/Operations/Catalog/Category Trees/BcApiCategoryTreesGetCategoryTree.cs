@@ -6,7 +6,10 @@ public class BcApiCategoryTreesGetCategoryTree : BcRequestBuilder,
     public BcApiCategoryTreesGetCategoryTree(IBcApi api) : base(api)
     { }
 
-    public Task<BcResultData<BcCategoryTreePathItem[]>> SendAsync(BcId treeId, CancellationToken cancellationToken = default) =>
+    public Task<BcResultData<BcCategoryTreePathItem[]>> SendAsync(
+        BcId treeId,
+        CancellationToken cancellationToken = default
+    ) =>
         SendAsync<BcCategoryTreePathItem>(treeId, cancellationToken);
 
     public async Task<BcResultData<T[]>> SendAsync<T>(BcId treeId, CancellationToken cancellationToken = default) =>

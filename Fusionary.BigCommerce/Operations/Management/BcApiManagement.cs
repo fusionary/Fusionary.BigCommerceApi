@@ -17,25 +17,25 @@ public class BcApiManagement : IBcApiOperation
     }
 
     /// <summary>
-    /// Manage Price Lists
+    /// Manage Customers
     /// </summary>
-    /// <remarks>
-    /// https://developer.bigcommerce.com/api-docs/store-management/price-list-overview
-    /// </remarks>
-    public BcApiPriceList PriceList() => new (_api);
+    public BcApiCustomer Customer() => new(_api);
 
-    /// <summary>
-    /// Get product pricing
-    /// </summary>
-    public BcApiManagementPricing Pricing() => new(_api);
-    
     /// <summary>
     /// Manage Customer Groups
     /// </summary>
     public BcApiCustomerGroup CustomerGroup() => new(_api);
 
     /// <summary>
-    /// Manage Customers
+    /// Manage Price Lists
     /// </summary>
-    public BcApiCustomer Customer() => new(_api);
+    /// <remarks>
+    /// https://developer.bigcommerce.com/api-docs/store-management/price-list-overview
+    /// </remarks>
+    public BcApiPriceList PriceList() => new(_api);
+
+    /// <summary>
+    /// Get product pricing
+    /// </summary>
+    public BcApiManagementPricing Pricing() => new(_api);
 }

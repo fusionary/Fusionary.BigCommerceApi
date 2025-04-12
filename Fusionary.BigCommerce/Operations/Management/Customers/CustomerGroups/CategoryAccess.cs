@@ -5,5 +5,6 @@ public class CategoryAccess
     [JsonPropertyName("categories")]
     public List<int>? CategoryIds { get; set; }
 
-    [JsonPropertyName("type")] public CategoryTypes? Type { get; set; }
+    [JsonPropertyName("type")]
+    public CategoryTypes? Type { get; set; }
 }

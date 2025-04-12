@@ -21,7 +21,7 @@ public class BcTokenCache : IBcTokenCache
     {
         var cacheKey = GenerateCacheKey(tokenRequest, requestOverride);
 
-        string? token =  await _cache.GetOrCreateAsync(
+        var token = await _cache.GetOrCreateAsync(
             cacheKey,
             async entry =>
             {
@@ -33,17 +33,6 @@ public class BcTokenCache : IBcTokenCache
         );
 
         return token!;
-    }
-
-    private static string GenerateCacheKey(BcTokenRequest tokenRequest, BcRequestOverride? requestOverride)
-    {
-        var keyParts = new List<string?> {
-            tokenRequest.ChannelId.ToString(),
-            string.Join("-", tokenRequest.AllowedCorsOrigins),
-            requestOverride?.ToString()
-        };
-
-        return $"bc-token-{string.Join("-", keyParts.RemoveAll(string.IsNullOrWhiteSpace))}";
     }
 
     public async Task<string> CreateTokenAsync(
@@ -59,5 +48,17 @@ public class BcTokenCache : IBcTokenCache
             .SendAsync(tokenRequest, cancellationToken);
 
         return result.Data.Token;
+    }
+
+    private static string GenerateCacheKey(BcTokenRequest tokenRequest, BcRequestOverride? requestOverride)
+    {
+        var keyParts = new List<string?>
+        {
+            tokenRequest.ChannelId.ToString(),
+            string.Join("-", tokenRequest.AllowedCorsOrigins),
+            requestOverride?.ToString()
+        };
+
+        return $"bc-token-{string.Join("-", keyParts.RemoveAll(string.IsNullOrWhiteSpace))}";
     }
 }

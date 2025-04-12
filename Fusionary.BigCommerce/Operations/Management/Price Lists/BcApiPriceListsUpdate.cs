@@ -10,10 +10,10 @@ public class BcApiPriceListsUpdate : BcRequestBuilder, IBcApiOperation
         BcPriceListPut priceList,
         CancellationToken cancellationToken = default
     ) => Api.PutDataAsync<BcPriceList>(
-            BcEndpoint.PriceListsV3(priceListId),
-            priceList,
-            Filter,
-            Options,
-            cancellationToken
-        );
+        BcEndpoint.PriceListsV3(priceListId),
+        priceList,
+        Filter,
+        Options,
+        cancellationToken
+    );
 }

@@ -1,5 +1,4 @@
 using System.ComponentModel.DataAnnotations;
-using System.Diagnostics.CodeAnalysis;
 using System.Text.Json;
 
 using Bogus;
@@ -7,11 +6,8 @@ using Bogus;
 using Fusionary.BigCommerce.Utils;
 
 using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Configuration.Memory;
 using Microsoft.Extensions.Hosting;
-
-using NUnit.Framework;
 
 using JsonSerializer = System.Text.Json.JsonSerializer;
 using ValidationResult = System.ComponentModel.DataAnnotations.ValidationResult;
@@ -49,12 +45,61 @@ public abstract class BcTestBase
     /// <summary>
     /// Simulates the current API output serializer options.
     /// </summary>
-    private static JsonSerializerOptions TestOutputSerializerOptions { get; } = new (BcJsonUtil.JsonOptions)
-    {
-        WriteIndented = true
-    };
+    private static JsonSerializerOptions TestOutputSerializerOptions { get; } =
+        new(BcJsonUtil.JsonOptions) { WriteIndented = true };
 
     private IHost TestHost { get; set; } = default!;
+
+    /// <summary>
+    /// Hook to run code after each test.
+    /// </summary>
+    protected virtual void AfterEach()
+    { }
+
+    /// <summary>
+    /// Hook to run code before each test.
+    /// </summary>
+    protected virtual void BeforeEach()
+    { }
+
+    /// <summary>
+    /// Extension point to modify the configuration builder.
+    /// </summary>
+    protected virtual IConfigurationBuilder BuildConfiguration(IConfigurationBuilder builder) => builder;
+
+    /// <summary>
+    /// Triggers immediate cancellation of the current test.
+    /// </summary>
+    protected void Cancel() => Cts.Cancel();
+
+    /// <summary>
+    /// Triggers cancellation of the current test after the specified delay.
+    /// </summary>
+    protected void CancelAfter(TimeSpan delay) => Cts.CancelAfter(delay);
+
+    /// <summary>
+    /// Called by <see cref="OneTimeSetupAsync" /> to configure services.
+    /// </summary>
+    /// <example>
+    ///     <code>
+    /// protected override void ConfigureServices(IServiceCollection services, IConfiguration configuration)
+    /// {
+    ///   services.AddScoped(_mockRepository.Object);
+    ///   services.AddTransient&lt;IHelloWorldService, HelloWorldService&gt;();
+    /// }
+    /// </code>
+    /// </example>
+    protected virtual void ConfigureServices(IServiceCollection services, IConfiguration configuration)
+    { }
+
+    /// <summary>
+    /// Prints a JSON serialized representation of the object to the console.
+    /// </summary>
+    protected virtual void DumpObject(object? value) => Console.WriteLine(
+        value is null ? "<NULL>" : JsonSerializer.Serialize(value, TestOutputSerializerOptions)
+    );
+
+    protected virtual void LogMessage(string message) => Console.WriteLine(message);
 
     [OneTimeSetUp]
     public async Task OneTimeSetupAsync()
@@ -131,74 +176,8 @@ public abstract class BcTestBase
         AfterEach();
     }
 
-    protected static T ToObject<T>([StringSyntax("json")] string json)
-    {
-        return JsonSerializer.Deserialize<T>(json, TestOutputSerializerOptions)!;
-    }
-
-    /// <summary>
-    /// Hook to run code after each test.
-    /// </summary>
-    protected virtual void AfterEach()
-    { }
-
-    /// <summary>
-    /// Hook to run code before each test.
-    /// </summary>
-    protected virtual void BeforeEach()
-    { }
-
-    /// <summary>
-    /// Extension point to modify the configuration builder.
-    /// </summary>
-    protected virtual IConfigurationBuilder BuildConfiguration(IConfigurationBuilder builder)
-    {
-        return builder;
-    }
-
-    /// <summary>
-    /// Triggers immediate cancellation of the current test.
-    /// </summary>
-    protected void Cancel()
-    {
-        Cts.Cancel();
-    }
-
-    /// <summary>
-    /// Triggers cancellation of the current test after the specified delay.
-    /// </summary>
-    protected void CancelAfter(TimeSpan delay)
-    {
-        Cts.CancelAfter(delay);
-    }
-
-    /// <summary>
-    /// Called by <see cref="OneTimeSetupAsync" /> to configure services.
-    /// </summary>
-    /// <example>
-    ///     <code>
-    /// protected override void ConfigureServices(IServiceCollection services, IConfiguration configuration)
-    /// {
-    ///   services.AddScoped(_mockRepository.Object);
-    ///   services.AddTransient&lt;IHelloWorldService, HelloWorldService&gt;();
-    /// }
-    /// </code>
-    /// </example>
-    protected virtual void ConfigureServices(IServiceCollection services, IConfiguration configuration)
-    { }
-
-    protected virtual void LogMessage(string message)
-    {
-        Console.WriteLine(message);
-    }
-
-    /// <summary>
-    /// Prints a JSON serialized representation of the object to the console.
-    /// </summary>
-    protected virtual void DumpObject(object? value)
-    {
-        Console.WriteLine(value is null ? "<NULL>" : JsonSerializer.Serialize(value, TestOutputSerializerOptions));
-    }
+    protected static T ToObject<T>([StringSyntax("json")] string json) =>
+        JsonSerializer.Deserialize<T>(json, TestOutputSerializerOptions)!;
 
     protected virtual List<ValidationResult> ValidateModel(object model)
     {

@@ -11,7 +11,9 @@ public class BcApiProductChannelAssignmentsGetList : BcRequestBuilder,
     public BcApiProductChannelAssignmentsGetList(IBcApi api) : base(api)
     { }
 
-    public async Task<BcResultPaged<BcProductChannelAssignment>> SendAsync(CancellationToken cancellationToken = default) =>
+    public async Task<BcResultPaged<BcProductChannelAssignment>> SendAsync(
+        CancellationToken cancellationToken = default
+    ) =>
         await Api.GetPagedAsync<BcProductChannelAssignment>(
             BcEndpoint.ProductChannelAssignmentsV3(),
             Filter,

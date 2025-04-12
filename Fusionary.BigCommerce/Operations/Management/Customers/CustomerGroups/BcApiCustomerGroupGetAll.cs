@@ -8,9 +8,8 @@ public class BcApiCustomerGroupGetAll : BcRequestBuilder,
     IBcDateModifiedFilter
 {
     public BcApiCustomerGroupGetAll(IBcApi api) : base(api)
-    {
-    }
-    
+    { }
+
     public async Task<BcResultPaged<BcCustomerGroup>> SendAsync(
         CancellationToken cancellationToken = default
     ) => await SendAsync<BcCustomerGroup>(cancellationToken);

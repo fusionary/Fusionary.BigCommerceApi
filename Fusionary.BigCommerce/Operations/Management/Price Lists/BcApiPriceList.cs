@@ -9,6 +9,8 @@ public class BcApiPriceList : IBcApiOperation
         _api = api;
     }
 
+    public BcApiPriceListAssignments Assignments() => new(_api);
+
     public BcApiPriceListsCreate Create() => new(_api);
 
     public BcApiPriceListsDelete Delete() => new(_api);
@@ -25,9 +27,7 @@ public class BcApiPriceList : IBcApiOperation
     /// </remarks>
     public BcApiPriceListsGetAll GetAll() => new(_api);
 
-    public BcApiPriceListsUpdate Update() => new(_api);
-
-    public BcApiPriceListAssignments Assignments() => new(_api);
-
     public BcApiPriceListRecords Records() => new(_api);
+
+    public BcApiPriceListsUpdate Update() => new(_api);
 }

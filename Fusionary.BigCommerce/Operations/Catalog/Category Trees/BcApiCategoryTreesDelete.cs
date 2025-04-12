@@ -1,6 +1,6 @@
 namespace Fusionary.BigCommerce.Operations;
 
-public class BcApiCategoryTreesDelete: BcRequestBuilder,
+public class BcApiCategoryTreesDelete : BcRequestBuilder,
     IBcApiOperation,
     IBcIdFilter
 {

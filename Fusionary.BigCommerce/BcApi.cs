@@ -121,30 +121,6 @@ public class BcApi : IBcApi
         return await response.ReadErrorResponseAsync<TResult, TMeta>(cancellationToken);
     }
 
-    public static IBcApi Create(IBigCommerceClient client) =>
-        Create(client, NullLogger.Instance);
-
-    public static IBcApi Create(IBigCommerceClient client, ILogger logger) =>
-        new BcApi(client, logger);
-
-    private async Task<BcResult<TResult, TMeta>> RetryRequestAfterDelayAsync<TResult, TMeta>(
-        HttpRequestMessage requestMessage,
-        int retryAfterMs,
-        CancellationToken cancellationToken = default
-    )
-    {
-        _logger.LogWarning(
-            "BigCommerce API rate limit exceeded. Waiting {RetryAfterMs}ms before retrying.",
-            retryAfterMs
-        );
-
-        await Task.Delay(retryAfterMs, cancellationToken);
-
-        var clonedRequest = await CloneHttpRequestMessageAsync(requestMessage, cancellationToken);
-
-        return await SendRequestAsync<TResult, TMeta>(clonedRequest, cancellationToken);
-    }
-
     private static async Task<HttpRequestMessage> CloneHttpRequestMessageAsync(
         HttpRequestMessage req,
         CancellationToken cancellationToken
@@ -180,5 +156,29 @@ public class BcApi : IBcApi
         }
 
         return clone;
+    }
+
+    public static IBcApi Create(IBigCommerceClient client) =>
+        Create(client, NullLogger.Instance);
+
+    public static IBcApi Create(IBigCommerceClient client, ILogger logger) =>
+        new BcApi(client, logger);
+
+    private async Task<BcResult<TResult, TMeta>> RetryRequestAfterDelayAsync<TResult, TMeta>(
+        HttpRequestMessage requestMessage,
+        int retryAfterMs,
+        CancellationToken cancellationToken = default
+    )
+    {
+        _logger.LogWarning(
+            "BigCommerce API rate limit exceeded. Waiting {RetryAfterMs}ms before retrying.",
+            retryAfterMs
+        );
+
+        await Task.Delay(retryAfterMs, cancellationToken);
+
+        var clonedRequest = await CloneHttpRequestMessageAsync(requestMessage, cancellationToken);
+
+        return await SendRequestAsync<TResult, TMeta>(clonedRequest, cancellationToken);
     }
 }

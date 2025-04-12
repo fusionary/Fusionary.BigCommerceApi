@@ -14,14 +14,12 @@ public class BcApiProductCategoryAssignmentsCreate : BcRequestBuilder, IBcApiOpe
     public async Task<BcResult> SendAsync(
         IEnumerable<BcProductCategoryAssignment> categoryAssignments,
         CancellationToken cancellationToken = default
-    )
-    {
-        return await Api.PostDataAsync<object?>(
-          BcEndpoint.ProductCategoryAssignmentsV3(),
-          categoryAssignments,
-          Filter,
-          Options,
-          cancellationToken
-      );
-    }
+    ) =>
+        await Api.PostDataAsync<object?>(
+            BcEndpoint.ProductCategoryAssignmentsV3(),
+            categoryAssignments,
+            Filter,
+            Options,
+            cancellationToken
+        );
 }

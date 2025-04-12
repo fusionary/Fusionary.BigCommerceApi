@@ -1,6 +1,6 @@
 namespace Fusionary.BigCommerce.Types;
 
-public record BcOrderConsignments()
+public record BcOrderConsignments
 {
     [JsonPropertyName("shipping")]
     public IEnumerable<BcOrderShipping>? Shipping { get; set; }

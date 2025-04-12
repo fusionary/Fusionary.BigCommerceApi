@@ -6,7 +6,10 @@ public class BcApiCategoryTreesUpsert : BcRequestBuilder,
     public BcApiCategoryTreesUpsert(IBcApi api) : base(api)
     { }
 
-    public async Task<BcResultData<BcCategoryTree[]>> SendAsync<T>(IEnumerable<BcCategoryTreeUpsert> input, CancellationToken cancellationToken = default) =>
+    public async Task<BcResultData<BcCategoryTree[]>> SendAsync<T>(
+        IEnumerable<BcCategoryTreeUpsert> input,
+        CancellationToken cancellationToken = default
+    ) =>
         await Api.PutDataAsync<BcCategoryTree[]>(
             BcEndpoint.CategoryTreesV3(),
             input,

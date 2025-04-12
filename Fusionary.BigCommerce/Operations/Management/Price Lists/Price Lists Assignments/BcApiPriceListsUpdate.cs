@@ -10,10 +10,10 @@ public class BcApiPriceListAssignmentsUpsert : BcRequestBuilder, IBcApiOperation
         BcPriceListAssignmentUpsert priceListAssignment,
         CancellationToken cancellationToken = default
     ) => Api.PutDataAsync<BcPriceListAssignment>(
-            BcEndpoint.PriceListAssignmentsV3(priceListId),
-            priceListAssignment,
-            Filter,
-            Options,
-            cancellationToken
-        );
+        BcEndpoint.PriceListAssignmentsV3(priceListId),
+        priceListAssignment,
+        Filter,
+        Options,
+        cancellationToken
+    );
 }

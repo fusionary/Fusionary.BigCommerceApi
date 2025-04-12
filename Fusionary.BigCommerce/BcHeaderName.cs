@@ -49,7 +49,8 @@ public static class BcHeaderName
     public const string XRetryAfter = "X-Retry-After";
 
     /// <summary>
-    /// Header that determines whether the Batch API operates in strict mode or not. Strict mode will reject the entire request if any item in the batch has an error.
+    /// Header that determines whether the Batch API operates in strict mode or not. Strict mode will reject the entire request
+    /// if any item in the batch has an error.
     /// </summary>
     public const string XStrictMode = "X-Strict-Mode";
 }

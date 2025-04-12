@@ -15,5 +15,6 @@ public class BcApiProductCategoryAssignmentsDelete : BcRequestBuilder, IBcApiOpe
                 .Add("product_id", categoryAssignment.ProductId.Value)
                 .Add("category_id", categoryAssignment.CategoryId.Value),
             Options,
-            cancellationToken);
+            cancellationToken
+        );
 }

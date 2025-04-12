@@ -4,8 +4,10 @@ public enum CategoryTypes
 {
     [JsonPropertyName("all")]
     All,
+
     [JsonPropertyName("specific")]
     Specific,
+
     [JsonPropertyName("none")]
     None
 }

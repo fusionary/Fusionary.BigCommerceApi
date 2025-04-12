@@ -1,7 +1,5 @@
 using Microsoft.AspNetCore.Http;
 
-using Moq;
-
 namespace Fusionary.BigCommerce.Tests;
 
 public static class ServiceCollectionExtensions

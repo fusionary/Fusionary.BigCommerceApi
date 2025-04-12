@@ -1,5 +1,3 @@
-using System.ComponentModel;
-
 namespace Fusionary.BigCommerce;
 
 [DebuggerDisplay("{StatusCode}")]
@@ -53,7 +51,7 @@ public record BcResult
     /// The requested method
     /// </summary>
     [JsonPropertyOrder(997)]
-    public HttpMethod? RequestMethod{ get; init; }
+    public HttpMethod? RequestMethod { get; init; }
 
     /// <summary>
     /// The requested URI

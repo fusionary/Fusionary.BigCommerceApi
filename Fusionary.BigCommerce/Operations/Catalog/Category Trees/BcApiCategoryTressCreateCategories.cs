@@ -8,14 +8,12 @@ public class BcApiCategoryTressCreateCategories : BcRequestBuilder, IBcApiOperat
     public Task<BcResultData<BcCategoryTreeCategory[]>> SendAsync(
         IEnumerable<BcCategoryTreePostItem> categories,
         CancellationToken cancellationToken = default
-    ) {
-
-        return Api.PostDataAsync<BcCategoryTreeCategory[]>(
+    ) =>
+        Api.PostDataAsync<BcCategoryTreeCategory[]>(
             BcEndpoint.CategoryTreeCategoriesV3(),
             categories,
             Filter,
             Options,
             cancellationToken
         );
-    }
 }

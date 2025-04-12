@@ -158,7 +158,6 @@ query paginateProducts {
 
 ```
 
-
 ## Publishing new version of the NuGet package
 
 1. Find the last tag used in the repository

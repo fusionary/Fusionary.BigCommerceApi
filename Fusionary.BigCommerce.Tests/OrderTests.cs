@@ -28,6 +28,36 @@ public class OrderTests : BcTestBase
     }
 
     [Test]
+    public async Task Can_Create_Order_Shipment_Async()
+    {
+        var bc = Services.GetRequiredService<IBcApi>();
+
+        var cancellationToken = CancellationToken.None;
+
+        var result = await bc
+            .Orders()
+            .OrderShipments()
+            .Create()
+            .SendAsync(
+                108,
+                new BcOrderShipmentsPost
+                {
+                    TrackingNumber = Faker.Random.AlphaNumeric(10),
+                    ShippingProvider = "shipperhq",
+                    OrderAddressId = 9,
+                    Items = new List<BcOrderShipmentsItem> { new() { OrderProductId = 9, Quantity = 1 } }
+                },
+                cancellationToken
+            );
+
+        DumpObject(result);
+
+        result.Success.Should().BeTrue();
+
+        Assert.Pass();
+    }
+
+    [Test]
     public async Task Can_Create_Sample_Order_Async()
     {
         var createOrdersApi = Services.GetRequiredService<BcApiOrdersCreate>();
@@ -119,6 +149,46 @@ public class OrderTests : BcTestBase
     }
 
     [Test]
+    public async Task Can_Get_Order_Shipping_Async()
+    {
+        var bc = Services.GetRequiredService<IBcApi>();
+
+        var cancellationToken = CancellationToken.None;
+
+        var result = await bc
+            .Orders()
+            .OrderShipping()
+            .Get()
+            .SendAsync(106, cancellationToken);
+
+        DumpObject(result);
+
+        result.Success.Should().BeTrue();
+
+        Assert.Pass();
+    }
+
+    [Test]
+    public async Task Can_Get_Order_With_Consignments_Async()
+    {
+        var bc = Services.GetRequiredService<IBcApi>();
+
+        var cancellationToken = CancellationToken.None;
+
+        var result = await bc
+            .Orders()
+            .Order()
+            .GetWithConsignments()
+            .SendAsync(106, cancellationToken);
+
+        DumpObject(result);
+
+        result.Success.Should().BeTrue();
+
+        Assert.Pass();
+    }
+
+    [Test]
     public void Can_SerializeOrder()
     {
         var order = new BcOrderPost
@@ -156,78 +226,5 @@ public class OrderTests : BcTestBase
         DumpObject(result);
 
         result.Success.Should().BeTrue();
-    }
-    
-    [Test]
-    public async Task Can_Get_Order_Shipping_Async()
-    {
-        var bc = Services.GetRequiredService<IBcApi>();
-
-        var cancellationToken = CancellationToken.None;
-
-        var result = await bc
-            .Orders()
-            .OrderShipping()
-            .Get()
-            .SendAsync(106, cancellationToken);
-
-        DumpObject(result);
-
-        result.Success.Should().BeTrue();
-
-        Assert.Pass();
-    }
-    
-    [Test]
-    public async Task Can_Get_Order_With_Consignments_Async()
-    {
-        var bc = Services.GetRequiredService<IBcApi>();
-
-        var cancellationToken = CancellationToken.None;
-
-        var result = await bc
-            .Orders()
-            .Order()
-            .GetWithConsignments()
-            .SendAsync(106, cancellationToken);
-
-        DumpObject(result);
-
-        result.Success.Should().BeTrue();
-
-        Assert.Pass();
-    }
-    
-    [Test]
-    public async Task Can_Create_Order_Shipment_Async()
-    {
-        var bc = Services.GetRequiredService<IBcApi>();
-
-        var cancellationToken = CancellationToken.None;
-
-        var result = await bc
-            .Orders()
-            .OrderShipments()
-            .Create()
-            .SendAsync(
-                108,
-                new BcOrderShipmentsPost
-                {
-                    TrackingNumber = Faker.Random.AlphaNumeric(10),
-                    ShippingProvider = "shipperhq",
-                    OrderAddressId = 9,
-                    Items = new List<BcOrderShipmentsItem>
-                    {
-                        new() { OrderProductId = 9, Quantity = 1 }
-                    }
-                },
-                cancellationToken
-            );
-
-        DumpObject(result);
-
-        result.Success.Should().BeTrue();
-
-        Assert.Pass();
     }
 }

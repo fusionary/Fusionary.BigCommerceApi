@@ -14,14 +14,12 @@ public class BcApiProductChannelAssignmentsCreate : BcRequestBuilder, IBcApiOper
     public async Task<BcResult> SendAsync(
         IEnumerable<BcProductChannelAssignment> channelAssignments,
         CancellationToken cancellationToken = default
-    )
-    {
-        return await Api.PutDataAsync<object?>(
-          BcEndpoint.ProductChannelAssignmentsV3(),
-          channelAssignments,
-          Filter,
-          Options,
-          cancellationToken
-      );
-    }
+    ) =>
+        await Api.PutDataAsync<object?>(
+            BcEndpoint.ProductChannelAssignmentsV3(),
+            channelAssignments,
+            Filter,
+            Options,
+            cancellationToken
+        );
 }
