@@ -92,6 +92,8 @@
     <s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=operations_005Cmanagement_005Corders_005Corder_0020products/@EntryIndexedValue">True</s:Boolean>
     <s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=operations_005Cmanagement_005Corders_005Corder/@EntryIndexedValue">True</s:Boolean>
     <s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=operations_005Cmanagement_005Corders/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=operations_005Cmanagement_005Corders_005Corder_0020shipments/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=operations_005Cmanagement_005Corders_005Corder_0020shipping/@EntryIndexedValue">True</s:Boolean>
     <s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=operations_005Cmanagement_005Cprice_0020lists/@EntryIndexedValue">True</s:Boolean>
     <s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=operations_005Cmanagement_005Cprice_0020lists_005Cprice_0020lists_0020assignments/@EntryIndexedValue">True</s:Boolean>
     <s:Boolean x:Key="/Default/CodeInspection/NamespaceProvider/NamespaceFoldersToSkip/=operations_005Cmanagement_005Cprice_0020lists_005Cprice_0020lists_0020records/@EntryIndexedValue">True</s:Boolean>

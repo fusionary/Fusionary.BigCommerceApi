@@ -17,6 +17,11 @@ public class BcApiManagement(IBcApi api) : IBcApiOperation
     public BcApiCustomerGroup CustomerGroup() => new(api);
 
     /// <summary>
+    /// Manage Orders
+    /// </summary>
+    public BcApiOrdersOverview Orders() => new(api);
+    
+    /// <summary>
     /// Manage Price Lists
     /// </summary>
     /// <remarks>
