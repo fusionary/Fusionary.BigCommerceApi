@@ -5,6 +5,7 @@ namespace Fusionary.BigCommerce.Import;
 /// <summary>
 /// </summary>
 /// <see href="https://support.bigcommerce.com/s/article/V3-Import-Export" />
+[NoReorder]
 public record BcProductCsvRecord
 {
     /// <summary>

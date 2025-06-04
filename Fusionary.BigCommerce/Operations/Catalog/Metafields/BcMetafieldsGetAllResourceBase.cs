@@ -34,3 +34,4 @@ public abstract class BcMetafieldsGetAllBase(IBcApi api) : BcRequestBuilder(api)
             cancellationToken
         );
 }
+

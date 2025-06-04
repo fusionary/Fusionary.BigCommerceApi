@@ -1,3 +1,5 @@
+using System.Text.Json.Serialization;
+
 namespace Fusionary.BigCommerce.Tests;
 
 public class ProductTests : BcTestBase
@@ -41,6 +43,39 @@ public class ProductTests : BcTestBase
         data.Count.Should().Be(pagination.Total);
 
         DumpObject(data);
+
+        Assert.Pass();
+    }
+
+    public record BcSku
+    {
+        [JsonPropertyName("id")]
+        public BcId Id { get; init; } = string.Empty;
+        
+        [JsonPropertyName("sku")]
+        public string Sku { get; init; } = string.Empty;
+    }
+
+    [Test]
+    public async Task Can_Get_All_Products_Skus_Async()
+    {
+        var productApi = Services.GetRequiredService<BcApiProduct>();
+
+        var cancellationToken = Cts.Token;
+
+        var response = await productApi
+            .Search()
+            .IncludeFields("sku")
+            .SendAsync<BcSku>(cancellationToken);
+
+        if (!response)
+        {
+            DumpObject(response.Error);
+            Assert.Fail();
+            return;
+        }
+
+        DumpObject(response.Data);
 
         Assert.Pass();
     }

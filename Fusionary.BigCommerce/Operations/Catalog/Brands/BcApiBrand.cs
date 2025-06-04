@@ -1,3 +1,5 @@
+using Fusionary.BigCommerce.Operations.BatchMetafields;
+
 namespace Fusionary.BigCommerce.Operations;
 
 public class BcApiBrand(IBcApi api) : IBcApiOperation
@@ -21,6 +23,8 @@ public class BcApiBrand(IBcApi api) : IBcApiOperation
     public BcApiBrandImage Image() => new(api);
 
     public BcApiBrandMetafields Metafields() => new(api);
+    
+    public BcApiBrandBatchMetafields BatchMetafields() => new(api);
 
     public BcApiBrandsUpdate Update() => new(api);
 }

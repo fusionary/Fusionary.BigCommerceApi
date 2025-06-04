@@ -7,6 +7,8 @@ public static class BcEndpoint
 {
     public static string BrandImageV3(BcId brandId) => $"v3/catalog/brands/{brandId}/images";
 
+    public static string BrandMetafieldsV3() => $"v3/catalog/brands/metafields";
+    
     public static string BrandMetafieldsV3(BcId brandId) => $"v3/catalog/brands/{brandId}/metafields";
 
     public static string BrandMetafieldsV3(BcId brandId, BcId metafieldId) =>
