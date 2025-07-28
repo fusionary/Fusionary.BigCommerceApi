@@ -11,4 +11,6 @@ public class BcApiProductVariants(IBcApi api) : IBcApiOperation
     public BcApiProductVariantsGetAll GetAll() => new(api);
 
     public BcApiProductVariantsUpdate Update() => new(api);
+    
+    public BcApiProductVariantsUpdateBatch UpdateBatch() => new(api);
 }
