@@ -4,9 +4,9 @@ public record BcImportCustomField
 {
     public int? Id { get; init; }
 
-    public required string Key { get; init; }
+    public string Key { get; init; } = string.Empty;
 
-    public required string Value { get; init; }
+    public string Value { get; init; } = string.Empty;
 
     private static bool IsIdPart(string partValue) => partValue.StartsWith("id=", StringComparison.OrdinalIgnoreCase);
 

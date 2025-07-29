@@ -9,7 +9,7 @@ public record BcProductModifierPost : BcExtensionData
     public string DisplayName { get; set; } = null!;
 
     public BcProductModifierType Type { get; set; }
-
+    
     public bool Required { get; set; }
 
     public BcOptionConfig? Config { get; set; }

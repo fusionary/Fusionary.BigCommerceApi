@@ -3,7 +3,7 @@ namespace Fusionary.BigCommerce.Types;
 public class BcCustomerGroupPost
 {
     [JsonPropertyName("name")]
-    public required string Name { get; set; }
+    public string Name { get; set; } = null!;
 
     [JsonPropertyName("is_default")]
     public bool? IsDefault { get; set; }

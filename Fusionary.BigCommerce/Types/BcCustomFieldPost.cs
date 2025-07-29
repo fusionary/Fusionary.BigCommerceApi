@@ -17,7 +17,7 @@ public record BcCustomFieldPost
     /// Max length: 250
     /// </remarks>
     [JsonPropertyName("name")]
-    public required string Name { get; set; }
+    public string Name { get; set; } = null!;
 
     /// <summary>
     /// The name of the field, shown on the storefront, orders, etc. Required for /POST
@@ -26,5 +26,5 @@ public record BcCustomFieldPost
     /// Max length: 250
     /// </remarks>
     [JsonPropertyName("value")]
-    public required string Value { get; set; }
+    public string Value { get; set; } = null!;
 }

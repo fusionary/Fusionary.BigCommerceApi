@@ -14,7 +14,7 @@ public record BcCategoryPost : IBcExtensionData
     /// The name displayed for the category. Name is unique with respect to the category's siblings. Required in a POST.
     /// </summary>
     [JsonPropertyName("name")]
-    public required string Name { get; set; }
+    public string Name { get; set; } = null!;
 
     /// <summary>
     /// The product description, which can include HTML formatting.

@@ -14,12 +14,12 @@ public record BcProductPost : BcExtensionData
     /// Required - Maxlength 250 characters
     /// </remarks>
     [StringLength(250, MinimumLength = 1)]
-    public required string Name { get; init; }
+    public string Name { get; init; } = null!;
 
     /// <summary>
     /// The product type
     /// </summary>
-    public required BcProductType Type { get; init; }
+    public BcProductType Type { get; init; } = BcProductType.Physical;
 
     /// <summary>
     /// A unique user-defined product code/stock keeping unit
@@ -41,7 +41,7 @@ public record BcProductPost : BcExtensionData
     /// <remarks>
     /// Required
     /// </remarks>
-    public required double Weight { get; init; }
+    public double Weight { get; init; } = 0.0;
 
     /// <summary>
     /// Width of the product, which can be used when calculating shipping costs.

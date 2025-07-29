@@ -7,6 +7,8 @@ namespace Fusionary.BigCommerce.Types;
 [DebuggerDisplay("{DisplayName}")]
 public record BcProductVariantOption : BcExtensionData
 {
+    private BcProductOptionValue[]? _optionValues;
+
     /// <summary>
     /// The unique numerical ID of the option, increments sequentially.
     /// </summary>
@@ -23,7 +25,7 @@ public record BcProductVariantOption : BcExtensionData
     /// The name of the option shown on the storefront.
     /// </summary>
     [JsonPropertyName("display_name")]
-    public required string DisplayName { get; set; }
+    public string DisplayName { get; set; } = null!;
 
     /// <summary>
     /// The type of option, which determines how it will display on the storefront. Acceptable values: radio_buttons,
@@ -31,7 +33,7 @@ public record BcProductVariantOption : BcExtensionData
     /// radio_buttons, RT = rectangles, S = dropdown, P = product_list, PI = product_list_with_images, CS = swatch.
     /// </summary>
     [JsonPropertyName("type")]
-    public required string Type { get; set; }
+    public string Type { get; set; } = null!;
 
     /// <summary>
     /// The values for option config can vary based on the Modifier created.
@@ -46,7 +48,11 @@ public record BcProductVariantOption : BcExtensionData
     public int SortOrder { get; set; }
 
     [JsonPropertyName("option_values")]
-    public required BcProductOptionValue[] OptionValues { get; set; }
+    public BcProductOptionValue[] OptionValues
+    {
+        get => LazyInitializer.EnsureInitialized(ref _optionValues, () => []);
+        set => _optionValues = value;
+    }
 
     /// <summary>
     /// Publicly available image url

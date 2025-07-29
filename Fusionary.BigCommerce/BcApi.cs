@@ -93,92 +93,21 @@ public class BcApi : IBcApi
     {
         var response = await SendAsync(requestMessage, cancellationToken);
 
-        switch (response)
+        return response switch
         {
-            case { StatusCode: HttpStatusCode.OK }:
-            case { StatusCode: HttpStatusCode.Created }:
-            case { StatusCode: HttpStatusCode.Accepted }:
-            case { StatusCode: HttpStatusCode.NoContent }:
-            case { StatusCode: HttpStatusCode.MultiStatus }:
-                {
-                    return await response.ReadResponseAsync<TResult, TMeta>(cancellationToken);
-                }
-            case { StatusCode: HttpStatusCode.TooManyRequests }:
-                {
-                    if (response.TryGetHeaderValue<int>(BcHeaderName.XRateLimitTimeResetMs, out var retryAfterMs))
-                    {
-                        return await RetryRequestAfterDelayAsync<TResult, TMeta>(
-                            requestMessage,
-                            retryAfterMs,
-                            cancellationToken
-                        );
-                    }
-
-                    break;
-                }
-        }
-
-        return await response.ReadErrorResponseAsync<TResult, TMeta>(cancellationToken);
+            { StatusCode: HttpStatusCode.OK } or
+                { StatusCode: HttpStatusCode.Created } or
+                { StatusCode: HttpStatusCode.Accepted } or
+                { StatusCode: HttpStatusCode.NoContent } or
+                { StatusCode: HttpStatusCode.MultiStatus } =>
+                await response.ReadResponseAsync<TResult, TMeta>(cancellationToken),
+            _ => await response.ReadErrorResponseAsync<TResult, TMeta>(cancellationToken)
+        };
     }
-
-    private static async Task<HttpRequestMessage> CloneHttpRequestMessageAsync(
-        HttpRequestMessage req,
-        CancellationToken cancellationToken
-    )
-    {
-        var clone = new HttpRequestMessage(req.Method, req.RequestUri);
-
-        if (req.Content != null)
-        {
-            using var ms = new MemoryStream();
-
-            await req.Content.CopyToAsync(ms, cancellationToken).ConfigureAwait(false);
-            ms.Position = 0;
-
-            clone.Content = new ByteArrayContent(ms.ToArray());
-
-            foreach (var h in req.Content.Headers)
-            {
-                clone.Content.Headers.TryAddWithoutValidation(h.Key, h.Value);
-            }
-        }
-
-        clone.Version = req.Version;
-
-        foreach (var option in req.Options)
-        {
-            clone.Options.Set(new HttpRequestOptionsKey<object?>(option.Key), option.Value);
-        }
-
-        foreach (var header in req.Headers)
-        {
-            clone.Headers.TryAddWithoutValidation(header.Key, header.Value);
-        }
-
-        return clone;
-    }
-
+    
     public static IBcApi Create(IBigCommerceClient client) =>
         Create(client, NullLogger.Instance);
 
     public static IBcApi Create(IBigCommerceClient client, ILogger logger) =>
         new BcApi(client, logger);
-
-    private async Task<BcResult<TResult, TMeta>> RetryRequestAfterDelayAsync<TResult, TMeta>(
-        HttpRequestMessage requestMessage,
-        int retryAfterMs,
-        CancellationToken cancellationToken = default
-    )
-    {
-        _logger.LogWarning(
-            "BigCommerce API rate limit exceeded. Waiting {RetryAfterMs}ms before retrying.",
-            retryAfterMs
-        );
-
-        await Task.Delay(retryAfterMs, cancellationToken);
-
-        var clonedRequest = await CloneHttpRequestMessageAsync(requestMessage, cancellationToken);
-
-        return await SendRequestAsync<TResult, TMeta>(clonedRequest, cancellationToken);
-    }
 }
