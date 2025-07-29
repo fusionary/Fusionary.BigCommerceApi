@@ -11,15 +11,15 @@ public record BcProductPost : BcExtensionData
     /// A unique product name.
     /// </summary>
     /// <remarks>
-    /// Required - Maxlength 250 characters
+    /// Required on product creation - Maxlength 250 characters
     /// </remarks>
     [StringLength(250, MinimumLength = 1)]
-    public required string Name { get; init; }
+    public string? Name { get; set; }
 
     /// <summary>
     /// The product type
     /// </summary>
-    public required BcProductType Type { get; init; }
+    public BcProductType Type { get; set; }
 
     /// <summary>
     /// A unique user-defined product code/stock keeping unit
@@ -39,9 +39,9 @@ public record BcProductPost : BcExtensionData
     /// Weight of the product, which can be used when calculating shipping costs. This is based on the unit set on the store
     /// </summary>
     /// <remarks>
-    /// Required
+    /// Required on product creation
     /// </remarks>
-    public required double Weight { get; init; }
+    public double Weight { get; init; }
 
     /// <summary>
     /// Width of the product, which can be used when calculating shipping costs.
@@ -62,9 +62,9 @@ public record BcProductPost : BcExtensionData
     /// The price of the product. The price should include or exclude tax, based on the store settings.
     /// </summary>
     /// <remarks>
-    /// Required
+    /// Required on product creation
     /// </remarks>
-    public required BcFloat Price { get; init; }
+    public BcFloat Price { get; set; }
 
     /// <summary>
     /// The cost price of the product. Stored for reference only; it is not used or displayed anywhere on the store.
