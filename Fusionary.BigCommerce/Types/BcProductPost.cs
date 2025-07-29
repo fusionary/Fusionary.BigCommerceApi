@@ -41,7 +41,7 @@ public record BcProductPost : BcExtensionData
     /// <remarks>
     /// Required on product creation
     /// </remarks>
-    public double Weight { get; init; }
+    public double Weight { get; set; }
 
     /// <summary>
     /// Width of the product, which can be used when calculating shipping costs.
