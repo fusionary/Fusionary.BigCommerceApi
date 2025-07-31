@@ -1,3 +1,5 @@
+using Fusionary.BigCommerce.Operations.Product_Bulk_Pricing;
+
 namespace Fusionary.BigCommerce.Operations;
 
 /// <summary>
@@ -36,6 +38,8 @@ public class BcApiCatalog(IBcApi api) : IBcApiOperation
     public BcApiProductModifiers ProductModifiers() => new(api);
 
     public BcApiProductVariants ProductVariants() => new(api);
+    
+    public BcApiProductBulkPricing ProductBulkPricing() => new(api);
 
     public BcApiSummary Summary() => new(api);
 }
