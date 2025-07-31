@@ -86,6 +86,9 @@ public static class BcEndpoint
     public static string ProductBulkPricingRulesV3(BcId productId) =>
         $"v3/catalog/products/{productId}/bulk-pricing-rules";
 
+    public static string ProductBulkPricingRulesV3(BcId productId, BcId bulkPricingRuleId) =>
+        $"v3/catalog/products/{productId}/bulk-pricing-rules/{bulkPricingRuleId}";
+    
     public static string ProductCategoryAssignmentsV3() => "v3/catalog/products/category-assignments";
 
     public static string ProductChannelAssignmentsV3() => "v3/catalog/products/channel-assignments";
@@ -93,6 +96,7 @@ public static class BcEndpoint
     public static string ProductComplexRulesV3(BcId productId) => $"v3/catalog/products/{productId}/complex-rules";
 
     public static string ProductCustomFieldsV3(BcId productId) => $"v3/catalog/products/{productId}/custom-fields";
+    
 
     public static string ProductCustomFieldsV3(BcId productId, BcId customFieldId) =>
         $"v3/catalog/products/{productId}/custom-fields/{customFieldId}";
