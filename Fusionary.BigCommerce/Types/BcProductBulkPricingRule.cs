@@ -12,9 +12,9 @@ public record BcProductBulkPricingRule
     /// Unique ID of the Bulk Pricing Rule.
     /// </summary>
     /// <remarks>
-    /// Read-Only.
+    /// Read-Only.  Required for updates.
     /// </remarks>
-    public int Id { get; set; }
+    public BcId? Id { get; set; }
 
     /// <summary>
     /// The minimum inclusive quantity of a product to satisfy this rule. Must be greater than or equal to zero.
