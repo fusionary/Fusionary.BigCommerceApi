@@ -430,7 +430,7 @@ public record BcProductPost : BcExtensionData
     /// <summary>
     /// Bulk pricing rules.
     /// </summary>
-    public List<BcBulkPricingRuleType>? BulkPricingRules { get; set; }
+    public List<BcProductBulkPricingRule>? BulkPricingRules { get; set; }
 
     /// <summary>
     /// Images
