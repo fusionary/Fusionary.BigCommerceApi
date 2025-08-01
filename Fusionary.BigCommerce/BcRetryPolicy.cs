@@ -10,7 +10,7 @@ public static class BcRetryPolicy
 {
     public static AsyncRetryPolicy<HttpResponseMessage> CreateBigCommerceRetryPolicy(IServiceProvider serviceProvider)
     {
-        var logger = serviceProvider.GetRequiredService<ILogger>();
+        var logger = serviceProvider.GetRequiredService<ILogger<object>>();
         
         return Policy.HandleResult<HttpResponseMessage>(response => response.StatusCode == HttpStatusCode.TooManyRequests)
             .WaitAndRetryAsync(
