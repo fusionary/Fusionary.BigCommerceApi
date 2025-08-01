@@ -40,12 +40,14 @@ public record BcProductBulkPricingRule
     public BcBulkPricingRuleType Type { get; set; }
 
     /// <summary>
-    /// The discount can be a fixed dollar amount or a percentage. For a fixed dollar amount enter it as an integer
-    /// and the response will return as an integer. For percentage enter the amount as the percentage divided by 100
-    /// using string format. For example 10% percent would be “10”. The response will return as an integer.
+    /// You can express the adjustment type as either a fixed dollar amount or a percentage.
+    /// Send a number; the response will return a number for price and fixed adjustments.
+    /// Divide the adjustment percentage by 100 and send the result in string format.
+    /// For example, represent 10% as “.10”.
+    /// The response will return a float value for both price and percentage adjustments.
     /// </summary>
     /// <remarks>
     /// Required in /POST.
     /// </remarks>
-    public int Amount { get; set; }
+    public decimal Amount { get; set; }
 }

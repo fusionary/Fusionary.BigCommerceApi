@@ -22,9 +22,7 @@ public record BcBulkPricingTier
     public BcBulkPricingTierType Type { get; set; }
 
     /// <summary>
-    /// The discount can be a fixed dollar amount or a percentage. For a fixed dollar amount enter it as an integer and the
-    /// response will return as an integer. For percentage enter the amount as the percentage divided by 100 using string
-    /// format. For example 10% percent would be “.10”. The response will return as an integer.  Required in /POST.
+    /// The price adjustment amount. This value and the type will decide the price per variant for the pricing tier.
     /// </summary>
-    public int Amount { get; set; }
+    public decimal Amount { get; set; }
 }
