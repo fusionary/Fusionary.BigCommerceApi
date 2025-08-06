@@ -17,7 +17,7 @@ public class B2BCompany
     [JsonPropertyName("bcGroupName")]
     public string? BcGroupName { get; set; }
     [JsonPropertyName("companyStatus")]
-    public string? CompanyStatus { get; set; }
+    public int? CompanyStatus { get; set; }
     [JsonPropertyName("uuid")]
     public string? Uuid { get; set; }
     [JsonPropertyName("updatedAt")]

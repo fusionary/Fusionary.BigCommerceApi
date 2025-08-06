@@ -14,7 +14,6 @@ public class B2BApiCompanyGetAll : BcRequestBuilder, IBcApiOperation, IBcPageabl
 
     public async Task<BcResultPaged<T>> SendAsync<T>(CancellationToken cancellationToken = default)
     {
-        Options.RequestOverrides.IsB2B = true;
         return await Api.GetPagedAsync<T>(B2BEndpoints.Companies(), Filter, Options, cancellationToken);
     }
 }
