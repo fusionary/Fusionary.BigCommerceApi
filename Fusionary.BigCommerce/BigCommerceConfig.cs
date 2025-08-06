@@ -18,7 +18,7 @@ public class BigCommerceConfig
 
     public string B2BHost
     {
-        get => string.IsNullOrEmpty(_b2bHost) ? DefaultB2BApiHost : _host;
+        get => string.IsNullOrEmpty(_b2bHost) ? DefaultB2BApiHost : _b2bHost;
         set => _b2bHost = value;
     }
 
