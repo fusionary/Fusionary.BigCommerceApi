@@ -2,7 +2,7 @@
 
 namespace Fusionary.BigCommerce.B2B.Operations;
 
-public class B2BApiCompanyGetAll : BcRequestBuilder, IBcApiOperation, IBcPageableFilter, IBcIncludeFieldsFilter
+public class B2BApiCompanyGetAll : BcRequestBuilder, IBcApiOperation, IBcPageableFilter, IBcIncludeFieldsFilter, IBcWithParameterFilter
 {
     public B2BApiCompanyGetAll(IBcApi api) : base(api)
     {

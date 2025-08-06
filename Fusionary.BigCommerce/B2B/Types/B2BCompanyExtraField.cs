@@ -4,8 +4,10 @@ public class B2BCompanyExtraField
 {
     [JsonPropertyName("fieldName")]
     public string? FieldName { get; set; }
+    
     [JsonPropertyName("fieldValue")]
     public string? FieldValue { get; set; }
+    
     [JsonPropertyName("labelName")]
     public string? LabelName { get; set; }
     
@@ -25,5 +27,5 @@ public class B2BCompanyExtraField
     /// 0 = Text, 1 = multi-line text, 2 = numbers, 3 = dropdown.
     /// </summary>
     [JsonPropertyName("fieldType")]
-    public string? FieldType { get; set; }
+    public int? FieldType { get; set; }
 }

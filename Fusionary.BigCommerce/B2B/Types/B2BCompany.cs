@@ -31,7 +31,7 @@ public class B2BCompany
     public B2BCompanyParentCompany? ParentCompany { get; set; }
     
     [JsonPropertyName("priceListAssign")]
-    public B2BCompanyPriceListAssignment? PriceListAssignment { get; set; }
+    public List<B2BCompanyPriceListAssignment>? PriceListAssignment { get; set; }
     
     [JsonPropertyName("extraFields")]
     public List<B2BCompanyExtraField>? ExtraFields { get; set; }
