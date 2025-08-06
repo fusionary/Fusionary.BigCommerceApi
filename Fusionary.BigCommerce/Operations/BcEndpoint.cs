@@ -46,6 +46,8 @@ public static class BcEndpoint
 
     public static string CustomersGroupsV2(BcId groupId) => $"v2/customer_groups/{groupId}";
 
+    public static string CustomerAttributesV3() => "v3/customers/attributes";
+    
     public static string CustomersV3() => "v3/customers";
 
     public static string CustomersV3(BcId customerId) => $"v3/catalog/customers/{customerId}";
