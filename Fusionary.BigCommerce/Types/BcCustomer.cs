@@ -55,6 +55,9 @@ public class BcCustomer
 
     [JsonPropertyName("accepts_product_review_abandoned_cart_emails")]
     public bool? AcceptsProductReviewAbandonedCartEmails { get; set; }
+    
+    [JsonPropertyName("addresses")]
+    public List<BcCustomerAddress>? Addresses { get; set; }
 
     [JsonPropertyName("origin_channel_id")]
     public int? OriginChannelId { get; set; }
