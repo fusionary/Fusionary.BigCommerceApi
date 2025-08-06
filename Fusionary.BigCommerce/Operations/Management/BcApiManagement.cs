@@ -21,7 +21,7 @@ public class BcApiManagement(IBcApi api) : IBcApiOperation
     /// <summary>
     /// Manage Customer Attribute Definitions
     /// </summary>
-    public BcApiCustomerAttributeDefinition CustomerAttributeDefinition() => new(api);s
+    public BcApiCustomerAttributeDefinition CustomerAttributeDefinition() => new(api);
 
     /// <summary>
     /// Manage Orders
