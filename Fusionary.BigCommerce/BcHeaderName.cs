@@ -14,6 +14,11 @@ public static class BcHeaderName
     public const string XAuthToken = "X-Auth-Token";
 
     /// <summary>
+    /// Access token header for B2B API, cuz of course it's different.
+    /// </summary>
+    public const string B2BAuthToken = "authToken";
+
+    /// <summary>
     /// The number of API requests remaining for the current period (rolling one hour).
     /// </summary>
     public const string XBcApiLimitRemaining = "X-BC-ApiLimit-Remaining";

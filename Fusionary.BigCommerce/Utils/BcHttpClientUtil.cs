@@ -28,7 +28,7 @@ public static class BcHttpClientUtil
 
         var headers = client.DefaultRequestHeaders;
 
-        headers.TryAddWithoutValidation(BcHeaderName.XAuthToken, config.B2BAccessToken);
+        headers.TryAddWithoutValidation(BcHeaderName.B2BAuthToken, config.B2BAccessToken);
         headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
         return client;
