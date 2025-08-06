@@ -1,6 +1,6 @@
 namespace Fusionary.BigCommerce.Operations;
 
-public class BcApiCustomerGet(IBcApi api) : BcRequestBuilder(api), IBcApiOperation, IBcPageableFilter
+public class BcApiCustomerGet(IBcApi api) : BcRequestBuilder(api), IBcApiOperation, IBcPageableFilter, IBcIncludeFieldsFilter
 {
     public Task<BcResultPaged<BcCustomer>> SendAsync(
         CancellationToken cancellationToken = default
