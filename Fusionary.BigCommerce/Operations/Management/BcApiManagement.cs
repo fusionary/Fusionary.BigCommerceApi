@@ -1,3 +1,5 @@
+using Fusionary.BigCommerce.Operations.CustomerAttributes;
+
 namespace Fusionary.BigCommerce.Operations;
 
 /// <summary>
@@ -15,6 +17,11 @@ public class BcApiManagement(IBcApi api) : IBcApiOperation
     /// Manage Customer Groups
     /// </summary>
     public BcApiCustomerGroup CustomerGroup() => new(api);
+    
+    /// <summary>
+    /// Manage Customer Attribute Definitions
+    /// </summary>
+    public BcApiCustomerAttributeDefinition CustomerAttributeDefinition() => new(api);s
 
     /// <summary>
     /// Manage Orders
