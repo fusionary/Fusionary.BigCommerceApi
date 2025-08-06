@@ -6,6 +6,7 @@ public interface IBcApi
 
     Task<HttpResponseMessage> SendAsync(
         HttpRequestMessage requestMessage,
+        BcRequestOptions? options = null,
         CancellationToken cancellationToken = default
     );
 
@@ -28,6 +29,7 @@ public interface IBcApi
 
     Task<BcResult<TResult, TMeta>> SendRequestAsync<TResult, TMeta>(
         HttpRequestMessage requestMessage,
+        BcRequestOptions? options = null,
         CancellationToken cancellationToken = default
     );
 

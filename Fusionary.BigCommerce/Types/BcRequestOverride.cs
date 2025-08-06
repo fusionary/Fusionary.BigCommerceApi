@@ -9,6 +9,8 @@ public record BcRequestOverride
     /// </summary>
     public string? StoreHash { get; set; }
 
+    public bool IsB2B { get; set; } = false;
+
     public bool HasHeaders => _headers is { Count: > 0 };
 
     /// <summary>
@@ -23,5 +25,5 @@ public record BcRequestOverride
         set => _headers = value;
     }
 
-    public override string ToString() => $"{StoreHash}-{string.Join('-', Headers.Select(x => $"{x.Key}:{x.Value}"))}";
+    public override string ToString() => $"{IsB2B}-{StoreHash}-{string.Join('-', Headers.Select(x => $"{x.Key}:{x.Value}"))}";
 }

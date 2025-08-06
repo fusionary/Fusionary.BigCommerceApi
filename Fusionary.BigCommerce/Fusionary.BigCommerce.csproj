@@ -27,7 +27,6 @@
     <Folder Include="B2B\Operations\Authentication\" />
     <Folder Include="B2B\Operations\Channel\" />
     <Folder Include="B2B\Operations\Company\Account Hierarchies\" />
-    <Folder Include="B2B\Operations\Company\Companies\" />
     <Folder Include="B2B\Operations\Company\Company Roles and Permissions\" />
     <Folder Include="B2B\Operations\Invoice Management\Payments\" />
     <Folder Include="B2B\Operations\Invoice Management\Receipt\" />

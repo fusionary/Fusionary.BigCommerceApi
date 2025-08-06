@@ -9,9 +9,16 @@ public static class BcRequestMessageBuilder
         BcRequestOptions? options = null
     )
     {
-        var requestPath = !string.IsNullOrWhiteSpace(options?.RequestOverrides?.StoreHash)
-            ? $"/stores/{options.RequestOverrides.StoreHash}/{path}"
-            : path;
+        var requestPath = path; 
+
+        if (options?.RequestOverrides?.IsB2B ?? false)
+        {
+            requestPath = $"/api/{path}";
+        } 
+        else if (!string.IsNullOrWhiteSpace(options?.RequestOverrides?.StoreHash))
+        {
+            requestPath = $"/stores/{options.RequestOverrides.StoreHash}/{path}";
+        }
 
         if (queryString.HasValue)
         {

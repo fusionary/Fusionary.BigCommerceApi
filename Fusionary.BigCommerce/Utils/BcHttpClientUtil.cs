@@ -18,4 +18,20 @@ public static class BcHttpClientUtil
 
         return client;
     }
+    
+    public static HttpClient ConfigureB2BHttpClient(
+        this HttpClient client,
+        BigCommerceConfig config
+    )
+    {
+        client.BaseAddress = new UriBuilder($"{config.B2BHost}") { Path = $"/api" }.Uri;
+
+        var headers = client.DefaultRequestHeaders;
+
+        headers.TryAddWithoutValidation(BcHeaderName.XAuthToken, config.B2BAccessToken);
+        headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+        return client;
+    }
+    
 }

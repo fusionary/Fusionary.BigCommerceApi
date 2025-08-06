@@ -26,10 +26,12 @@ public class BcApi : IBcApi
 
     public async Task<HttpResponseMessage> SendAsync(
         HttpRequestMessage requestMessage,
+        BcRequestOptions? options = null,
         CancellationToken cancellationToken = default
     )
     {
-        var response = await BigCommerceHttp.Client.SendAsync(
+        var client = options?.RequestOverrides?.IsB2B ?? false ? BigCommerceHttp.B2BClient : BigCommerceHttp.Client;
+        var response = await client.SendAsync(
                 requestMessage,
                 cancellationToken
             )
@@ -58,7 +60,7 @@ public class BcApi : IBcApi
 
         requestMessage.Content = content;
 
-        return await SendRequestAsync<TResult, TMeta>(requestMessage, cancellationToken);
+        return await SendRequestAsync<TResult, TMeta>(requestMessage, options, cancellationToken);
     }
 
     public async Task<BcResult<TResult, TMeta>> SendRequestAsync<TResult, TMeta>(
@@ -77,7 +79,7 @@ public class BcApi : IBcApi
             requestMessage.Content = BcJsonUtil.CreateContent(payload);
         }
 
-        return await SendRequestAsync<TResult, TMeta>(requestMessage, cancellationToken);
+        return await SendRequestAsync<TResult, TMeta>(requestMessage, options, cancellationToken);
     }
 
     /// <summary>
@@ -88,10 +90,11 @@ public class BcApi : IBcApi
     /// </remarks>
     public async Task<BcResult<TResult, TMeta>> SendRequestAsync<TResult, TMeta>(
         HttpRequestMessage requestMessage,
+        BcRequestOptions? options = null,
         CancellationToken cancellationToken = default
     )
     {
-        var response = await SendAsync(requestMessage, cancellationToken);
+        var response = await SendAsync(requestMessage, options, cancellationToken);
 
         return response switch
         {

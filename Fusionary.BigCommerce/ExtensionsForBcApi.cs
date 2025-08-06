@@ -1,3 +1,5 @@
+using Fusionary.BigCommerce.B2B.Operations;
+
 namespace Fusionary.BigCommerce;
 
 public static class ExtensionsForBcApi
@@ -16,4 +18,6 @@ public static class ExtensionsForBcApi
     public static BcApiStorefront Storefront(this IBcApi bc) => new(bc);
 
     public static BcApiWebhooks Webhooks(this IBcApi bc) => new(bc);
+
+    public static B2BApi B2B(this IBcApi bc) => new(bc);
 }
