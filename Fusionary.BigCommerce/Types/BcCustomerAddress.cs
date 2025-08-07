@@ -27,13 +27,13 @@ public record BcCustomerAddress
     public required string City { get; set; }
 
     [JsonPropertyName("state_or_province")]
-    public required string StateOrProvince { get; set; }
+    ?public string? StateOrProvince { get; set; }
 
     [JsonPropertyName("postal_code")]
     public required string PostalCode { get; set; }
 
     [JsonPropertyName("country")]
-    public required string Country { get; set; }
+    public string? Country { get; set; }
 
     [JsonPropertyName("country_code")]
     public required string CountryCode { get; set; }
