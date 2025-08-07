@@ -2,9 +2,9 @@
 
 public class BcApiCustomerCreate(IBcApi api) : BcRequestBuilder(api), IBcApiOperation
 {
-    public Task<BcResultData<BcCustomer>> SendAsync(BcCustomer customer, CancellationToken cancellationToken = default)
-        => SendAsync<BcCustomer>(customer, cancellationToken);
+    public Task<BcResultData<List<BcCustomer>>> SendAsync(List<BcCustomer> customers, CancellationToken cancellationToken = default)
+        => SendAsync<List<BcCustomer>>(customers, cancellationToken);
 
-    public Task<BcResultData<T>> SendAsync<T>(object customer, CancellationToken cancellationToken = default)
-        => Api.PostDataAsync<T>(BcEndpoint.CustomersV3(), customer, Filter, Options, cancellationToken);
+    public Task<BcResultData<T>> SendAsync<T>(object customers, CancellationToken cancellationToken = default)
+        => Api.PostDataAsync<T>(BcEndpoint.CustomersV3(), customers, Filter, Options, cancellationToken);
 }
