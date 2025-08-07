@@ -3,7 +3,7 @@ namespace Fusionary.BigCommerce.Types;
 public class BcCustomer
 {
     [JsonPropertyName("id")]
-    public int Id { get; set; }
+    public int? Id { get; set; }
 
     [JsonPropertyName("email")]
     public string? Email { get; set; }
@@ -33,10 +33,10 @@ public class BcCustomer
     public int? CustomerGroupId { get; set; }
 
     [JsonPropertyName("date_created")]
-    public BcDateTime DateCreated { get; set; }
+    public BcDateTime? DateCreated { get; set; }
 
     [JsonPropertyName("date_modified")]
-    public BcDateTime DateModified { get; set; }
+    public BcDateTime? DateModified { get; set; }
 
     [JsonPropertyName("address_count")]
     public int? AddressCount { get; set; }
