@@ -1,4 +1,5 @@
 using Fusionary.BigCommerce.Operations.CustomerAttributes;
+using Fusionary.BigCommerce.Operations.Geography;
 
 namespace Fusionary.BigCommerce.Operations;
 
@@ -40,4 +41,6 @@ public class BcApiManagement(IBcApi api) : IBcApiOperation
     /// Get product pricing
     /// </summary>
     public BcApiManagementPricing Pricing() => new(api);
+
+    public BcApiGeography Geography() => new(api);
 }

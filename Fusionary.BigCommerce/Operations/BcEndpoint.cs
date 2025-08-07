@@ -172,4 +172,10 @@ public static class BcEndpoint
     public static string WebhooksV3() => "v3/hooks";
 
     public static string WebhooksV3(BcId webhookId) => $"v3/hooks/{webhookId}";
+
+    public static string Countries() => $"v2/countries";
+    
+    public static string Countries(string id) => $"v2/countries/{id}";
+
+    public static string States(int countryId) => $"v2/countries/{countryId}/states";
 }
