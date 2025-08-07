@@ -40,4 +40,6 @@ public static class B2BEndpoints
     public static string PaymentsV3() => "v3/io/payments";
 
     public static string Companies() => "v3/io/companies";
+
+    public static string Companies(int id) => $"{Companies()}/{id}";
 }
