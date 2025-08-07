@@ -2,7 +2,7 @@
 
 public class BcApiCustomerCreate(IBcApi api) : BcRequestBuilder(api), IBcApiOperation
 {
-    public Task<BcResultData<List<BcCustomer>>> SendAsync(List<BcCustomer> customers, CancellationToken cancellationToken = default)
+    public Task<BcResultData<List<BcCustomer>>> SendAsync(List<BcCustomerPost> customers, CancellationToken cancellationToken = default)
         => SendAsync<List<BcCustomer>>(customers, cancellationToken);
 
     public Task<BcResultData<T>> SendAsync<T>(object customers, CancellationToken cancellationToken = default)
