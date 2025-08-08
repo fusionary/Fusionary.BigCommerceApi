@@ -31,7 +31,6 @@
     <Folder Include="B2B\Operations\Invoice Management\Payments\" />
     <Folder Include="B2B\Operations\Invoice Management\Receipt\" />
     <Folder Include="B2B\Operations\Order\" />
-    <Folder Include="B2B\Operations\Payment\" />
     <Folder Include="B2B\Operations\Quote\" />
     <Folder Include="B2B\Operations\Sales Staff\" />
     <Folder Include="B2B\Operations\Shopping List\" />

@@ -2,13 +2,8 @@
 
 namespace Fusionary.BigCommerce.B2B.Operations;
 
-public class B2BApiCompanyCreate : BcRequestBuilder, IBcApiOperation
+public class B2BApiCompanyCreate(IBcApi api) : B2BRequestBuilder(api), IBcApiOperation
 {
-    public B2BApiCompanyCreate(IBcApi api) : base(api)
-    {
-        Options.RequestOverrides.IsB2B = true;
-    }
-    
     public Task<BcResultData<B2BCompany>> SendAsync(B2BCompany company, CancellationToken cancellationToken = default)
     => SendAsync<B2BCompany>(company, cancellationToken);
 

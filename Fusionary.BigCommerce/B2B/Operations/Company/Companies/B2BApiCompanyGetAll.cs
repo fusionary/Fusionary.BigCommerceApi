@@ -2,13 +2,8 @@
 
 namespace Fusionary.BigCommerce.B2B.Operations;
 
-public class B2BApiCompanyGetAll : BcRequestBuilder, IBcApiOperation, IBcPageableFilter, IBcIncludeFieldsFilter, IBcWithParameterFilter
+public class B2BApiCompanyGetAll(IBcApi api) : B2BRequestBuilder(api), IBcApiOperation, IBcPageableFilter, IBcIncludeFieldsFilter, IBcWithParameterFilter
 {
-    public B2BApiCompanyGetAll(IBcApi api) : base(api)
-    {
-        Options.RequestOverrides.IsB2B = true;
-    }
-    
     public Task<BcResultPaged<B2BCompany>> SendAsync(CancellationToken cancellationToken = default)
     => SendAsync<B2BCompany>(cancellationToken);
 

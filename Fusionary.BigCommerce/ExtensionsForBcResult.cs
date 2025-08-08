@@ -31,4 +31,19 @@ public static class ExtensionsForBcResult
             RequestUri = result.RequestUri,
             RequestBody = result.RequestBody
         };
+    
+    public static BcResultDataWithMessage<T> AsDataResultWithMessage<T>(this BcResult<T, BcMetadataMessage> result) =>
+        new()
+        {
+            Data = result.Data,
+            Meta = result.Meta,
+            Error = result.Error,
+            StatusCode = result.StatusCode,
+            Success = result.Success,
+            RateLimits = result.RateLimits,
+            ResponseText = result.ResponseText,
+            RequestMethod = result.RequestMethod,
+            RequestUri = result.RequestUri,
+            RequestBody = result.RequestBody
+        };
 }
