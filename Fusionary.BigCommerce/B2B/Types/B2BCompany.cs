@@ -18,6 +18,9 @@ public class B2BCompany
     public string? BcGroupName { get; set; }
     [JsonPropertyName("companyStatus")]
     public int? CompanyStatus { get; set; }
+    /// <summary>
+    /// Note that UUID can't be set on creation, just on update.
+    /// </summary>
     [JsonPropertyName("uuid")]
     public string? Uuid { get; set; }
     [JsonPropertyName("updatedAt")]
