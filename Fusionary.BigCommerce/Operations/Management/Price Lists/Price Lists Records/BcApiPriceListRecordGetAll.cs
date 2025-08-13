@@ -1,6 +1,6 @@
 ﻿namespace Fusionary.BigCommerce.Operations;
 
-public class BcApiPriceListRecordGetAll(IBcApi api) : BcRequestBuilder(api), IBcPageableFilter, IBcApiOperation
+public class BcApiPriceListRecordGetAll(IBcApi api) : BcRequestBuilder(api), IBcPageableFilter, IBcApiOperation, IBcProductIncludeFilter
 {
     public Task<BcResultPaged<BcPriceListRecord>> SendAsync(BcId priceListId, CancellationToken cancellationToken = default) =>
         SendAsync<BcPriceListRecord>(priceListId, cancellationToken);
