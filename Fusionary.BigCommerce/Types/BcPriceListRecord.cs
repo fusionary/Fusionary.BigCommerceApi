@@ -10,6 +10,9 @@ public record BcPriceListRecord : BcPriceListRecordPut
 
     [JsonPropertyName("date_modified")]
     public BcDateTime DateModified { get; set; }
+    
+    [JsonPropertyName("sku")]
+    public string? Sku { get; set; }
 
     [JsonPropertyName("product_id")]
     public int ProductId { get; set; }
