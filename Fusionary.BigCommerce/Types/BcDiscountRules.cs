@@ -1,6 +1,5 @@
 namespace Fusionary.BigCommerce.Types;
 
-[JsonConverter(typeof(JsonStringEnumConverter))]
 public record BcDiscountRules
 {
     [JsonPropertyName("type")]
