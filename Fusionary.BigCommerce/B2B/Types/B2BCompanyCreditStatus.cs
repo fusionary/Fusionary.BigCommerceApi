@@ -12,8 +12,8 @@ public class B2BCompanyCreditStatus
     public decimal? AvailableCredit { get; set; }
     
     [JsonPropertyName("limitPurchases")]
-    public bool IsLimitPurchases { get; set; }
+    public bool? IsLimitPurchases { get; set; }
     
     [JsonPropertyName("creditHold")]
-    public bool IsOnCreditHold { get; set; }
+    public bool? IsOnCreditHold { get; set; }
 }
