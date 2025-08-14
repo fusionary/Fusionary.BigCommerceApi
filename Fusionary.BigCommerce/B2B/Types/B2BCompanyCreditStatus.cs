@@ -6,10 +6,10 @@ public class B2BCompanyCreditStatus
     public bool IsCreditEnabled { get; set; }
 
     [JsonPropertyName("creditCurrency")] 
-    public string CreditCurrency { get; set; } = string.Empty;
+    public string? CreditCurrency { get; set; } = string.Empty;
     
     [JsonPropertyName("availableCredit")]
-    public decimal AvailableCredit { get; set; }
+    public decimal? AvailableCredit { get; set; }
     
     [JsonPropertyName("limitPurchases")]
     public bool IsLimitPurchases { get; set; }
