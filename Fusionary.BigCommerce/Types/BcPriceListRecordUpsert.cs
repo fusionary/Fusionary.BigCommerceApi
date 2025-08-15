@@ -2,8 +2,6 @@ namespace Fusionary.BigCommerce.Types;
 
 public record BcPriceListRecordUpsert
 {
-    private BcBulkPricingTier[]? _bulkPricingTiers;
-
     /// <summary>
     /// The SKU for the variant with which this price set is associated. Either sku or variant_id is required.
     /// </summary>
@@ -52,9 +50,5 @@ public record BcPriceListRecordUpsert
 
 
     [JsonPropertyName("bulk_pricing_tiers")]
-    public BcBulkPricingTier[] BulkPricingTiers
-    {
-        get => LazyInitializer.EnsureInitialized(ref _bulkPricingTiers, Array.Empty<BcBulkPricingTier>);
-        init => _bulkPricingTiers = value;
-    }
+    public List<BcBulkPricingTier>? BulkPricingTiers { get; init; }
 }
