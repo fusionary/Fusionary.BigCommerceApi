@@ -2,8 +2,6 @@ namespace Fusionary.BigCommerce.Types;
 
 public record BcPriceListRecordPut
 {
-    private BcBulkPricingTier[]? _bulkPricingTiers;
-
     [JsonPropertyName("price_list_id")]
     public int PriceListId { get; set; }
 
@@ -46,9 +44,5 @@ public record BcPriceListRecordPut
 
 
     [JsonPropertyName("bulk_pricing_tiers")]
-    public BcBulkPricingTier[] BulkPricingTiers
-    {
-        get => LazyInitializer.EnsureInitialized(ref _bulkPricingTiers, Array.Empty<BcBulkPricingTier>);
-        set => _bulkPricingTiers = value;
-    }
+    public List<BcBulkPricingTier>? BulkPricingTiers { get; set; }
 }
