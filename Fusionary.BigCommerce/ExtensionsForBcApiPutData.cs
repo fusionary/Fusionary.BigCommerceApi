@@ -23,6 +23,27 @@ public static class ExtensionsForBcApiPutData
         return result.AsDataResult();
     }
     
+    public static async Task<BcResultDataBatch<T>> PutDataBatchAsync<T>(
+        this IBcApi api,
+        string path,
+        object? payload,
+        QueryString queryString = default,
+        BcRequestOptions? options = null,
+        CancellationToken cancellationToken = default
+    )
+    {
+        var result = await api.SendRequestAsync<T, BcMetadataBatch>(
+            HttpMethod.Put,
+            path,
+            payload,
+            queryString,
+            options,
+            cancellationToken
+        );
+
+        return result.AsDataResultBatch();
+    }        
+    
     public static async Task<BcResultDataWithMessage<T>> PutDataWithMessageAsync<T>(
         this IBcApi api,
         string path,

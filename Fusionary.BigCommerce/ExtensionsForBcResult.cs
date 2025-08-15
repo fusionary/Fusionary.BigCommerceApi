@@ -46,4 +46,19 @@ public static class ExtensionsForBcResult
             RequestUri = result.RequestUri,
             RequestBody = result.RequestBody
         };
+
+    public static BcResultDataBatch<T> AsDataResultBatch<T>(this BcResult<T, BcMetadataBatch> result) =>
+        new()
+        {
+            Data = result.Data,
+            Meta = result.Meta,
+            Error = result.Error,
+            StatusCode = result.StatusCode,
+            Success = result.Success,
+            RateLimits = result.RateLimits,
+            ResponseText = result.ResponseText,
+            RequestMethod = result.RequestMethod,
+            RequestUri = result.RequestUri,
+            RequestBody = result.RequestBody
+        };
 }
