@@ -1,3 +1,5 @@
+using System.Runtime.InteropServices.JavaScript;
+
 namespace Fusionary.BigCommerce.Types;
 
 public record BcErrorDetails
@@ -14,4 +16,6 @@ public record BcErrorDetails
     public bool HasErrorDetails => ErrorDetails?.Count > 0;
 
     public Dictionary<string, string> ErrorDetails { get; set; } = null!;
+    
+    public Dictionary<string, string> Errors { get { return ErrorDetails; } set { ErrorDetails = value; } }
 }
