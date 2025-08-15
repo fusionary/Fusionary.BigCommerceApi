@@ -15,28 +15,28 @@ public record BcPriceListRecordPut
     /// variant/product.
     /// </summary>
     [JsonPropertyName("price")]
-    public BcFloat Price { get; set; }
+    public BcFloat? Price { get; set; }
 
     /// <summary>
     /// The sale price for the variant mapped in a Price List. Overrides any existing or Catalog sale price for the
     /// variant/product. If empty, the sale price will be treated as not being set on this variant.
     /// </summary>
     [JsonPropertyName("sale_price")]
-    public BcFloat SalePrice { get; set; }
+    public BcFloat? SalePrice { get; set; }
 
     /// <summary>
     /// The retail price for the variant mapped in a Price List. Overrides any existing or Catalog retail price for the
     /// variant/product. If empty, the retail price will be treated as not being set on this variant.
     /// </summary>
     [JsonPropertyName("retail_price")]
-    public BcFloat RetailPrice { get; set; }
+    public BcFloat? RetailPrice { get; set; }
 
     /// <summary>
     /// The MAP (Minimum Advertised Price) for the variant mapped in a Price List. Overrides any existing or Catalog MAP price
     /// for the variant/product. If empty, the MAP price will be treated as not being set on this variant.
     /// </summary>
     [JsonPropertyName("map_price")]
-    public BcFloat MapPrice { get; set; }
+    public BcFloat? MapPrice { get; set; }
 
     /// <summary>
     /// The 3-letter currency code with which this price set is associated.

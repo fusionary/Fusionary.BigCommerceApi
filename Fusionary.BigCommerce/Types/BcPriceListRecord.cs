@@ -3,7 +3,7 @@ namespace Fusionary.BigCommerce.Types;
 public record BcPriceListRecord : BcPriceListRecordPut
 {
     [JsonPropertyName("calculated_price")]
-    public BcFloat CalculatedPrice { get; set; }
+    public BcFloat? CalculatedPrice { get; set; }
 
     [JsonPropertyName("date_created")]
     public BcDateTime DateCreated { get; set; }
