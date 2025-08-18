@@ -48,6 +48,8 @@ public static class BcEndpoint
 
     public static string CustomerAttributesV3() => "v3/customers/attributes";
     
+    public static string CustomerAttributeValuesV3() => "v3/customers/attribute-values";
+    
     public static string CustomersV3() => "v3/customers";
 
     public static string CustomersV3(BcId customerId) => $"v3/catalog/customers/{customerId}";

@@ -7,4 +7,6 @@ public class BcApiCustomer(IBcApi api) : IBcApiOperation
     public BcApiCustomerCreate Create() => new(api);
     
     public BcApiCustomerUpdate Update() => new(api);
+    
+    public BcApiCustomerAttributes Attributes() => new(api);
 }
