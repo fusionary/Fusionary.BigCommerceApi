@@ -29,6 +29,9 @@ public class B2BOrder
     [JsonPropertyName("usdIncTax")]
     public decimal? TotalUSDIncludingTax { get; set; }
     
+    [JsonPropertyName("companyId")]
+    public int? CompanyId { get; set; }
+    
     [JsonPropertyName("currencyCode")]
     public string? CurrencyCode { get; set; }
     
