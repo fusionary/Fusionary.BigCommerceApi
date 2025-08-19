@@ -9,9 +9,9 @@ public class B2BCompany
     [JsonPropertyName("companyPhone")]
     public string? CompanyPhone { get; set; }
     [JsonPropertyName("companyId")]
-    public int? CompanyId { get; set; }
+    public BcId? CompanyId { get; set; }
     [JsonPropertyName("catalogId")]
-    public string? CatalogId { get; set;  }
+    public BcId? CatalogId { get; set;  }
     [JsonPropertyName("catalogName")]
     public string? CatalogName { get; set; }
     [JsonPropertyName("bcGroupName")]
