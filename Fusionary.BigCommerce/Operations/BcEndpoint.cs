@@ -163,6 +163,9 @@ public static class BcEndpoint
 
     public static string ProductVariantsV3(BcId productId, BcId variantId) =>
         $"v3/catalog/products/{productId}/variants/{variantId}";
+    
+    public static string ProductVariantsBatch() =>
+        $"v3/catalog/variants";
 
     public static string ProductVideosV3(BcId productId) => $"v3/catalog/products/{productId}/videos";
 

@@ -22,4 +22,12 @@ public class BcApiProductVariantsGetAll(IBcApi api) : BcRequestBuilder(api),
             Options,
             cancellationToken
         );
+
+    public async Task<BcResultPaged<T>> SendAsync<T>(CancellationToken cancellationToken = default) =>
+        await Api.GetPagedAsync<T>(
+            BcEndpoint.ProductVariantsBatch(),
+            Filter,
+            Options,
+            cancellationToken
+        );
 }
