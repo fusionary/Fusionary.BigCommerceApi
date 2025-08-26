@@ -34,7 +34,6 @@
     <Folder Include="B2B\Operations\Sales Staff\" />
     <Folder Include="B2B\Operations\Shopping List\" />
     <Folder Include="B2B\Operations\Super Admin\" />
-    <Folder Include="B2B\Operations\User\" />
     <Folder Include="Operations\Catalog\Product Modifiers\Images\" />
     <Folder Include="Operations\Catalog\Product Modifiers\Values\" />
     <Folder Include="Operations\Catalog\Product Reviews" />

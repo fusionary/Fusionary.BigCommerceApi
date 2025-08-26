@@ -9,4 +9,6 @@ public class B2BApi(IBcApi api) : IBcApiOperation
     public B2BApiOrder Order() => new(api);
     
     public B2BApiInvoice Invoice() => new(api);
+    
+    public B2BApiUser User() => new(api);
 }
