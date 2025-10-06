@@ -1,7 +1,11 @@
+using Fusionary.BigCommerce.Operations.BatchMetafields;
+
 namespace Fusionary.BigCommerce.Operations;
 
 public class BcApiCategory(IBcApi api) : IBcApiOperation
 {
+    public BcApiCategoryBatchMetafields BatchMetafields() => new(api); 
+    
     public BcApiCategoryCreate Create() => new(api);
 
     public BcApiCategoryDelete Delete() => new(api);

@@ -20,6 +20,8 @@ public static class BcEndpoint
 
     public static string CategoryImagesV3(BcId categoryId) => $"v3/catalog/categories/{categoryId}/image";
 
+    public static string CategoryMetafieldsV3() => $"v3/catalog/categories/metafields";
+    
     public static string CategoryMetafieldsV3(BcId categoryId) => $"v3/catalog/categories/{categoryId}/metafields";
 
     public static string CategoryMetafieldsV3(BcId categoryId, BcId metafieldId) =>
