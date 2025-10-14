@@ -10,6 +10,7 @@ public class BcDateConverter : JsonConverter<BcDate>
         reader switch
         {
             { TokenType: JsonTokenType.String } => new BcDate(reader.GetString()),
+            { TokenType: JsonTokenType.Number } => new BcDate(DateTimeOffset.FromUnixTimeSeconds(reader.GetInt64())),
             _ => throw new JsonException()
         };
 
@@ -19,7 +20,7 @@ public class BcDateConverter : JsonConverter<BcDate>
         JsonSerializerOptions options
     )
     {
-        if (value.HasValue)
+        if (value.HasValue )
         {
             writer.WriteStringValue(value.ToString());
         }

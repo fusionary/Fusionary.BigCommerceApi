@@ -12,8 +12,8 @@ public record BcWebhook : BcWebhookPost
     public string StoreHash { get; set; } = null!;
 
     [JsonPropertyName("created_at")]
-    public BcDate CreatedAt { get; set; }
+    public BcDateTime CreatedAt { get; set; }
 
     [JsonPropertyName("updated_at")]
-    public BcDate UpdatedAt { get; set; }
+    public BcDateTime UpdatedAt { get; set; }
 }

@@ -10,6 +10,7 @@ public class BcDateTimeConverter : JsonConverter<BcDateTime>
         reader switch
         {
             { TokenType: JsonTokenType.String } => new BcDateTime(reader.GetString()),
+            { TokenType: JsonTokenType.Number } => new BcDateTime(DateTimeOffset.FromUnixTimeSeconds(reader.GetInt64())),
             _ => throw new JsonException()
         };
 
