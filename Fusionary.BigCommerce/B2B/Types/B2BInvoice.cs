@@ -19,7 +19,7 @@ public record B2BInvoice
     [JsonPropertyName("status")]
     public int? Status { get; init; }
     [JsonPropertyName("orderNumber")]
-    public string? OrderNumber { get; init; }
+    public int? OrderNumber { get; init; }
     [JsonPropertyName("purchaseOrderNumber")]
     public string? PONumber { get; init; }
     [JsonPropertyName("isPendingPayment")]
@@ -29,9 +29,9 @@ public record B2BInvoice
     [JsonPropertyName("customerName")]
     public string? CustomerName { get; init; }
     [JsonPropertyName("createdAt")]
-    public string? CreatedAt { get; init; }
+    public BcDate? CreatedAt { get; init; }
     [JsonPropertyName("updatedAt")]
-    public string? UpdatedAt { get; init; }
+    public BcDate? UpdatedAt { get; init; }
     [JsonPropertyName("channelId")]
     public string? ChannelId { get; init; }
     [JsonPropertyName("channelName")]

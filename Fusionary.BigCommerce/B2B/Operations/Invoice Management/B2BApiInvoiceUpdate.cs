@@ -4,6 +4,6 @@ namespace Fusionary.BigCommerce.B2B.Operations;
 
 public class B2BApiInvoiceUpdate(IBcApi api) : B2BRequestBuilder(api), IBcApiOperation
 {
-    public Task<BcResult<B2BInvoice,BcMetadataMessage>> SendAsync(B2BInvoice invoice, CancellationToken cancellationToken = default) =>
-        Api.PutAsync<B2BInvoice, BcMetadataMessage>(B2BEndpoints.InvoiceManagementInvoicesV3(), invoice, Filter, Options, cancellationToken);    
+    public Task<BcResult<B2BInvoice,BcMetadataMessage>> SendAsync(BcId invoiceId, B2BInvoice invoice, CancellationToken cancellationToken = default) =>
+        Api.PutAsync<B2BInvoice, BcMetadataMessage>(B2BEndpoints.InvoiceManagementInvoicesV3(invoiceId), invoice, Filter, Options, cancellationToken);
 }

@@ -7,4 +7,6 @@ public record B2BInvoiceDetails
     
     [JsonPropertyName("header")]
     public B2BInvoiceDetailsHeader? Header { get; init; }
+    
+    
 }
