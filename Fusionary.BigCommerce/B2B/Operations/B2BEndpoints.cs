@@ -25,7 +25,7 @@ public static class B2BEndpoints
 
     public static string InvoiceManagementReceiptsV3(BcId receiptId) => $"{InvoiceManagementReceiptsV3()}/{receiptId}";
 
-    public static string InvoiceManagementV3() => "iv3/io/ip";
+    public static string InvoiceManagementV3() => "v3/io/ip";
 
     public static string OrderExtraFieldsV3() => $"{OrdersV3()}/extra-fields";
 
@@ -46,4 +46,5 @@ public static class B2BEndpoints
     public static string CreditStatus(int id) => $"{Companies(id)}/credit";
     
     public static string Users() => $"v3/io/users";
+
 }
