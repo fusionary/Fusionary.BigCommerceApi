@@ -16,6 +16,8 @@ public record B2BInvoice
     public string? Type { get; init; }
     [JsonPropertyName("dueDate")]
     public int? DueDateTimestamp { get; init; }
+    [JsonPropertyName("issuedAt")]
+    public int? IssuedAtTimestamp { get; init; }
     [JsonPropertyName("status")]
     public int? Status { get; init; }
     [JsonPropertyName("orderNumber")]
