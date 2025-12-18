@@ -1,4 +1,6 @@
-﻿namespace Fusionary.BigCommerce.B2B.Types;
+﻿using Fusionary.BigCommerce.Types;
+
+namespace Fusionary.BigCommerce.B2B.Types;
 
 public record B2BInvoice
 {
@@ -15,9 +17,9 @@ public record B2BInvoice
     [JsonPropertyName("type")]
     public string? Type { get; init; }
     [JsonPropertyName("dueDate")]
-    public int? DueDateTimestamp { get; init; }
+    public BcTimestamp? DueDate { get; init; }
     [JsonPropertyName("issuedAt")]
-    public int? IssuedAtTimestamp { get; init; }
+    public BcTimestamp? IssuedAt { get; init; }
     [JsonPropertyName("status")]
     public int? Status { get; init; }
     [JsonPropertyName("orderNumber")]
@@ -31,9 +33,9 @@ public record B2BInvoice
     [JsonPropertyName("customerName")]
     public string? CustomerName { get; init; }
     [JsonPropertyName("createdAt")]
-    public BcDate? CreatedAt { get; init; }
+    public BcTimestamp? CreatedAt { get; init; }
     [JsonPropertyName("updatedAt")]
-    public BcDate? UpdatedAt { get; init; }
+    public BcTimestamp? UpdatedAt { get; init; }
     [JsonPropertyName("channelId")]
     public string? ChannelId { get; init; }
     [JsonPropertyName("channelName")]
