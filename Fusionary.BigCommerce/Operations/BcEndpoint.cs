@@ -68,6 +68,9 @@ public static class BcEndpoint
 
     public static string OrderShipmentsV2(BcId orderId) => $"v2/orders/{orderId}/shipments";
 
+    public static string OrderShipmentsV2(BcId orderId, BcId shipmentId) =>
+        $"v2/orders/{orderId}/shipments/{shipmentId}";
+
     public static string OrderShippingV2(BcId orderId) => $"v2/orders/{orderId}/shipping_addresses";
 
     public static string OrdersV2(BcId orderId) => $"v2/orders/{orderId}";
