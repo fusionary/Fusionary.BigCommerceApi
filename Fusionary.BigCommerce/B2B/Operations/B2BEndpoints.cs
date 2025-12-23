@@ -21,6 +21,8 @@ public static class B2BEndpoints
 
     public static string InvoiceManagementPaymentsV3(BcId paymentId) => $"{InvoiceManagementPaymentsV3()}/{paymentId}";
 
+    public static string InvoiceManagementPaymentsOfflineV3() => $"{InvoiceManagementPaymentsV3()}/offline";
+
     public static string InvoiceManagementReceiptsV3() => $"{InvoiceManagementV3()}/receipts";
 
     public static string InvoiceManagementReceiptsV3(BcId receiptId) => $"{InvoiceManagementReceiptsV3()}/{receiptId}";

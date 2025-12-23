@@ -7,6 +7,12 @@ public class B2BApiPayment(IBcApi api) : IBcApiOperation
     public B2BApiCompanyCreditStatusGet CreditStatusGet() => new(api);
 
     public B2BApiCompanyCreditStatusUpdate CreditStatusUpdate() => new(api);
+
+    public B2BApiInvoicePaymentGet InvoicePaymentGet() => new(api);
+
+    public B2BApiInvoicePaymentUpdateStatus InvoicePaymentUpdateStatus() => new(api);
+
+    public B2BApiInvoicePaymentCreate InvoicePaymentCreate() => new(api);
 }
 
 public class B2BApiCompanyCreditStatusUpdate(IBcApi api) : B2BRequestBuilder(api), IBcApiOperation
