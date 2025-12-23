@@ -30,13 +30,13 @@ public class InvoicePaymentTests : BcTestBase
         Console.WriteLine($"Found {invoicesResult.Data.Count} invoices:");
         foreach (var inv in invoicesResult.Data.Take(500))
         {
-            Console.WriteLine($"  Invoice {inv.Id} ({inv.InvoiceNumber}): openBalance = {inv.openBalance?.Value ?? "null"} {inv.openBalance?.CurrencyCode ?? ""}");
+            Console.WriteLine($"  Invoice {inv.Id} ({inv.InvoiceNumber}): OpenBalance = {inv.OpenBalance?.Value ?? "null"} {inv.OpenBalance?.CurrencyCode ?? ""}");
         }
 
         // Find an invoice with a positive open balance
         var invoice = invoicesResult.Data.FirstOrDefault(i =>
-            i.openBalance?.Value != null &&
-            decimal.TryParse(i.openBalance.Value, out var balance) &&
+            i.OpenBalance?.Value != null &&
+            decimal.TryParse(i.OpenBalance.Value, out var balance) &&
             balance > 0);
 
         if (invoice == null)
@@ -45,9 +45,9 @@ public class InvoicePaymentTests : BcTestBase
             return;
         }
 
-        var openBalance = decimal.Parse(invoice.openBalance!.Value!);
+        var openBalance = decimal.Parse(invoice.OpenBalance!.Value!);
         var paymentAmount = Math.Min(openBalance, 1.00m); // Pay $1 or full balance if less
-        var currency = invoice.openBalance.CurrencyCode ?? "USD";
+        var currency = invoice.OpenBalance.CurrencyCode ?? "USD";
 
         Console.WriteLine($"Using invoice ID: {invoice.Id}, Number: {invoice.InvoiceNumber}");
         Console.WriteLine($"Open Balance: {openBalance} {currency}");
