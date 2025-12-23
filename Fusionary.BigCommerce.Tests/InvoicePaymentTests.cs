@@ -20,7 +20,7 @@ public class InvoicePaymentTests : BcTestBase
             .Add("status", "0")
             .SendAsync(CancellationToken.None);
 
-        if (!invoicesResult.HasData || invoicesResult.Data.Count == 0)
+        if (invoicesResult is not { HasData: true, Data.Count: > 0 })
         {
             Assert.Inconclusive("No invoices available to test with");
             return;
@@ -144,7 +144,7 @@ public class InvoicePaymentTests : BcTestBase
         // First get all payments to find a valid ID
         var allResult = await api.SendAsync(CancellationToken.None);
 
-        if (!allResult.HasData || allResult.Data.Count == 0)
+        if (allResult is not { HasData: true, Data.Count: > 0 })
         {
             Assert.Inconclusive("No payments available to test with");
             return;
@@ -188,7 +188,7 @@ public class InvoicePaymentTests : BcTestBase
             .Add("processingStatus", "2")
             .SendAsync(CancellationToken.None);
 
-        if (!allResult.HasData || allResult.Data.Count == 0)
+        if (allResult is not { HasData: true, Data.Count: > 0 })
         {
             Assert.Inconclusive("No payments with status 2 available to test with");
             return;
