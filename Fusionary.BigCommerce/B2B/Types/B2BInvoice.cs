@@ -45,9 +45,9 @@ public record B2BInvoice
     [JsonPropertyName("extraFields")]
     public List<B2BOrderExtraField>? ExtraFields { get; init; }
     [JsonPropertyName("originalBalance")]
-    public B2BMoneyAmount? originalBalance { get; init; }
+    public B2BMoneyAmount? OriginalBalance { get; init; }
     [JsonPropertyName("openBalance")]
-    public B2BMoneyAmount? openBalance { get; init; }
+    public B2BMoneyAmount? OpenBalance { get; init; }
     [JsonPropertyName("details")]
     public B2BInvoiceDetails? Details { get; init; }
     

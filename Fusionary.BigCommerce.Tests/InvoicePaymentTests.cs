@@ -20,7 +20,7 @@ public class InvoicePaymentTests : BcTestBase
             .Add("status", "0")
             .SendAsync(CancellationToken.None);
 
-        if (!invoicesResult.HasData || invoicesResult.Data.Count == 0)
+        if (invoicesResult is not { HasData: true, Data.Count: > 0 })
         {
             Assert.Inconclusive("No invoices available to test with");
             return;
@@ -30,13 +30,13 @@ public class InvoicePaymentTests : BcTestBase
         Console.WriteLine($"Found {invoicesResult.Data.Count} invoices:");
         foreach (var inv in invoicesResult.Data.Take(500))
         {
-            Console.WriteLine($"  Invoice {inv.Id} ({inv.InvoiceNumber}): openBalance = {inv.openBalance?.Value ?? "null"} {inv.openBalance?.CurrencyCode ?? ""}");
+            Console.WriteLine($"  Invoice {inv.Id} ({inv.InvoiceNumber}): OpenBalance = {inv.OpenBalance?.Value ?? "null"} {inv.OpenBalance?.CurrencyCode ?? ""}");
         }
 
         // Find an invoice with a positive open balance
         var invoice = invoicesResult.Data.FirstOrDefault(i =>
-            i.openBalance?.Value != null &&
-            decimal.TryParse(i.openBalance.Value, out var balance) &&
+            i.OpenBalance?.Value != null &&
+            decimal.TryParse(i.OpenBalance.Value, out var balance) &&
             balance > 0);
 
         if (invoice == null)
@@ -45,9 +45,9 @@ public class InvoicePaymentTests : BcTestBase
             return;
         }
 
-        var openBalance = decimal.Parse(invoice.openBalance!.Value!);
+        var openBalance = decimal.Parse(invoice.OpenBalance!.Value!);
         var paymentAmount = Math.Min(openBalance, 1.00m); // Pay $1 or full balance if less
-        var currency = invoice.openBalance.CurrencyCode ?? "USD";
+        var currency = invoice.OpenBalance.CurrencyCode ?? "USD";
 
         Console.WriteLine($"Using invoice ID: {invoice.Id}, Number: {invoice.InvoiceNumber}");
         Console.WriteLine($"Open Balance: {openBalance} {currency}");
@@ -144,7 +144,7 @@ public class InvoicePaymentTests : BcTestBase
         // First get all payments to find a valid ID
         var allResult = await api.SendAsync(CancellationToken.None);
 
-        if (!allResult.HasData || allResult.Data.Count == 0)
+        if (allResult is not { HasData: true, Data.Count: > 0 })
         {
             Assert.Inconclusive("No payments available to test with");
             return;
@@ -188,7 +188,7 @@ public class InvoicePaymentTests : BcTestBase
             .Add("processingStatus", "2")
             .SendAsync(CancellationToken.None);
 
-        if (!allResult.HasData || allResult.Data.Count == 0)
+        if (allResult is not { HasData: true, Data.Count: > 0 })
         {
             Assert.Inconclusive("No payments with status 2 available to test with");
             return;

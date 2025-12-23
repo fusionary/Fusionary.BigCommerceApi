@@ -62,8 +62,8 @@ public class InvoiceTests : BcTestBase
             IssuedAt = DateTimeOffset.UtcNow.AddMonths(-1),
             CreatedAt = DateTimeOffset.UtcNow,
             Status = 0,
-            originalBalance = new B2BMoneyAmount { CurrencyCode = "USD", Value = "100.00" },
-            openBalance = new B2BMoneyAmount { CurrencyCode = "USD", Value = "100.00" }
+            OriginalBalance = new B2BMoneyAmount { CurrencyCode = "USD", Value = "100.00" },
+            OpenBalance = new B2BMoneyAmount { CurrencyCode = "USD", Value = "100.00" }
         };
 
         var result = await api.SendAsync(invoice, CancellationToken.None);
@@ -88,7 +88,7 @@ public class InvoiceTests : BcTestBase
         var invoice = new B2BInvoice
         {
             CustomerId = "8818692",
-            openBalance = new B2BMoneyAmount { CurrencyCode = "USD", Value = "50.00" }
+            OpenBalance = new B2BMoneyAmount { CurrencyCode = "USD", Value = "50.00" }
         };
 
         var result = await api.SendAsync(invoiceId, invoice, CancellationToken.None);
