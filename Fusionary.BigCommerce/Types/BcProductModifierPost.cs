@@ -15,4 +15,6 @@ public record BcProductModifierPost : BcExtensionData
     public BcOptionConfig? Config { get; set; }
 
     public List<BcModifierOptionValue>? OptionValues { get; set; }
+    
+    public int? SharedOptionId { get; set; }
 }
