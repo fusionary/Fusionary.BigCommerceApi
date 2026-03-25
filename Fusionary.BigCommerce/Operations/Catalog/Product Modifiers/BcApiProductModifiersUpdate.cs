@@ -6,7 +6,7 @@ public class BcApiProductModifiersUpdate(IBcApi api) : BcRequestBuilder(api), IB
         BcProductModifier modifier,
         CancellationToken cancellationToken = default
     ) =>
-        SendAsync<BcModifier>(modifier.ProductId, modifier.Id, modifier, cancellationToken);
+        SendAsync<BcModifier>(modifier.ProductId, modifier.Id.GetValueOrDefault(0), modifier, cancellationToken);
 
     public Task<BcResultData<TResponse>> SendAsync<TResponse>(
         BcId productId,
